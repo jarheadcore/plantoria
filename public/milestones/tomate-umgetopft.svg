@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="#E8F5E9"/>
+  <!-- Pot -->
+  <path d="M18 38 L22 56 L42 56 L46 38 Z" fill="#D84315" stroke="#BF360C" stroke-width="1"/>
+  <rect x="16" y="35" width="32" height="4" rx="1.5" fill="#E64A19"/>
+  <!-- Soil in pot -->
+  <ellipse cx="32" cy="39" rx="13" ry="3" fill="#8D6E63"/>
+  <!-- Plant stem -->
+  <line x1="32" y1="38" x2="32" y2="18" stroke="#66BB6A" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Tomato plant leaves - compound leaves -->
+  <path d="M32 26 Q24 20 20 24 Q24 26 32 26" fill="#81C784"/>
+  <path d="M32 26 Q40 20 44 24 Q40 26 32 26" fill="#66BB6A"/>
+  <path d="M32 32 Q26 28 23 31 Q26 33 32 32" fill="#81C784"/>
+  <path d="M32 32 Q38 28 41 31 Q38 33 32 32" fill="#66BB6A"/>
+  <!-- Top leaves -->
+  <path d="M32 20 Q28 14 26 18 Q28 20 32 20" fill="#4CAF50"/>
+  <path d="M32 20 Q36 14 38 18 Q36 20 32 20" fill="#4CAF50"/>
+  <!-- Small arrow indicating transplanting -->
+  <path d="M50 28 L54 32 L50 36" fill="none" stroke="#78909C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <line x1="46" y1="32" x2="54" y2="32" stroke="#78909C" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

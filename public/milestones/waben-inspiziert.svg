@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="bg10" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#FFF8E1"/>
+      <stop offset="100%" stop-color="#FFECB3"/>
+    </radialGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="url(#bg10)" stroke="#F9A825" stroke-width="2"/>
+  <!-- Honeycomb cells in background -->
+  <polygon points="14,18 19,15 24,18 24,24 19,27 14,24" fill="#FFD54F" stroke="#E0A000" stroke-width="0.8"/>
+  <polygon points="24,18 29,15 34,18 34,24 29,27 24,24" fill="#FFCA28" stroke="#E0A000" stroke-width="0.8"/>
+  <polygon points="9,27 14,24 19,27 19,33 14,36 9,33" fill="#FFCA28" stroke="#E0A000" stroke-width="0.8"/>
+  <polygon points="19,27 24,24 29,27 29,33 24,36 19,33" fill="#FFD54F" stroke="#E0A000" stroke-width="0.8"/>
+  <polygon points="29,27 34,24 39,27 39,33 34,36 29,33" fill="#FFD54F" stroke="#E0A000" stroke-width="0.8"/>
+  <polygon points="14,36 19,33 24,36 24,42 19,45 14,42" fill="#FFD54F" stroke="#E0A000" stroke-width="0.8"/>
+  <polygon points="24,36 29,33 34,36 34,42 29,45 24,42" fill="#FFCA28" stroke="#E0A000" stroke-width="0.8"/>
+  <!-- Magnifying glass -->
+  <circle cx="38" cy="36" r="13" fill="none" stroke="#6D4C41" stroke-width="3"/>
+  <circle cx="38" cy="36" r="11" fill="#FFFFFF55"/>
+  <!-- Glass shine -->
+  <path d="M32,30 Q34,28 37,28" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <!-- Handle -->
+  <line x1="48" y1="46" x2="56" y2="54" stroke="#8D6E63" stroke-width="4" stroke-linecap="round"/>
+  <line x1="48" y1="46" x2="56" y2="54" stroke="#A1887F" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Magnified cell detail inside glass -->
+  <polygon points="35,33 38,31 41,33 41,37 38,39 35,37" fill="#FFD54F" stroke="#E0A000" stroke-width="1"/>
+  <circle cx="38" cy="35" r="1.5" fill="#FFF9C4"/>
+</svg>

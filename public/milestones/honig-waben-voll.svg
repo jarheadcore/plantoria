@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="bg5" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#FFF8E1"/>
+      <stop offset="100%" stop-color="#FFECB3"/>
+    </radialGradient>
+    <linearGradient id="honey" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFB300"/>
+      <stop offset="100%" stop-color="#FF8F00"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="url(#bg5)" stroke="#F9A825" stroke-width="2"/>
+  <!-- Honeycomb cells filled with honey -->
+  <!-- Row 1 -->
+  <polygon points="20,14 26,10 32,14 32,22 26,26 20,22" fill="#FFB300" stroke="#E0A000" stroke-width="1"/>
+  <polygon points="32,14 38,10 44,14 44,22 38,26 32,22" fill="#FFC107" stroke="#E0A000" stroke-width="1"/>
+  <!-- Row 2 -->
+  <polygon points="14,24 20,20 26,24 26,32 20,36 14,32" fill="#FFC107" stroke="#E0A000" stroke-width="1"/>
+  <polygon points="26,24 32,20 38,24 38,32 32,36 26,32" fill="#FFB300" stroke="#E0A000" stroke-width="1"/>
+  <polygon points="38,24 44,20 50,24 50,32 44,36 38,32" fill="#FFB300" stroke="#E0A000" stroke-width="1"/>
+  <!-- Row 3 -->
+  <polygon points="20,34 26,30 32,34 32,42 26,46 20,42" fill="#FFB300" stroke="#E0A000" stroke-width="1"/>
+  <polygon points="32,34 38,30 44,34 44,42 38,46 32,42" fill="#FFC107" stroke="#E0A000" stroke-width="1"/>
+  <!-- Honey shine spots -->
+  <circle cx="26" cy="17" r="2" fill="#FFE082" opacity="0.6"/>
+  <circle cx="38" cy="17" r="2" fill="#FFE082" opacity="0.6"/>
+  <circle cx="32" cy="27" r="2" fill="#FFE082" opacity="0.6"/>
+  <!-- Dripping honey -->
+  <path d="M20,42 Q20,50 22,52 Q23,54 22,52 Q20,50 20,42" fill="#FFB300"/>
+  <ellipse cx="20" cy="53" rx="2.5" ry="3" fill="#FFB300"/>
+  <path d="M32,42 Q32,48 33,50" fill="none" stroke="#FFB300" stroke-width="3" stroke-linecap="round"/>
+  <ellipse cx="33" cy="51" rx="2" ry="2.5" fill="#FFB300"/>
+  <path d="M44,42 Q44,46 44.5,48" fill="none" stroke="#FFB300" stroke-width="2.5" stroke-linecap="round"/>
+  <ellipse cx="44.5" cy="49" rx="1.8" ry="2" fill="#FFB300"/>
+</svg>

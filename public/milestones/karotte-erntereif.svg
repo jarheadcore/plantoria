@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="#E8F5E9"/>
+  <!-- Soil -->
+  <ellipse cx="32" cy="44" rx="22" ry="10" fill="#795548"/>
+  <ellipse cx="32" cy="42" rx="20" ry="8" fill="#8D6E63"/>
+  <!-- Carrot body in soil (partially visible) -->
+  <path d="M28 42 L30 58 Q32 62 34 58 L36 42 Z" fill="#FF7043"/>
+  <path d="M29 42 L30.5 54 Q32 57 33.5 54 L35 42 Z" fill="#FF8A65"/>
+  <!-- Carrot top visible above soil -->
+  <rect x="30" y="38" width="4" height="5" rx="1" fill="#FF7043"/>
+  <!-- Lush green carrot tops -->
+  <line x1="32" y1="38" x2="32" y2="16" stroke="#4CAF50" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="32" y1="38" x2="22" y2="18" stroke="#66BB6A" stroke-width="2" stroke-linecap="round"/>
+  <line x1="32" y1="38" x2="42" y2="18" stroke="#66BB6A" stroke-width="2" stroke-linecap="round"/>
+  <line x1="32" y1="36" x2="26" y2="22" stroke="#81C784" stroke-width="1.8" stroke-linecap="round"/>
+  <line x1="32" y1="36" x2="38" y2="22" stroke="#81C784" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Feathery leaf details -->
+  <circle cx="22" cy="17" r="2.5" fill="#66BB6A"/>
+  <circle cx="42" cy="17" r="2.5" fill="#66BB6A"/>
+  <circle cx="32" cy="15" r="3" fill="#4CAF50"/>
+  <circle cx="26" cy="21" r="2" fill="#81C784"/>
+  <circle cx="38" cy="21" r="2" fill="#81C784"/>
+  <!-- Sparkle to indicate readiness -->
+  <circle cx="46" cy="14" r="1.5" fill="#FFD54F"/>
+  <circle cx="49" cy="11" r="1" fill="#FFD54F"/>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="bg7" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#FFF8E1"/>
+      <stop offset="100%" stop-color="#FFECB3"/>
+    </radialGradient>
+    <linearGradient id="honeyFill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FFB300"/>
+      <stop offset="60%" stop-color="#FF8F00"/>
+      <stop offset="100%" stop-color="#E65100"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="url(#bg7)" stroke="#F9A825" stroke-width="2"/>
+  <!-- Honey jar -->
+  <rect x="20" y="30" width="24" height="24" rx="3" fill="#FFF9C4" stroke="#E0A000" stroke-width="1.5"/>
+  <!-- Jar neck -->
+  <rect x="24" y="26" width="16" height="6" rx="1" fill="#FFF9C4" stroke="#E0A000" stroke-width="1.5"/>
+  <!-- Honey level in jar (partially filled) -->
+  <rect x="21.5" y="38" width="21" height="14.5" rx="2" fill="url(#honeyFill)" opacity="0.9"/>
+  <!-- Jar shine -->
+  <line x1="23" y1="32" x2="23" y2="50" stroke="white" stroke-width="1.5" opacity="0.4" stroke-linecap="round"/>
+  <!-- Honey stream pouring in -->
+  <path d="M32,10 Q32,14 32,26" stroke="#FFB300" stroke-width="4" stroke-linecap="round" fill="none"/>
+  <path d="M32,10 Q32,14 32,26" stroke="#FFD54F" stroke-width="2" stroke-linecap="round" fill="none"/>
+  <!-- Honey drip at top -->
+  <ellipse cx="32" cy="9" rx="4" ry="2" fill="#FFB300"/>
+  <!-- Splash drops -->
+  <circle cx="28" cy="28" r="1.2" fill="#FFB300" opacity="0.7"/>
+  <circle cx="36" cy="27" r="1" fill="#FFB300" opacity="0.7"/>
+  <circle cx="34" cy="29" r="0.8" fill="#FFB300" opacity="0.5"/>
+  <!-- Fill level line -->
+  <path d="M21.5,38 Q27,36 32,38 Q37,40 42.5,38" fill="none" stroke="#FFD54F" stroke-width="1" opacity="0.6"/>
+</svg>

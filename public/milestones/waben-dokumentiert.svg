@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="bg12" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#FFF8E1"/>
+      <stop offset="100%" stop-color="#FFECB3"/>
+    </radialGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="url(#bg12)" stroke="#F9A825" stroke-width="2"/>
+  <!-- Camera body -->
+  <rect x="14" y="22" width="36" height="26" rx="4" fill="#78909C" stroke="#546E7A" stroke-width="1.5"/>
+  <!-- Camera top bump (flash/viewfinder) -->
+  <rect x="22" y="18" width="14" height="6" rx="2" fill="#90A4AE" stroke="#546E7A" stroke-width="1"/>
+  <!-- Lens outer ring -->
+  <circle cx="32" cy="35" r="10" fill="#455A64" stroke="#37474F" stroke-width="1.5"/>
+  <!-- Lens middle -->
+  <circle cx="32" cy="35" r="7" fill="#546E7A"/>
+  <!-- Lens inner -->
+  <circle cx="32" cy="35" r="4.5" fill="#263238"/>
+  <!-- Lens reflection -->
+  <circle cx="30" cy="33" r="1.5" fill="#90A4AE" opacity="0.6"/>
+  <circle cx="34" cy="37" r="0.8" fill="#90A4AE" opacity="0.4"/>
+  <!-- Flash -->
+  <rect x="40" y="24" width="6" height="3" rx="1" fill="#FFF9C4" stroke="#FFD54F" stroke-width="0.5"/>
+  <!-- Shutter button -->
+  <circle cx="42" cy="19" r="2.5" fill="#E0E0E0" stroke="#9E9E9E" stroke-width="0.8"/>
+  <!-- Photo preview (small honeycomb pattern to tie to theme) -->
+  <polygon points="29,33 31,32 33,33 33,35 31,36 29,35" fill="#FFD54F" stroke="#E0A000" stroke-width="0.4" opacity="0.5"/>
+  <!-- Flash burst lines -->
+  <line x1="8" y1="16" x2="12" y2="20" stroke="#FFF176" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+  <line x1="10" y1="12" x2="14" y2="18" stroke="#FFF176" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+  <line x1="52" y1="16" x2="48" y2="20" stroke="#FFF176" stroke-width="1.5" stroke-linecap="round" opacity="0.7"/>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="#E8F5E9"/>
+  <!-- Carrot body -->
+  <path d="M28 28 L31 54 Q32 58 33 54 L36 28 Z" fill="#FF7043"/>
+  <path d="M29.5 28 L31.5 50 Q32 53 32.5 50 L34.5 28 Z" fill="#FF8A65"/>
+  <!-- Carrot tip -->
+  <circle cx="32" cy="55" r="1" fill="#E64A19"/>
+  <!-- Horizontal lines on carrot -->
+  <line x1="29" y1="34" x2="35" y2="34" stroke="#E64A19" stroke-width="0.7" opacity="0.5"/>
+  <line x1="29.5" y1="38" x2="34.5" y2="38" stroke="#E64A19" stroke-width="0.7" opacity="0.5"/>
+  <line x1="30" y1="42" x2="34" y2="42" stroke="#E64A19" stroke-width="0.7" opacity="0.5"/>
+  <line x1="30.5" y1="46" x2="33.5" y2="46" stroke="#E64A19" stroke-width="0.7" opacity="0.5"/>
+  <!-- Carrot greens -->
+  <line x1="32" y1="28" x2="32" y2="12" stroke="#4CAF50" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="32" y1="28" x2="22" y2="14" stroke="#66BB6A" stroke-width="2" stroke-linecap="round"/>
+  <line x1="32" y1="28" x2="42" y2="14" stroke="#66BB6A" stroke-width="2" stroke-linecap="round"/>
+  <line x1="32" y1="26" x2="26" y2="18" stroke="#81C784" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="32" y1="26" x2="38" y2="18" stroke="#81C784" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Leaf tips -->
+  <circle cx="22" cy="13" r="2.5" fill="#66BB6A"/>
+  <circle cx="42" cy="13" r="2.5" fill="#66BB6A"/>
+  <circle cx="32" cy="11" r="3" fill="#4CAF50"/>
+  <!-- Happy sparkles -->
+  <circle cx="12" cy="20" r="1.5" fill="#FFD54F"/>
+  <circle cx="52" cy="20" r="1.5" fill="#FFD54F"/>
+  <circle cx="14" cy="46" r="1" fill="#FFD54F"/>
+  <circle cx="50" cy="46" r="1" fill="#FFD54F"/>
+</svg>

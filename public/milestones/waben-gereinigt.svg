@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="bg11" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#FFF8E1"/>
+      <stop offset="100%" stop-color="#FFECB3"/>
+    </radialGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="url(#bg11)" stroke="#F9A825" stroke-width="2"/>
+  <!-- Brush handle -->
+  <rect x="14" y="38" width="22" height="6" rx="2" fill="#8D6E63" stroke="#6D4C41" stroke-width="1"/>
+  <!-- Brush head -->
+  <rect x="34" y="34" width="8" height="14" rx="2" fill="#A1887F" stroke="#6D4C41" stroke-width="1"/>
+  <!-- Bristles -->
+  <line x1="43" y1="36" x2="48" y2="34" stroke="#D7CCC8" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="43" y1="38" x2="49" y2="37" stroke="#BCAAA4" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="43" y1="40" x2="49" y2="40" stroke="#D7CCC8" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="43" y1="42" x2="49" y2="43" stroke="#BCAAA4" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="43" y1="44" x2="48" y2="46" stroke="#D7CCC8" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="43" y1="46" x2="47" y2="48" stroke="#BCAAA4" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- Sparkle 1 (top-left) -->
+  <path d="M18,14 L19,10 L20,14 L24,15 L20,16 L19,20 L18,16 L14,15 Z" fill="#FFF176"/>
+  <path d="M18,14 L19,10 L20,14 L24,15 L20,16 L19,20 L18,16 L14,15 Z" fill="none" stroke="#FFD54F" stroke-width="0.5"/>
+  <!-- Sparkle 2 (top-right) -->
+  <path d="M42,12 L43,9 L44,12 L47,13 L44,14 L43,17 L42,14 L39,13 Z" fill="#FFF176"/>
+  <path d="M42,12 L43,9 L44,12 L47,13 L44,14 L43,17 L42,14 L39,13 Z" fill="none" stroke="#FFD54F" stroke-width="0.5"/>
+  <!-- Sparkle 3 (right) -->
+  <path d="M50,24 L51,21 L52,24 L55,25 L52,26 L51,29 L50,26 L47,25 Z" fill="#FFF176"/>
+  <path d="M50,24 L51,21 L52,24 L55,25 L52,26 L51,29 L50,26 L47,25 Z" fill="none" stroke="#FFD54F" stroke-width="0.5"/>
+  <!-- Small sparkle dots -->
+  <circle cx="28" cy="20" r="1.5" fill="#FFF9C4"/>
+  <circle cx="35" cy="24" r="1" fill="#FFF9C4"/>
+  <circle cx="46" cy="18" r="1.2" fill="#FFF9C4"/>
+  <!-- Motion lines from brushing -->
+  <path d="M50,36 Q53,38 50,40" fill="none" stroke="#BDBDBD" stroke-width="0.8" stroke-linecap="round"/>
+  <path d="M52,34 Q55,38 52,42" fill="none" stroke="#BDBDBD" stroke-width="0.6" stroke-linecap="round"/>
+</svg>
