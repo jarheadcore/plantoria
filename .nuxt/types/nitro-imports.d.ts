@@ -83,8 +83,13 @@ declare global {
   const lazyEventHandler: typeof import('../../node_modules/h3').lazyEventHandler
   const nitroPlugin: typeof import('../../node_modules/nitropack/dist/runtime/internal/plugin').nitroPlugin
   const parseCookies: typeof import('../../node_modules/h3').parseCookies
+  const parseMarkdown: typeof import('../../node_modules/@nuxtjs/mdc/dist/runtime/parser').parseMarkdown
   const promisifyNodeListener: typeof import('../../node_modules/h3').promisifyNodeListener
   const proxyRequest: typeof import('../../node_modules/h3').proxyRequest
+  const queryCollection: typeof import('../../node_modules/@nuxt/content/dist/runtime/nitro').queryCollection
+  const queryCollectionItemSurroundings: typeof import('../../node_modules/@nuxt/content/dist/runtime/nitro').queryCollectionItemSurroundings
+  const queryCollectionNavigation: typeof import('../../node_modules/@nuxt/content/dist/runtime/nitro').queryCollectionNavigation
+  const queryCollectionSearchSections: typeof import('../../node_modules/@nuxt/content/dist/runtime/nitro').queryCollectionSearchSections
   const readBody: typeof import('../../node_modules/h3').readBody
   const readFormData: typeof import('../../node_modules/h3').readFormData
   const readMultipartFormData: typeof import('../../node_modules/h3').readMultipartFormData
@@ -111,6 +116,7 @@ declare global {
   const setResponseHeaders: typeof import('../../node_modules/h3').setResponseHeaders
   const setResponseStatus: typeof import('../../node_modules/h3').setResponseStatus
   const splitCookiesString: typeof import('../../node_modules/h3').splitCookiesString
+  const stringifyMarkdown: typeof import('../../node_modules/@nuxtjs/mdc/dist/runtime/stringify').stringifyMarkdown
   const toEventHandler: typeof import('../../node_modules/h3').toEventHandler
   const toNodeListener: typeof import('../../node_modules/h3').toNodeListener
   const toPlainHandler: typeof import('../../node_modules/h3').toPlainHandler
@@ -147,3 +153,6 @@ export { defineTask, runTask } from 'nitropack/runtime/internal/task';
 export { defineNitroErrorHandler } from 'nitropack/runtime/internal/error/utils';
 export { buildAssetsURL as __buildAssetsURL, publicAssetsURL as __publicAssetsURL } from '/Users/christianhuber/webdev/plantoria/node_modules/@nuxt/nitro-server/dist/runtime/utils/paths';
 export { defineAppConfig } from '/Users/christianhuber/webdev/plantoria/node_modules/@nuxt/nitro-server/dist/runtime/utils/config';
+export { queryCollection, queryCollectionSearchSections, queryCollectionNavigation, queryCollectionItemSurroundings } from '/Users/christianhuber/webdev/plantoria/node_modules/@nuxt/content/dist/runtime/nitro';
+export { parseMarkdown } from '/Users/christianhuber/webdev/plantoria/node_modules/@nuxtjs/mdc/dist/runtime/parser';
+export { stringifyMarkdown } from '/Users/christianhuber/webdev/plantoria/node_modules/@nuxtjs/mdc/dist/runtime/stringify';

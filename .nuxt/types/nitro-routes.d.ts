@@ -12,6 +12,18 @@ declare module "nitropack/types" {
     '/api/_nuxt_icon/:collection': {
       'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxt/icon/dist/runtime/server/api').default>>>>
     }
+    '/__nuxt_content/content/sql_dump.txt': {
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxt/content/dist/runtime/presets/node/database-handler').default>>>>
+    }
+    '/__nuxt_content/info/sql_dump.txt': {
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxt/content/dist/runtime/presets/node/database-handler').default>>>>
+    }
+    '/__nuxt_content/content/query': {
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxt/content/dist/runtime/api/query.post').default>>>>
+    }
+    '/__nuxt_content/info/query': {
+      'default': Simplify<Serialize<Awaited<ReturnType<typeof import('../../node_modules/@nuxt/content/dist/runtime/api/query.post').default>>>>
+    }
   }
 }
 export {}

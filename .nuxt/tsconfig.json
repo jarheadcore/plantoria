@@ -34,6 +34,9 @@
       "vite/client": [
         "../node_modules/vite/client"
       ],
+      "@nuxtjs/mdc": [
+        "../node_modules/@nuxtjs/mdc"
+      ],
       "nitropack/types": [
         "../node_modules/nitropack/types"
       ],
@@ -57,6 +60,12 @@
       ],
       "crossws": [
         "../node_modules/crossws"
+      ],
+      "#content/components": [
+        "./content/components"
+      ],
+      "#content/manifest": [
+        "./content/manifest"
       ],
       "~": [
         "../src"
@@ -123,6 +132,15 @@
       ],
       "#imports": [
         "./imports"
+      ],
+      "#mdc-configs": [
+        "./mdc-configs"
+      ],
+      "#mdc-highlighter": [
+        "./mdc-highlighter"
+      ],
+      "#mdc-imports": [
+        "./mdc-imports"
       ],
       "#app-manifest": [
         "./manifest/meta/dev"
@@ -200,8 +218,10 @@
     "../node_modules/@nuxt/fonts/node_modules",
     "../node_modules/@nuxtjs/color-mode/node_modules",
     "../node_modules/@nuxt/ui/node_modules",
+    "../node_modules/@nuxt/content/node_modules",
     "../node_modules/@nuxt/devtools/node_modules",
     "../node_modules/@nuxt/telemetry/node_modules",
+    "../node_modules/@nuxtjs/mdc/node_modules",
     "../dist",
     "../.data",
     "../modules/*/runtime/server/**/*",

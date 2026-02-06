@@ -49,4 +49,8 @@ export { localeContextInjectionKey, useLocale } from '../node_modules/@nuxt/ui/d
 export { portalTargetInjectionKey, usePortal } from '../node_modules/@nuxt/ui/dist/runtime/composables/usePortal';
 export { defineStore, acceptHMRUpdate, usePinia, storeToRefs } from '../node_modules/@pinia/nuxt/dist/runtime/composables';
 export { useColorMode } from '../node_modules/@nuxtjs/color-mode/dist/runtime/composables';
+export { queryCollection, queryCollectionSearchSections, queryCollectionNavigation, queryCollectionItemSurroundings } from '../node_modules/@nuxt/content/dist/runtime/client';
 export { useNuxtDevTools } from '../node_modules/@nuxt/devtools/dist/runtime/use-nuxt-devtools';
+export { flatUnwrap as unwrapSlot } from '../node_modules/@nuxtjs/mdc/dist/runtime/utils/node';
+export { parseMarkdown } from '../node_modules/@nuxtjs/mdc/dist/runtime/parser';
+export { stringifyMarkdown } from '../node_modules/@nuxtjs/mdc/dist/runtime/stringify';
