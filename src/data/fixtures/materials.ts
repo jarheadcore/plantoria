@@ -1,6 +1,6 @@
 import type { Material, RecentDownload } from '@/types'
 
-export const mockMaterials: Material[] = [
+export const fixtureMaterials: Material[] = [
   {
     id: 'mat-1',
     title: 'Bodentypen bestimmen',
@@ -160,7 +160,7 @@ export const mockMaterials: Material[] = [
   },
 ]
 
-export const mockRecentDownloads: RecentDownload[] = [
+export const fixtureRecentDownloads: RecentDownload[] = [
   { id: 'dl-1', materialTitle: 'Bodentypen bestimmen', date: '2026-05-08', format: 'PDF', materialId: 'mat-1' },
   { id: 'dl-2', materialTitle: 'pH-Wert messen', date: '2026-05-06', format: 'PDF', materialId: 'mat-2' },
   { id: 'dl-3', materialTitle: 'Mischkultur-Tabelle', date: '2026-05-03', format: 'DOCX', materialId: 'mat-3' },

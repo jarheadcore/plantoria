@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { Notification } from '@/types'
-import { mockNotifications } from '@/data/mock/notifications'
+import { fixtureNotifications } from '@/data/fixtures/notifications'
 
 export const useNotificationsStore = defineStore('notifications', () => {
-  const notifications = ref<Notification[]>(mockNotifications)
+  const notifications = ref<Notification[]>(fixtureNotifications)
 
   const unreadCount = computed(() => notifications.value.filter((n) => !n.read).length)
 

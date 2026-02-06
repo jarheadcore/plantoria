@@ -42,9 +42,9 @@ const filteredProjects = computed(() => {
 
 function statusColor(status: string) {
   switch (status) {
-    case 'Laufend': return 'success' as const
-    case 'Vorprojekt': return 'warning' as const
-    case 'Projektstart': return 'info' as const
+    case 'Laufend': return 'green' as const
+    case 'Vorprojekt': return 'neutral' as const
+    case 'Projektstart': return 'primary' as const
     case 'Abgeschlossen': return 'neutral' as const
     default: return 'neutral' as const
   }

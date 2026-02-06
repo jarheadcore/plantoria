@@ -1,6 +1,6 @@
 import type { StudentGroup } from '@/types'
 
-export const mockGroups: StudentGroup[] = [
+export const fixtureGroups: StudentGroup[] = [
   {
     id: 'g-1',
     projectId: 'proj-1',

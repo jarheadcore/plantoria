@@ -109,7 +109,7 @@ function difficultyColor(d: string) {
             <div class="flex items-center gap-2 mb-1">
               <h3 class="text-lg font-semibold">{{ tmpl.name }}</h3>
               <UBadge v-if="tmpl.isOwn" color="primary" variant="subtle" size="xs">Eigenes</UBadge>
-              <UBadge v-else-if="tmpl.isPlatform" color="info" variant="subtle" size="xs">Plantoria</UBadge>
+              <UBadge v-else-if="tmpl.isPlatform" color="primary" variant="subtle" size="xs">Plantoria</UBadge>
               <UBadge v-else color="neutral" variant="subtle" size="xs">Geteilt</UBadge>
             </div>
             <p class="text-sm text-gray-500 mb-3">{{ tmpl.description }}</p>

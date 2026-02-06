@@ -1,12 +1,20 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { User, School, SchoolClass } from '@/types'
-import { mockTeacher, mockSchool, mockClass } from '@/data/mock/teacher'
+import { fixtureTeacher, fixtureSchool, fixtureClass, fixtureAvailableClasses } from '@/data/fixtures/teacher'
 
 export const useTeacherStore = defineStore('teacher', () => {
-  const teacher = ref<User>(mockTeacher)
-  const school = ref<School>(mockSchool)
-  const activeClass = ref<SchoolClass>(mockClass)
+  const teacher = ref<User>(fixtureTeacher)
+  const school = ref<School>(fixtureSchool)
+  const activeClass = ref<SchoolClass>(fixtureClass)
+  const availableClasses = ref<SchoolClass[]>(fixtureAvailableClasses)
 
-  return { teacher, school, activeClass }
+  function switchClass(classId: string) {
+    const found = availableClasses.value.find((c) => c.id === classId)
+    if (found) {
+      activeClass.value = found
+    }
+  }
+
+  return { teacher, school, activeClass, availableClasses, switchClass }
 })

@@ -1,6 +1,6 @@
 import type { Task } from '@/types'
 
-export const mockTasks: Task[] = [
+export const fixtureTasks: Task[] = [
   // -- Gemüsefläche: Planung (all done) --
   {
     id: 't-1',
@@ -12,6 +12,7 @@ export const mockTasks: Task[] = [
     groupName: 'Sonnenblume',
     dueDate: '2026-02-10',
     lp21Refs: ['MA.2.A'],
+    subjectAreaId: 'beetplanung',
   },
   {
     id: 't-2',
@@ -23,6 +24,7 @@ export const mockTasks: Task[] = [
     groupName: 'Löwenzahn',
     dueDate: '2026-02-15',
     lp21Refs: ['MA.2.A'],
+    subjectAreaId: 'mathematik',
   },
   {
     id: 't-3',
@@ -34,6 +36,7 @@ export const mockTasks: Task[] = [
     groupName: 'Gänseblümchen',
     dueDate: '2026-02-20',
     lp21Refs: ['NMG.2.1'],
+    subjectAreaId: 'fruchtfolge',
   },
   {
     id: 't-4',
@@ -57,6 +60,7 @@ export const mockTasks: Task[] = [
     groupName: 'Sonnenblume',
     dueDate: '2026-04-05',
     lp21Refs: ['NMG.2.3'],
+    subjectAreaId: 'boden',
   },
   {
     id: 't-6',
@@ -68,6 +72,7 @@ export const mockTasks: Task[] = [
     groupName: 'Löwenzahn',
     dueDate: '2026-04-15',
     lp21Refs: ['NMG.2.1', 'NMG.2.2'],
+    subjectAreaId: 'gemusearten',
   },
   {
     id: 't-7',
@@ -89,7 +94,6 @@ export const mockTasks: Task[] = [
     dueDate: '2026-05-15',
     lp21Refs: [],
   },
-  // -- Gemüsefläche: Pflanzung done --
   {
     id: 't-9',
     projectId: 'proj-1',
@@ -100,6 +104,7 @@ export const mockTasks: Task[] = [
     groupName: 'Gänseblümchen',
     dueDate: '2026-04-10',
     lp21Refs: ['NMG.2.3'],
+    subjectAreaId: 'boden',
   },
   {
     id: 't-10',
@@ -111,6 +116,7 @@ export const mockTasks: Task[] = [
     groupName: 'Löwenzahn',
     dueDate: '2026-04-20',
     lp21Refs: ['NMG.2.6'],
+    subjectAreaId: 'okologie',
   },
   // -- Gemüsefläche: Pflege (all open) --
   {
@@ -143,6 +149,7 @@ export const mockTasks: Task[] = [
     groupName: 'Sonnenblume',
     dueDate: '2026-05-25',
     lp21Refs: ['NMG.2.1'],
+    subjectAreaId: 'okologie',
   },
   // -- Gemüsefläche: Ernte (open) --
   {
@@ -153,6 +160,7 @@ export const mockTasks: Task[] = [
     status: 'Offen',
     dueDate: '2026-07-15',
     lp21Refs: ['NMG.2.2'],
+    subjectAreaId: 'gemusearten',
   },
   {
     id: 't-15',
@@ -164,5 +172,50 @@ export const mockTasks: Task[] = [
     groupName: 'Löwenzahn',
     dueDate: '2026-07-20',
     lp21Refs: ['MA.3.A'],
+    subjectAreaId: 'mathematik',
+  },
+  // -- Ferienaufgaben --
+  {
+    id: 't-16',
+    projectId: 'proj-1',
+    title: 'Pflanzen giessen während Frühlingsferien',
+    description: 'Giessplan für die Ferien: Jede Gruppe organisiert 2 Besuche. Eltern oder Hauswart als Begleitung.',
+    phase: 'Pflege',
+    status: 'Offen',
+    dueDate: '2026-04-11',
+    lp21Refs: [],
+    isHolidayTask: true,
+    holidayAdvanceDays: 14,
+    emailReminder: true,
+    classId: 'class-1',
+  },
+  {
+    id: 't-17',
+    projectId: 'proj-1',
+    title: 'Wachstum dokumentieren (Sommerferien)',
+    description: 'Wöchentlich Fotos der Beete machen und in der App hochladen. Massband mitnehmen!',
+    phase: 'Pflege',
+    status: 'Offen',
+    dueDate: '2026-07-04',
+    lp21Refs: ['NMG.2.1'],
+    isHolidayTask: true,
+    holidayAdvanceDays: 14,
+    emailReminder: true,
+    classId: 'class-1',
+    subjectAreaId: 'gemusearten',
+  },
+  {
+    id: 't-18',
+    projectId: 'proj-1',
+    title: 'Ernteaktion nach den Sommerferien vorbereiten',
+    description: 'Materialien und Werkzeuge für die Ernteaktion am ersten Schultag bereitstellen.',
+    phase: 'Ernte',
+    status: 'Offen',
+    dueDate: '2026-08-08',
+    lp21Refs: [],
+    isHolidayTask: true,
+    holidayAdvanceDays: 7,
+    emailReminder: false,
+    classId: 'class-1',
   },
 ]

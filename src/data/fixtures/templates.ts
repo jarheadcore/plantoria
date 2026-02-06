@@ -29,7 +29,7 @@ const gemueseMaterials: TemplateMaterial[] = [
   { id: 'tm-5', name: 'Giesskannen', quantity: '4 Stk.', source: 'Baumarkt', cost: 'CHF 32.00' },
 ]
 
-export const mockTemplates: ProjectTemplate[] = [
+export const fixtureTemplates: ProjectTemplate[] = [
   {
     id: 'tmpl-1',
     name: 'Gemüsefläche',

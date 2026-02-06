@@ -1,16 +1,46 @@
 <script setup lang="ts">
-import { Bell } from 'lucide-vue-next'
+import { Bell, ChevronDown } from 'lucide-vue-next'
 import { useNotificationsStore } from '@/stores/notifications'
 import { useTeacherStore } from '@/stores/teacher'
+import { useAuthStore } from '@/stores/auth'
 
 const notifStore = useNotificationsStore()
 const teacherStore = useTeacherStore()
+const authStore = useAuthStore()
 
 const showNotifications = ref(false)
+
+function handleLogout() {
+  authStore.logout()
+  navigateTo('/login')
+}
+
+const classOptions = computed(() =>
+  teacherStore.availableClasses.map((c) => ({
+    label: `${c.name} (Stufe ${c.grade})`,
+    value: c.id,
+  })),
+)
+
+const selectedClassId = computed({
+  get: () => teacherStore.activeClass.id,
+  set: (val: string) => teacherStore.switchClass(val),
+})
 </script>
 
 <template>
   <div class="flex items-center gap-3">
+    <!-- Class switcher -->
+    <div v-if="classOptions.length > 1" class="hidden sm:block">
+      <USelect
+        :model-value="selectedClassId"
+        @update:model-value="(val: string) => selectedClassId = val"
+        :items="classOptions"
+        size="sm"
+        class="w-44"
+      />
+    </div>
+
     <!-- Notifications -->
     <div class="relative">
       <UButton
@@ -79,7 +109,7 @@ const showNotifications = ref(false)
     <UDropdownMenu
       :items="[
         [{ label: 'Profil', to: '/teacher/settings' }],
-        [{ label: 'Logout' }],
+        [{ label: 'Logout', onSelect: handleLogout }],
       ]"
     >
       <UButton variant="ghost" color="neutral" size="sm" class="gap-2">

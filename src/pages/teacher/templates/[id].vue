@@ -29,7 +29,7 @@ const tasksByPhase = computed(() => {
   const phases: Record<string, typeof template.value.tasks> = {}
   for (const t of template.value.tasks) {
     if (!phases[t.phase]) phases[t.phase] = []
-    phases[t.phase].push(t)
+    phases[t.phase]!.push(t)
   }
   return phases
 })

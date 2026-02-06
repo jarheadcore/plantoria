@@ -1,6 +1,6 @@
 import type { Culture } from '@/types'
 
-export const mockCultures: Culture[] = [
+export const fixtureCultures: Culture[] = [
   {
     id: 'c-1',
     projectId: 'proj-1',

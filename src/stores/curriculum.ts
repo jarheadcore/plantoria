@@ -1,11 +1,11 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Curriculum, CurriculumProgress } from '@/types'
-import { mockCurriculumData, mockCurriculumProgress } from '@/data/mock/curriculum'
+import { fixtureCurriculumData, fixtureCurriculumProgress } from '@/data/fixtures/curriculum'
 
 export const useCurriculumStore = defineStore('curriculum', () => {
-  const curriculumData = ref<Curriculum[]>(mockCurriculumData)
-  const progress = ref<CurriculumProgress>(mockCurriculumProgress)
+  const curriculumData = ref<Curriculum[]>(fixtureCurriculumData)
+  const progress = ref<CurriculumProgress>(fixtureCurriculumProgress)
 
   function markTopicTreated(topicCode: string, downloadTitle: string, projectName: string) {
     for (const cur of curriculumData.value) {

@@ -121,7 +121,7 @@ function formatDate(date?: string) {
                   <span class="text-sm font-medium">{{ topic.code }}</span>
                   <span class="text-sm">{{ topic.title }}</span>
                   <UBadge
-                    :color="topic.treated ? 'success' : 'neutral'"
+                    :color="topic.treated ? 'green' : 'neutral'"
                     variant="subtle"
                     size="xs"
                   >

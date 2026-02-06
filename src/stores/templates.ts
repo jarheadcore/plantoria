@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { ProjectTemplate } from '@/types'
-import { mockTemplates } from '@/data/mock/templates'
+import { fixtureTemplates } from '@/data/fixtures/templates'
 
 export const useTemplatesStore = defineStore('templates', () => {
-  const templates = ref<ProjectTemplate[]>(mockTemplates)
+  const templates = ref<ProjectTemplate[]>(fixtureTemplates)
 
   const ownTemplates = computed(() => templates.value.filter((t) => t.isOwn))
   const sharedTemplates = computed(() => templates.value.filter((t) => !t.isOwn && !t.isPlatform))

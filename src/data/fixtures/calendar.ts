@@ -1,12 +1,12 @@
 import type { CalendarEntry, SeasonalTip } from '@/types'
 
-export const mockCalendarEntries: CalendarEntry[] = [
+export const fixtureCalendarEntries: CalendarEntry[] = [
   { id: 'cal-1', date: '2026-05-07', title: 'Giessplan umsetzen', type: 'task', projectId: 'proj-1', color: 'blue' },
   { id: 'cal-2', date: '2026-05-12', title: 'Setzlinge einpflanzen', type: 'task', projectId: 'proj-1', color: 'blue' },
   { id: 'cal-3', date: '2026-05-14', title: 'Giessplan erstellen', type: 'task', projectId: 'proj-1', color: 'blue' },
   { id: 'cal-4', date: '2026-05-15', title: 'Pflanzaktion Beet 2', type: 'milestone', projectId: 'proj-1', color: 'violet' },
   { id: 'cal-5', date: '2026-05-18', title: 'Unkraut jäten (Woche 20)', type: 'task', projectId: 'proj-1', color: 'blue' },
-  { id: 'cal-6', date: '2026-05-23', title: 'Harvest-Markt Anmeldefrist prüfen', type: 'harvest_market', color: 'orange' },
+  { id: 'cal-6', date: '2026-05-23', title: 'Setzlinge abhärten', type: 'task', projectId: 'proj-1', color: 'blue' },
   { id: 'cal-7', date: '2026-05-25', title: 'Schädlinge beobachten', type: 'task', projectId: 'proj-1', color: 'blue' },
   { id: 'cal-8', date: '2026-05-01', title: 'Tomaten ins Freiland setzen', type: 'seasonal', color: 'green' },
   { id: 'cal-9', date: '2026-05-10', title: 'Kartoffeln anhäufeln', type: 'seasonal', color: 'green' },
@@ -16,7 +16,7 @@ export const mockCalendarEntries: CalendarEntry[] = [
   { id: 'cal-12', date: '2026-06-15', title: 'Erste Ernte Rübli (geplant)', type: 'milestone', projectId: 'proj-1', color: 'violet' },
 ]
 
-export const mockSeasonalTips: SeasonalTip[] = [
+export const fixtureSeasonalTips: SeasonalTip[] = [
   { id: 'st-1', month: 5, text: 'Tomaten und Gurken können jetzt ins Freiland gesetzt werden.' },
   { id: 'st-2', month: 5, text: 'Kartoffeln anhäufeln für besseren Ertrag.' },
   { id: 'st-3', month: 5, text: 'Erdbeeren beginnen zu reifen – Ernte vorbereiten.' },

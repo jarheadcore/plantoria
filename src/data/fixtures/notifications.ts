@@ -1,6 +1,6 @@
 import type { Notification } from '@/types'
 
-export const mockNotifications: Notification[] = [
+export const fixtureNotifications: Notification[] = [
   {
     id: 'n-1',
     type: 'task_reminder',

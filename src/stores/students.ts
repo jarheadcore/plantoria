@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 import type { Student } from '@/types'
-import { mockStudents } from '@/data/mock/students'
+import { fixtureStudents } from '@/data/fixtures/students'
 
 export const useStudentsStore = defineStore('students', () => {
-  const students = ref<Student[]>(mockStudents)
+  const students = ref<Student[]>(fixtureStudents)
 
   function getStudentById(id: string) {
     return students.value.find((s) => s.id === id)

@@ -1,6 +1,6 @@
 import type { SubjectInfo } from '@/types'
 
-export const mockSubjects: SubjectInfo[] = [
+export const fixtureSubjects: SubjectInfo[] = [
   { id: 'boden', name: 'Boden', description: 'Bodentypen, Bodenlebewesen, Kompost', lp21Refs: ['NMG.2.1', 'NMG.2.3', 'NMG.2.6'], materialCount: 6 },
   { id: 'fruchtfolge', name: 'Fruchtfolge', description: 'Rotation, Mischkultur, Pflanzpartner', lp21Refs: ['NMG.2.1'], materialCount: 1 },
   { id: 'gemusearten', name: 'Gemüsearten', description: 'Sorten, Anbau, Pflege verschiedener Gemüse', lp21Refs: ['NMG.2.1', 'NMG.2.2'], materialCount: 2 },

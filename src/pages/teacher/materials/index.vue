@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useMaterialsStore } from '@/stores/materials'
 import { useCurriculumStore } from '@/stores/curriculum'
-import { Search, Download, Eye } from 'lucide-vue-next'
-import type { Material } from '@/types'
+import { Search, Download, Eye, Link, Video, Headphones, FileText, File } from 'lucide-vue-next'
+import type { Material, MaterialFormat } from '@/types'
 
 definePageMeta({ layout: 'teacher' })
 
@@ -44,13 +44,17 @@ const formatOptions = [
   { label: 'Alle Formate', value: 'all' },
   { label: 'PDF', value: 'PDF' },
   { label: 'DOCX', value: 'DOCX' },
+  { label: 'Video', value: 'Video' },
+  { label: 'Audio', value: 'Audio' },
+  { label: 'Link', value: 'Link' },
+  { label: 'Datei', value: 'Datei' },
 ]
 
 const showDownloadDialog = ref(false)
 const downloadMaterial = ref<Material | null>(null)
-const downloadFormat = ref<'PDF' | 'DOCX'>('PDF')
+const downloadFormat = ref<MaterialFormat>('PDF')
 
-function startDownload(mat: Material, format: 'PDF' | 'DOCX') {
+function startDownload(mat: Material, format: MaterialFormat) {
   downloadMaterial.value = mat
   downloadFormat.value = format
   showDownloadDialog.value = true
@@ -69,6 +73,17 @@ function confirmDownload() {
 function formatDate(date?: string) {
   if (!date) return null
   return new Date(date).toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit', year: 'numeric' })
+}
+
+function getFormatIcon(format: MaterialFormat) {
+  switch (format) {
+    case 'PDF': return FileText
+    case 'DOCX': return File
+    case 'Video': return Video
+    case 'Audio': return Headphones
+    case 'Link': return Link
+    default: return File
+  }
 }
 </script>
 
@@ -97,7 +112,7 @@ function formatDate(date?: string) {
         </template>
       </UInput>
       <p class="text-sm text-gray-500">
-        Ergebnisse: <strong>{{ materialsStore.filteredMaterials.length }}</strong> Arbeitsblätter
+        Ergebnisse: <strong>{{ materialsStore.filteredMaterials.length }}</strong> Materialien
       </p>
     </div>
 
@@ -125,27 +140,16 @@ function formatDate(date?: string) {
             </p>
             <p v-else class="text-xs text-gray-400 italic">Noch nicht heruntergeladen</p>
           </div>
-          <div class="flex gap-2 shrink-0">
+          <div class="flex gap-2 shrink-0 flex-wrap">
             <UButton
-              v-if="mat.formats.includes('PDF')"
+              v-for="format in mat.formats"
+              :key="format"
               size="sm"
               variant="soft"
               color="primary"
-              @click="startDownload(mat, 'PDF')"
+              @click="startDownload(mat, format)"
             >
-              <Download :size="14" class="mr-1" /> PDF
-            </UButton>
-            <UButton
-              v-if="mat.formats.includes('DOCX')"
-              size="sm"
-              variant="soft"
-              color="primary"
-              @click="startDownload(mat, 'DOCX')"
-            >
-              <Download :size="14" class="mr-1" /> DOCX
-            </UButton>
-            <UButton size="sm" variant="ghost" color="neutral" disabled>
-              <Eye :size="14" />
+              <component :is="getFormatIcon(format)" :size="14" class="mr-1" /> {{ format }}
             </UButton>
           </div>
         </div>
@@ -158,11 +162,11 @@ function formatDate(date?: string) {
         <div class="p-6">
           <h3 class="text-lg font-semibold mb-2">Download gestartet</h3>
           <p class="text-sm text-gray-500 mb-1" v-if="downloadMaterial">
-            Arbeitsblatt: <strong>{{ downloadMaterial.title }}</strong>
+            Material: <strong>{{ downloadMaterial.title }}</strong>
           </p>
           <p class="text-sm text-gray-500 mb-4">Format: {{ downloadFormat }}</p>
           <div v-if="downloadMaterial?.lp21Refs.length" class="mb-4">
-            <p class="text-sm font-medium mb-2">Folgende LP21-Ziele werden als «behandelt» markiert:</p>
+            <p class="text-sm font-medium mb-2">Folgende LP21-Ziele werden als &laquo;behandelt&raquo; markiert:</p>
             <ul class="space-y-1">
               <li v-for="ref in downloadMaterial!.lp21Refs" :key="ref" class="flex items-center gap-2 text-sm">
                 <input type="checkbox" checked disabled class="text-green-600" />

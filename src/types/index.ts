@@ -50,6 +50,8 @@ export type SubjectArea =
   | 'Ökologie'
   | 'Mathematik'
 
+export type MaterialFormat = 'PDF' | 'DOCX' | 'Link' | 'Video' | 'Audio' | 'Datei'
+
 export type NotificationType =
   | 'task_reminder'
   | 'seasonal_hint'
@@ -58,11 +60,9 @@ export type NotificationType =
   | 'lp21_milestone'
   | 'system'
 
-export type MarketPhaseStatus = 'Erledigt' | 'In Bearbeitung' | 'Offen'
-
 export type UserRole = 'Admin' | 'Lehrperson' | 'Schüler' | 'Eltern'
 
-export type CalendarEntryType = 'task' | 'seasonal' | 'harvest_market' | 'milestone'
+export type CalendarEntryType = 'task' | 'seasonal' | 'harvest_market' | 'milestone' | 'holiday'
 
 // -- Interfaces --
 
@@ -92,6 +92,7 @@ export interface SchoolClass {
   teacherId: string
   studentCount: number
   schoolYear: string
+  substituteTeacherId?: string
 }
 
 export interface Student {
@@ -158,6 +159,11 @@ export interface Task {
   season?: string
   lp21Refs: string[]
   worksheetIds?: string[]
+  subjectAreaId?: string
+  isHolidayTask?: boolean
+  holidayAdvanceDays?: number
+  emailReminder?: boolean
+  classId?: string
 }
 
 export interface Culture {
@@ -220,11 +226,14 @@ export interface Material {
   subjectArea: SubjectArea
   gradeRange: string
   phase?: ProjectPhase
-  formats: FileFormat[]
+  formats: MaterialFormat[]
   difficulty: Difficulty
   lp21Refs: string[]
   lastDownloaded?: string
   fileUrl?: string
+  linkUrl?: string
+  videoUrl?: string
+  audioUrl?: string
 }
 
 export interface ProjectTemplate {
@@ -287,32 +296,41 @@ export interface SeasonalTip {
   text: string
 }
 
-export interface HarvestMarket {
+export interface SubjectAreaTemplate {
   id: string
   name: string
-  date: string
-  location: string
-  participatingSchools: number
-  registrationDeadline: string
-  status: 'Anmeldung offen' | 'Angemeldet' | 'Abgeschlossen'
-  preparationPhases: MarketPhase[]
-  products: MarketProduct[]
-  totalRevenue?: number
+  subjectArea: SubjectArea
+  description: string
+  learningOrder: SubjectLearningItem[]
+  createdBy: string
+  shared: boolean
+  isPlatform: boolean
 }
 
-export interface MarketPhase {
+export interface SubjectLearningItem {
   id: string
-  name: string
-  status: MarketPhaseStatus
-  deadline: string
+  title: string
+  description?: string
+  order: number
+  materialIds: string[]
+  lp21Refs: string[]
+  difficulty: Difficulty
+  gradeRange: string
 }
 
-export interface MarketProduct {
+export interface GlobalSettings {
+  id: string
+  holidayTaskAdvanceDays: number
+  schoolHolidays: SchoolHoliday[]
+}
+
+export interface SchoolHoliday {
   id: string
   name: string
-  quantity: string
-  price: string
-  groupName: string
+  startDate: string
+  endDate: string
+  canton: string
+  municipality?: string
 }
 
 export interface Notification {
@@ -345,6 +363,6 @@ export interface RecentDownload {
   id: string
   materialTitle: string
   date: string
-  format: FileFormat
+  format: MaterialFormat
   materialId: string
 }

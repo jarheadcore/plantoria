@@ -1,6 +1,6 @@
 import type { Curriculum, CurriculumProgress } from '@/types'
 
-export const mockCurriculumData: Curriculum[] = [
+export const fixtureCurriculumData: Curriculum[] = [
   {
     id: 'cur-1',
     code: 'NMG',
@@ -137,7 +137,7 @@ export const mockCurriculumData: Curriculum[] = [
   },
 ]
 
-export const mockCurriculumProgress: CurriculumProgress = {
+export const fixtureCurriculumProgress: CurriculumProgress = {
   id: 'cp-1',
   classId: 'class-1',
   schoolYear: '2025/2026',

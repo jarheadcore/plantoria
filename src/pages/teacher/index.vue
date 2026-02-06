@@ -4,13 +4,16 @@ import { useProjectsStore } from '@/stores/projects'
 import { useCurriculumStore } from '@/stores/curriculum'
 import { useMaterialsStore } from '@/stores/materials'
 import { useCalendarStore } from '@/stores/calendar'
+import { useTasksStore } from '@/stores/tasks'
+import { useSettingsStore } from '@/stores/settings'
 import {
   FolderKanban,
   GraduationCap,
-  CheckSquare,
+  ClipboardList,
   Leaf,
   Download,
   CalendarDays,
+  Palmtree,
 } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'teacher' })
@@ -20,15 +23,31 @@ const projectsStore = useProjectsStore()
 const curriculumStore = useCurriculumStore()
 const materialsStore = useMaterialsStore()
 const calendarStore = useCalendarStore()
+const tasksStore = useTasksStore()
+const settingsStore = useSettingsStore()
 
-const upcomingTasks = computed(() =>
-  projectsStore.tasks
-    .filter((t) => t.status !== 'Erledigt')
-    .sort((a, b) => (a.dueDate || '').localeCompare(b.dueDate || ''))
-    .slice(0, 5),
-)
+const upcomingTasks = computed(() => tasksStore.upcomingTasks.slice(0, 5))
 
-const weekEntries = computed(() => calendarStore.entries.slice(0, 5))
+const weekEntries = computed(() => calendarStore.currentWeekEntries.slice(0, 5))
+
+// Next holiday calculation
+const nextHoliday = computed(() => {
+  const now = new Date(2026, 4, 6) // "today" = May 6, 2026
+  const upcoming = settingsStore.globalSettings.schoolHolidays
+    .map((h) => ({ ...h, startObj: new Date(h.startDate) }))
+    .filter((h) => h.startObj > now)
+    .sort((a, b) => a.startObj.getTime() - b.startObj.getTime())
+  return upcoming[0] || null
+})
+
+const daysUntilHoliday = computed(() => {
+  if (!nextHoliday.value) return null
+  const now = new Date(2026, 4, 6)
+  const diff = nextHoliday.value.startObj.getTime() - now.getTime()
+  return Math.ceil(diff / (1000 * 60 * 60 * 24))
+})
+
+const holidayTaskCount = computed(() => tasksStore.holidayTasks.length)
 
 function formatDate(date?: string) {
   if (!date) return '--'
@@ -45,8 +64,28 @@ function formatDate(date?: string) {
         Willkommen, {{ teacherStore.teacher.name.split(' ')[0] }}!
       </h1>
       <p class="text-sm text-gray-500 mt-1">
-        Klasse: {{ teacherStore.activeClass.name }} | Schuljahr {{ teacherStore.activeClass.schoolYear }}
+        Klasse: <strong>{{ teacherStore.activeClass.name }}</strong> | Schuljahr {{ teacherStore.activeClass.schoolYear }}
       </p>
+    </div>
+
+    <!-- Holiday notice -->
+    <div v-if="nextHoliday && daysUntilHoliday !== null && daysUntilHoliday <= 30" class="mb-6">
+      <div class="rounded-lg border border-amber-200 bg-amber-50 p-4 dark:border-amber-800 dark:bg-amber-950/30">
+        <div class="flex items-start gap-3">
+          <Palmtree :size="20" class="text-amber-600 shrink-0 mt-0.5" />
+          <div>
+            <p class="text-sm font-medium text-amber-800 dark:text-amber-300">
+              {{ nextHoliday.name }} in {{ daysUntilHoliday }} Tagen
+            </p>
+            <p class="text-xs text-amber-600 dark:text-amber-400 mt-0.5">
+              {{ holidayTaskCount }} Ferienaufgabe{{ holidayTaskCount !== 1 ? 'n' : '' }} vorbereitet
+            </p>
+            <NuxtLink to="/teacher/tasks" class="text-xs text-amber-700 hover:text-amber-800 underline mt-1 inline-block">
+              Ferienaufgaben verwalten &rarr;
+            </NuxtLink>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Dashboard grid -->
@@ -72,7 +111,7 @@ function formatDate(date?: string) {
             <div class="flex items-center justify-between mb-1">
               <span class="font-medium text-sm">{{ project.name }}</span>
               <UBadge
-                :color="project.status === 'Laufend' ? 'success' : 'warning'"
+                :color="project.status === 'Laufend' ? 'green' : 'neutral'"
                 variant="subtle"
                 size="xs"
               >
@@ -85,7 +124,7 @@ function formatDate(date?: string) {
         </div>
         <template #footer>
           <NuxtLink to="/teacher/projects" class="text-sm text-green-600 hover:text-green-700">
-            Alle Projekte →
+            Alle Projekte &rarr;
           </NuxtLink>
         </template>
       </UCard>
@@ -116,17 +155,17 @@ function formatDate(date?: string) {
         </div>
         <template #footer>
           <NuxtLink to="/teacher/curriculum" class="text-sm text-green-600 hover:text-green-700">
-            LP21-Tracking →
+            LP21-Tracking &rarr;
           </NuxtLink>
         </template>
       </UCard>
 
-      <!-- Upcoming Tasks -->
+      <!-- Upcoming Tasks (from Aufgabenpool) -->
       <UCard>
         <template #header>
           <div class="flex items-center gap-2">
-            <CheckSquare :size="18" class="text-green-600" />
-            <span class="font-semibold">Nächste Aufgaben</span>
+            <ClipboardList :size="18" class="text-green-600" />
+            <span class="font-semibold">Anstehende Aufgaben</span>
           </div>
         </template>
         <ul class="space-y-2">
@@ -139,15 +178,18 @@ function formatDate(date?: string) {
               type="checkbox"
               class="h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500"
               :checked="task.status === 'Erledigt'"
-              @change="projectsStore.toggleTask(task.id)"
+              @change="tasksStore.toggleTask(task.id)"
             />
-            <span class="flex-1 truncate">{{ task.title }}</span>
+            <span class="flex-1 truncate">
+              {{ task.title }}
+              <UBadge v-if="task.isHolidayTask" color="neutral" variant="subtle" size="xs" class="ml-1">Ferien</UBadge>
+            </span>
             <span class="text-xs text-gray-400 tabular-nums">{{ formatDate(task.dueDate) }}</span>
           </li>
         </ul>
         <template #footer>
-          <NuxtLink to="/teacher/projects" class="text-sm text-green-600 hover:text-green-700">
-            Alle Aufgaben →
+          <NuxtLink to="/teacher/tasks" class="text-sm text-green-600 hover:text-green-700">
+            Aufgabenpool &rarr;
           </NuxtLink>
         </template>
       </UCard>
@@ -166,13 +208,13 @@ function formatDate(date?: string) {
             :key="tip.id"
             class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400"
           >
-            <span class="mt-0.5 text-green-500">•</span>
+            <span class="mt-0.5 text-green-500">&bull;</span>
             <span>{{ tip.text }}</span>
           </li>
         </ul>
         <template #footer>
           <NuxtLink to="/teacher/calendar" class="text-sm text-green-600 hover:text-green-700">
-            Saisonkalender →
+            Saisonkalender &rarr;
           </NuxtLink>
         </template>
       </UCard>
@@ -197,7 +239,7 @@ function formatDate(date?: string) {
         </ul>
         <template #footer>
           <NuxtLink to="/teacher/materials" class="text-sm text-green-600 hover:text-green-700">
-            Alle Downloads →
+            Alle Downloads &rarr;
           </NuxtLink>
         </template>
       </UCard>
@@ -221,17 +263,20 @@ function formatDate(date?: string) {
                 'h-2 w-2 rounded-full shrink-0',
                 entry.type === 'task' ? 'bg-blue-500' :
                 entry.type === 'seasonal' ? 'bg-green-500' :
-                entry.type === 'harvest_market' ? 'bg-orange-500' :
-                'bg-violet-500',
+                entry.type === 'milestone' ? 'bg-violet-500' :
+                'bg-gray-400',
               ]"
             />
             <span class="text-xs text-gray-400 tabular-nums">{{ formatDate(entry.date) }}</span>
             <span class="truncate">{{ entry.title }}</span>
           </li>
+          <li v-if="weekEntries.length === 0" class="text-sm text-gray-400 italic">
+            Keine Einträge diese Woche.
+          </li>
         </ul>
         <template #footer>
           <NuxtLink to="/teacher/calendar" class="text-sm text-green-600 hover:text-green-700">
-            Zum Kalender →
+            Zum Kalender &rarr;
           </NuxtLink>
         </template>
       </UCard>

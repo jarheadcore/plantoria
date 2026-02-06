@@ -53,7 +53,7 @@ const tasksByPhase = computed(() => {
   const phases: Record<string, typeof filteredTasks.value> = {}
   for (const t of filteredTasks.value) {
     if (!phases[t.phase]) phases[t.phase] = []
-    phases[t.phase].push(t)
+    phases[t.phase]!.push(t)
   }
   return phases
 })
@@ -81,7 +81,7 @@ const preProjectByCategory = computed(() => {
   const cats: Record<string, typeof preProject.value.items> = {}
   for (const item of preProject.value.items) {
     if (!cats[item.category]) cats[item.category] = []
-    cats[item.category].push(item)
+    cats[item.category]!.push(item)
   }
   return cats
 })
@@ -215,7 +215,7 @@ function cultureStatusColor(status: string) {
               </span>
               <span v-if="task.groupName" class="text-xs text-gray-400">{{ task.groupName }}</span>
               <UBadge
-                :color="task.status === 'Erledigt' ? 'success' : task.status === 'In Bearbeitung' ? 'warning' : 'neutral'"
+                :color="task.status === 'Erledigt' ? 'green' : task.status === 'In Bearbeitung' ? 'primary' : 'neutral'"
                 variant="subtle"
                 size="xs"
               >
@@ -336,7 +336,7 @@ function cultureStatusColor(status: string) {
     <div v-if="activeTab === 'preproject' && preProject">
       <div class="mb-4 flex items-center gap-4">
         <UBadge
-          :color="preProject.status === 'Abgeschlossen' ? 'success' : 'warning'"
+          :color="preProject.status === 'Abgeschlossen' ? 'green' : 'neutral'"
           variant="subtle"
         >
           {{ preProject.status }}

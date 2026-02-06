@@ -1,17 +1,17 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { Project, PreProject, Task, Culture, StudentGroup } from '@/types'
-import { mockProjects, mockPreProjects } from '@/data/mock/projects'
-import { mockTasks } from '@/data/mock/tasks'
-import { mockCultures } from '@/data/mock/cultures'
-import { mockGroups } from '@/data/mock/groups'
+import { fixtureProjects, fixturePreProjects } from '@/data/fixtures/projects'
+import { fixtureTasks } from '@/data/fixtures/tasks'
+import { fixtureCultures } from '@/data/fixtures/cultures'
+import { fixtureGroups } from '@/data/fixtures/groups'
 
 export const useProjectsStore = defineStore('projects', () => {
-  const projects = ref<Project[]>(mockProjects)
-  const preProjects = ref<PreProject[]>(mockPreProjects)
-  const tasks = ref<Task[]>(mockTasks)
-  const cultures = ref<Culture[]>(mockCultures)
-  const groups = ref<StudentGroup[]>(mockGroups)
+  const projects = ref<Project[]>(fixtureProjects)
+  const preProjects = ref<PreProject[]>(fixturePreProjects)
+  const tasks = ref<Task[]>(fixtureTasks)
+  const cultures = ref<Culture[]>(fixtureCultures)
+  const groups = ref<StudentGroup[]>(fixtureGroups)
 
   const activeProjects = computed(() => projects.value.filter((p) => p.status !== 'Abgeschlossen'))
 

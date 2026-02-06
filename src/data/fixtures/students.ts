@@ -1,6 +1,6 @@
 import type { Student } from '@/types'
 
-export const mockStudents: Student[] = [
+export const fixtureStudents: Student[] = [
   { id: 's-1', name: 'Anna M.', classId: 'class-1', grade: 4, tabletAccess: true },
   { id: 's-2', name: 'Ben K.', classId: 'class-1', grade: 4, tabletAccess: true },
   { id: 's-3', name: 'Clara R.', classId: 'class-1', grade: 4, tabletAccess: true },

@@ -1,6 +1,6 @@
 import type { Project, PreProject } from '@/types'
 
-export const mockProjects: Project[] = [
+export const fixtureProjects: Project[] = [
   {
     id: 'proj-1',
     templateId: 'tmpl-1',
@@ -38,7 +38,7 @@ export const mockProjects: Project[] = [
   },
 ]
 
-export const mockPreProjects: PreProject[] = [
+export const fixturePreProjects: PreProject[] = [
   {
     id: 'pp-1',
     projectId: 'proj-1',
