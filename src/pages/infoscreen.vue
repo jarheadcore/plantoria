@@ -51,12 +51,12 @@ function onScroll() {
       style="scrollbar-width: none; -webkit-overflow-scrolling: touch"
       @scroll="onScroll"
     >
-      <DashboardSlideGemuese />
-      <DashboardSlideBienenstock />
-      <DashboardSlideRangliste />
-      <DashboardSlideAufgaben />
-      <DashboardSlideStatistik />
-      <DashboardSlideKalender />
+      <InfoscreenSlideGemuese />
+      <InfoscreenSlideBienenstock />
+      <InfoscreenSlideRangliste />
+      <InfoscreenSlideAufgaben />
+      <InfoscreenSlideStatistik />
+      <InfoscreenSlideKalender />
     </div>
 
     <!-- Dot indicators -->
