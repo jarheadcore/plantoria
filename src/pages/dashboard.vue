@@ -70,7 +70,7 @@ function toggleTodo(id: number) {
     </header>
 
     <!-- Tabs + Content fill remaining height -->
-    <UTabs :items="tabs" class="flex flex-col flex-1 min-h-0" variant="link" :ui="{ list: 'bg-white border-b border-green-200 px-2' }">
+    <UTabs :items="tabs" :default-value="'progress'" class="flex flex-col flex-1 min-h-0" variant="link" :ui="{ list: 'bg-white border-b border-green-200 px-2' }">
       <template #progress>
         <div class="flex-1 overflow-y-auto p-5">
           <div class="max-w-xl mx-auto space-y-6">
@@ -79,7 +79,9 @@ function toggleTodo(id: number) {
                 <span class="text-lg font-semibold">{{ item.icon }} {{ item.crop }}</span>
                 <UBadge color="success" variant="subtle">{{ item.phase }}</UBadge>
               </div>
-              <UProgress :value="item.percent" color="success" size="lg" />
+              <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
+                <div class="bg-green-500 h-3 rounded-full" :style="{ width: item.percent + '%' }" />
+              </div>
               <p class="text-right text-sm text-gray-500">{{ item.percent }}%</p>
             </div>
 
