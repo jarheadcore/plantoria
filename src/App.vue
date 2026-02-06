@@ -2,9 +2,7 @@
   <UApp>
     <UMain>
       <NuxtLayout>
-        <UContainer>
-          <NuxtPage />
-        </UContainer>
+        <NuxtPage />
       </NuxtLayout>
     </UMain>
   </UApp>
