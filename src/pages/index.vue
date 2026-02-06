@@ -8,10 +8,10 @@ useSeoMeta({
 </script>
 
 <template>
-  <div class="space-y-4">
+  <div class="py-8">
     <ContentRenderer v-if="todo" :value="todo" />
     <div v-else>Content not found</div>
-    <hr>
+    <hr class="my-4 border-neutral-600" />
     <div class="flex gap-3">
         <UButton color="primary" variant="solid">Hello Nuxt UI</UButton>
         <UButton to="/pinia-store-test">Go to Pinia Store Testing</UButton>
