@@ -35,5 +35,8 @@ coverage
 # Vitest
 __screenshots__/
 
+# Nuxt
+plantoria/.nuxt
+
 # Vite
 *.timestamp-*-*.mjs
