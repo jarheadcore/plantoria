@@ -1,9 +1,16 @@
 <script setup lang="ts">
-const progress = ref([
+const gemuese = ref([
   { crop: 'Karotten', icon: '🥕', percent: 72, phase: 'Wachstum' },
   { crop: 'Brokkoli', icon: '🥦', percent: 45, phase: 'Aussaat' },
   { crop: 'Tomaten', icon: '🍅', percent: 30, phase: 'Setzlinge' },
   { crop: 'Lauch', icon: '🌿', percent: 58, phase: 'Wachstum' }
+])
+
+const bienenstock = ref([
+  { task: 'Bienenvolk beobachten', icon: '🐝', percent: 60, phase: 'Aktiv' },
+  { task: 'Honig ernten', icon: '🍯', percent: 25, phase: 'Vorbereitung' },
+  { task: 'Waben kontrollieren', icon: '🪹', percent: 80, phase: 'Fertig' },
+  { task: 'Blumenwiese pflegen', icon: '🌸', percent: 50, phase: 'Wachstum' }
 ])
 
 const rankings = ref([
@@ -38,11 +45,12 @@ const calendar = ref([
 ])
 
 const tabs = [
-  { label: 'Pflanzen', emoji: '🌱', value: 'progress' },
-  { label: 'Rangliste', emoji: '🏆', value: 'ranking' },
-  { label: 'Aufgaben', emoji: '✅', value: 'todos' },
-  { label: 'Statistik', emoji: '📊', value: 'stats' },
-  { label: 'Kalender', emoji: '📅', value: 'calendar' }
+  { label: 'Gemüse', emoji: '🥬', value: 'gemuese', isProject: true },
+  { label: 'Bienen', emoji: '🐝', value: 'bienenstock', isProject: true },
+  { label: 'Rangliste', emoji: '🏆', value: 'ranking', isProject: false },
+  { label: 'Aufgaben', emoji: '✅', value: 'todos', isProject: false },
+  { label: 'Statistik', emoji: '📊', value: 'stats', isProject: false },
+  { label: 'Kalender', emoji: '📅', value: 'calendar', isProject: false }
 ]
 
 const activeTab = ref(0)
@@ -93,10 +101,10 @@ function toggleTodo(id: number) {
       style="scrollbar-width: none; -webkit-overflow-scrolling: touch"
       @scroll="onScroll"
     >
-      <!-- Progress panel -->
+      <!-- Gemüse project panel -->
       <section class="w-full shrink-0 snap-start snap-always overflow-y-auto p-4">
         <div class="space-y-5">
-          <div v-for="item in progress" :key="item.crop" class="bg-white rounded-2xl p-4 shadow-sm">
+          <div v-for="item in gemuese" :key="item.crop" class="bg-white rounded-2xl p-4 shadow-sm">
             <div class="flex items-center justify-between mb-2">
               <span class="text-xl font-bold">{{ item.icon }} {{ item.crop }}</span>
               <span class="bg-green-100 text-green-700 text-sm font-semibold px-3 py-1 rounded-full">
@@ -115,6 +123,33 @@ function toggleTodo(id: number) {
           <div class="p-5 bg-green-100 rounded-2xl text-center">
             <p class="text-base text-green-800 font-medium">
               🌤️ Dein Beet sieht in 3 Monaten grossartig aus!
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Bienenstock project panel -->
+      <section class="w-full shrink-0 snap-start snap-always overflow-y-auto p-4">
+        <div class="space-y-5">
+          <div v-for="item in bienenstock" :key="item.task" class="bg-white rounded-2xl p-4 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xl font-bold">{{ item.icon }} {{ item.task }}</span>
+              <span class="bg-amber-100 text-amber-700 text-sm font-semibold px-3 py-1 rounded-full">
+                {{ item.phase }}
+              </span>
+            </div>
+            <div class="w-full bg-amber-100 rounded-full h-5 overflow-hidden">
+              <div
+                class="bg-amber-400 h-full rounded-full transition-all"
+                :style="{ width: item.percent + '%' }"
+              />
+            </div>
+            <p class="text-right text-sm text-gray-500 mt-1 font-bold">{{ item.percent }}%</p>
+          </div>
+
+          <div class="p-5 bg-amber-100 rounded-2xl text-center">
+            <p class="text-base text-amber-800 font-medium">
+              🐝 Die Bienen sind fleissig am Arbeiten!
             </p>
           </div>
         </div>
@@ -245,17 +280,35 @@ function toggleTodo(id: number) {
 
     <!-- Bottom tab bar — big touch targets for kids -->
     <nav class="bg-white border-t border-gray-200 shrink-0 safe-area-bottom">
-      <div class="flex">
-        <button
-          v-for="(tab, i) in tabs"
-          :key="tab.value"
-          class="flex-1 flex flex-col items-center py-2 transition-colors"
-          :class="activeTab === i ? 'text-green-600' : 'text-gray-400'"
-          @click="scrollToTab(i)"
-        >
-          <span class="text-2xl leading-none">{{ tab.emoji }}</span>
-          <span class="text-xs font-bold mt-1">{{ tab.label }}</span>
-        </button>
+      <div class="flex items-stretch">
+        <!-- Project tabs (grouped left) -->
+        <template v-for="(tab, i) in tabs" :key="tab.value">
+          <button
+            v-if="tab.isProject"
+            class="flex-1 flex flex-col items-center py-2 transition-colors"
+            :class="activeTab === i ? 'text-green-600' : 'text-gray-400'"
+            @click="scrollToTab(i)"
+          >
+            <span class="text-2xl leading-none">{{ tab.emoji }}</span>
+            <span class="text-xs font-bold mt-1">{{ tab.label }}</span>
+          </button>
+        </template>
+
+        <!-- Separator -->
+        <div class="w-px bg-gray-200 my-2" />
+
+        <!-- Other tabs -->
+        <template v-for="(tab, i) in tabs" :key="'other-' + tab.value">
+          <button
+            v-if="!tab.isProject"
+            class="flex-1 flex flex-col items-center py-2 transition-colors"
+            :class="activeTab === i ? 'text-green-600' : 'text-gray-400'"
+            @click="scrollToTab(i)"
+          >
+            <span class="text-2xl leading-none">{{ tab.emoji }}</span>
+            <span class="text-xs font-bold mt-1">{{ tab.label }}</span>
+          </button>
+        </template>
       </div>
     </nav>
   </div>
