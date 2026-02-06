@@ -1,10 +1,72 @@
 <script setup lang="ts">
+interface Milestone {
+  at: number
+  status: 'accomplished' | 'failed' | 'planned'
+  label: string
+  image?: string
+}
+
 const gemuese = ref([
-  { crop: 'Karotten', icon: '🥕', percent: 72, phase: 'Wachstum' },
-  { crop: 'Brokkoli', icon: '🥦', percent: 45, phase: 'Aussaat' },
-  { crop: 'Tomaten', icon: '🍅', percent: 30, phase: 'Setzlinge' },
-  { crop: 'Lauch', icon: '🌿', percent: 58, phase: 'Wachstum' },
+  {
+    crop: 'Karotten',
+    icon: '🥕',
+    percent: 72,
+    phase: 'Wachstum',
+    milestones: [
+      { at: 25, status: 'accomplished', label: 'Gekeimt' },
+      { at: 50, status: 'accomplished', label: 'Erstes Grün', image: '/milestone-karotte.jpg' },
+      { at: 75, status: 'planned', label: 'Erntereif' },
+      { at: 100, status: 'planned', label: 'Geerntet' },
+    ] as Milestone[],
+  },
+  {
+    crop: 'Brokkoli',
+    icon: '🥦',
+    percent: 45,
+    phase: 'Aussaat',
+    milestones: [
+      { at: 25, status: 'accomplished', label: 'Gekeimt' },
+      { at: 50, status: 'planned', label: 'Kopfbildung' },
+      { at: 75, status: 'planned', label: 'Erntereif' },
+      { at: 100, status: 'planned', label: 'Geerntet' },
+    ] as Milestone[],
+  },
+  {
+    crop: 'Tomaten',
+    icon: '🍅',
+    percent: 30,
+    phase: 'Setzlinge',
+    milestones: [
+      { at: 25, status: 'accomplished', label: 'Gekeimt' },
+      { at: 50, status: 'failed', label: 'Umgetopft' },
+      { at: 75, status: 'planned', label: 'Erste Früchte' },
+      { at: 100, status: 'planned', label: 'Geerntet' },
+    ] as Milestone[],
+  },
+  {
+    crop: 'Lauch',
+    icon: '🌿',
+    percent: 58,
+    phase: 'Wachstum',
+    milestones: [
+      { at: 25, status: 'accomplished', label: 'Gekeimt' },
+      { at: 50, status: 'accomplished', label: 'Angewachsen' },
+      { at: 75, status: 'planned', label: 'Erntereif' },
+      { at: 100, status: 'planned', label: 'Geerntet' },
+    ] as Milestone[],
+  },
 ])
+
+const bubbleClasses = (status: Milestone['status']) => {
+  switch (status) {
+    case 'accomplished':
+      return 'bg-green-500 border-green-600 text-white'
+    case 'failed':
+      return 'bg-red-400 border-red-500 text-white'
+    case 'planned':
+      return 'bg-white border-gray-300 text-gray-400'
+  }
+}
 </script>
 
 <template>
@@ -17,11 +79,46 @@ const gemuese = ref([
             {{ item.phase }}
           </span>
         </div>
-        <div class="w-full bg-green-100 rounded-full h-5 overflow-hidden">
+        <div class="relative w-full mb-6">
+          <div class="w-full bg-green-100 rounded-full h-5 overflow-hidden">
+            <div
+              class="bg-green-500 h-full rounded-full transition-all"
+              :style="{ width: item.percent + '%' }"
+            />
+          </div>
           <div
-            class="bg-green-500 h-full rounded-full transition-all"
-            :style="{ width: item.percent + '%' }"
-          />
+            v-for="ms in item.milestones"
+            :key="ms.at"
+            class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 group"
+            :style="{ left: ms.at + '%' }"
+          >
+            <div
+              class="w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold shadow-md transition-transform hover:scale-110 cursor-default"
+              :class="bubbleClasses(ms.status)"
+            >
+              <template v-if="ms.status === 'accomplished' && ms.image">
+                <img
+                  :src="ms.image"
+                  :alt="ms.label"
+                  class="w-full h-full rounded-full object-cover"
+                />
+              </template>
+              <template v-else-if="ms.status === 'accomplished'">
+                &#10003;
+              </template>
+              <template v-else-if="ms.status === 'failed'">
+                &#10007;
+              </template>
+              <template v-else>
+                {{ ms.at }}
+              </template>
+            </div>
+            <span
+              class="absolute left-1/2 -translate-x-1/2 top-full mt-1 text-xs text-gray-500 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+            >
+              {{ ms.label }}
+            </span>
+          </div>
         </div>
         <p class="text-right text-sm text-gray-500 mt-1 font-bold">{{ item.percent }}%</p>
       </div>
