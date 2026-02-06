@@ -14,6 +14,11 @@ const swissRankings = ref([
   { rank: 12, name: 'Klasse HE24a', school: 'Unsere Schule', points: 1050, highlight: true },
   { rank: 13, name: 'Klasse 1c', school: 'Schule Luzern', points: 1020 },
 ])
+
+const schoolMax = computed(() => Math.max(...schoolRankings.value.map((r) => r.points)))
+const swissMax = computed(() => Math.max(...swissRankings.value.map((r) => r.points)))
+
+const barColors = ['bg-amber-400', 'bg-amber-300', 'bg-yellow-300', 'bg-green-300', 'bg-green-200']
 </script>
 
 <template>
@@ -24,21 +29,27 @@ const swissRankings = ref([
         <h3 class="text-sm font-bold text-green-700 mb-2 text-center">🏫 Meine Schule</h3>
         <div class="space-y-2 overflow-y-auto flex-1">
           <div
-            v-for="entry in schoolRankings"
+            v-for="(entry, i) in schoolRankings"
             :key="entry.rank"
-            class="flex items-center gap-2 p-2 rounded-xl shadow-sm"
-            :class="entry.highlight ? 'bg-green-100 ring-2 ring-green-400' : 'bg-white'"
+            class="relative h-10 rounded-xl overflow-hidden"
+            :class="entry.highlight ? 'ring-2 ring-green-400' : ''"
           >
-            <span
-              class="text-2xl font-black w-8 text-center"
-              :class="entry.rank <= 3 ? 'text-amber-500' : 'text-gray-300'"
-            >
-              {{ entry.rank }}
-            </span>
-            <div class="flex-1 min-w-0">
-              <p class="font-bold text-sm truncate">{{ entry.name }}</p>
+            <div class="absolute inset-0 bg-gray-100" />
+            <div
+              class="absolute inset-y-0 left-0 rounded-xl transition-all duration-700 ease-out"
+              :class="entry.highlight ? 'bg-green-400' : barColors[i] || 'bg-gray-200'"
+              :style="{ width: (entry.points / schoolMax) * 100 + '%' }"
+            />
+            <div class="absolute inset-0 flex items-center px-2 gap-1">
+              <span
+                class="text-lg font-black shrink-0"
+                :class="entry.rank <= 3 ? 'text-amber-600' : 'text-gray-400'"
+              >
+                {{ entry.rank }}
+              </span>
+              <span class="font-bold text-sm truncate">{{ entry.name }}</span>
+              <span class="ml-auto text-sm font-black text-green-800">{{ entry.points }}</span>
             </div>
-            <span class="text-sm font-black text-green-700">{{ entry.points }}</span>
           </div>
         </div>
       </div>
@@ -48,22 +59,30 @@ const swissRankings = ref([
         <h3 class="text-sm font-bold text-blue-700 mb-2 text-center">🇨🇭 Schweizweit</h3>
         <div class="space-y-2 overflow-y-auto flex-1">
           <div
-            v-for="entry in swissRankings"
+            v-for="(entry, i) in swissRankings"
             :key="entry.rank"
-            class="flex items-center gap-2 p-2 rounded-xl shadow-sm"
-            :class="entry.highlight ? 'bg-blue-100 ring-2 ring-blue-400' : 'bg-white'"
+            class="relative h-10 rounded-xl overflow-hidden"
+            :class="entry.highlight ? 'ring-2 ring-blue-400' : ''"
           >
-            <span
-              class="text-2xl font-black w-8 text-center"
-              :class="entry.rank <= 3 ? 'text-amber-500' : 'text-gray-300'"
-            >
-              {{ entry.rank }}
-            </span>
-            <div class="flex-1 min-w-0">
-              <p class="font-bold text-sm truncate">{{ entry.name }}</p>
-              <p class="text-xs text-gray-500 truncate">{{ entry.school }}</p>
+            <div class="absolute inset-0 bg-gray-100" />
+            <div
+              class="absolute inset-y-0 left-0 rounded-xl transition-all duration-700 ease-out"
+              :class="entry.highlight ? 'bg-blue-400' : barColors[i] || 'bg-gray-200'"
+              :style="{ width: (entry.points / swissMax) * 100 + '%' }"
+            />
+            <div class="absolute inset-0 flex items-center px-2 gap-1">
+              <span
+                class="text-lg font-black shrink-0"
+                :class="entry.rank <= 3 ? 'text-amber-600' : 'text-gray-400'"
+              >
+                {{ entry.rank }}
+              </span>
+              <div class="min-w-0 flex-1">
+                <p class="font-bold text-sm truncate leading-tight">{{ entry.name }}</p>
+                <p class="text-[10px] text-gray-600 truncate leading-tight">{{ entry.school }}</p>
+              </div>
+              <span class="ml-auto text-sm font-black text-green-800 shrink-0">{{ entry.points }}</span>
             </div>
-            <span class="text-sm font-black text-green-700">{{ entry.points }}</span>
           </div>
         </div>
       </div>
