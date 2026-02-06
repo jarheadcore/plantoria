@@ -3,9 +3,14 @@ Here is some content.
 
 ### Todos Christian
 - styling nuxtui / general colors + fonts
+- hosting von "nuxt build" als static site
+- 
 
 ## Todos Louis
-- test todo
+- AdminView
+    - Benutzerverwaltung
+- LehrpersonenView
+    - 
 
 ## Todos Roland
 - test todo

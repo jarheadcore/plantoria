@@ -14,7 +14,7 @@ useSeoMeta({
     <hr>
     <div class="flex gap-3">
         <UButton color="primary" variant="solid">Hello Nuxt UI</UButton>
-        <UButton to="/TestView">Go to Test View Page</UButton>
+        <UButton to="/pinia-store-test">Go to Pinia Store Testing</UButton>
     </div>
   </div>
 </template>
