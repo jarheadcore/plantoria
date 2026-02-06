@@ -38,12 +38,32 @@ const calendar = ref([
 ])
 
 const tabs = [
-  { label: 'Fortschritt', icon: 'i-lucide-bar-chart-3', value: 'progress', slot: 'progress' },
-  { label: 'Rangliste', icon: 'i-lucide-trophy', value: 'ranking', slot: 'ranking' },
-  { label: 'Pendenzen', icon: 'i-lucide-check-square', value: 'todos', slot: 'todos' },
-  { label: 'Statistik', icon: 'i-lucide-trending-up', value: 'stats', slot: 'stats' },
-  { label: 'Kalender', icon: 'i-lucide-calendar', value: 'calendar', slot: 'calendar' }
+  { label: 'Pflanzen', emoji: '🌱', value: 'progress' },
+  { label: 'Rangliste', emoji: '🏆', value: 'ranking' },
+  { label: 'Aufgaben', emoji: '✅', value: 'todos' },
+  { label: 'Statistik', emoji: '📊', value: 'stats' },
+  { label: 'Kalender', emoji: '📅', value: 'calendar' }
 ]
+
+const activeTab = ref(0)
+const scrollContainer = ref<HTMLElement | null>(null)
+
+function scrollToTab(index: number) {
+  activeTab.value = index
+  scrollContainer.value?.children[index]?.scrollIntoView({
+    behavior: 'smooth',
+    block: 'nearest',
+    inline: 'start'
+  })
+}
+
+function onScroll() {
+  const el = scrollContainer.value
+  if (!el) return
+  const scrollLeft = el.scrollLeft
+  const panelWidth = el.offsetWidth
+  activeTab.value = Math.round(scrollLeft / panelWidth)
+}
 
 function toggleTodo(id: number) {
   const todo = todos.value.find(t => t.id === id)
@@ -52,144 +72,203 @@ function toggleTodo(id: number) {
 </script>
 
 <template>
-  <div class="h-screen flex flex-col bg-green-50/50">
-    <!-- Header -->
-    <header class="bg-green-600 text-white px-4 py-3 shrink-0">
+  <div class="h-dvh flex flex-col bg-green-50/50 overflow-hidden select-none">
+    <!-- Compact header -->
+    <header class="bg-green-600 text-white px-4 py-2 shrink-0">
       <div class="flex items-center justify-between">
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2">
           <span class="text-2xl">🌱</span>
-          <div>
-            <h1 class="text-xl font-bold leading-tight">Plantoria</h1>
-            <p class="text-green-100 text-xs">Klasse HE24a — Gemüsebeet Projekt</p>
-          </div>
+          <h1 class="text-lg font-bold">Plantoria</h1>
         </div>
-        <UBadge color="warning" variant="solid" size="lg">
-          🏆 1050 Punkte
-        </UBadge>
+        <div class="bg-amber-400 text-amber-900 font-bold rounded-full px-3 py-1 text-sm">
+          🏆 1050
+        </div>
       </div>
     </header>
 
-    <!-- Tabs + Content fill remaining height -->
-    <UTabs :items="tabs" :default-value="'progress'" class="flex flex-col flex-1 min-h-0" variant="link" :ui="{ list: 'bg-white border-b border-green-200 px-2' }">
-      <template #progress>
-        <div class="flex-1 overflow-y-auto p-5">
-          <div class="max-w-xl mx-auto space-y-6">
-            <div v-for="item in progress" :key="item.crop" class="space-y-2">
-              <div class="flex items-center justify-between">
-                <span class="text-lg font-semibold">{{ item.icon }} {{ item.crop }}</span>
-                <UBadge color="success" variant="subtle">{{ item.phase }}</UBadge>
-              </div>
-              <div class="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                <div class="bg-green-500 h-3 rounded-full" :style="{ width: item.percent + '%' }" />
-              </div>
-              <p class="text-right text-sm text-gray-500">{{ item.percent }}%</p>
-            </div>
-
-            <div class="mt-8 p-4 bg-green-100 rounded-2xl text-center">
-              <p class="text-sm text-green-800">🌤️ Digitale Vorschau: Dein Beet in 3 Monaten sieht grossartig aus!</p>
-            </div>
-          </div>
-        </div>
-      </template>
-
-      <template #ranking>
-        <div class="flex-1 overflow-y-auto p-5">
-          <div class="max-w-xl mx-auto space-y-3">
-            <div
-              v-for="entry in rankings"
-              :key="entry.rank"
-              class="flex items-center gap-4 p-4 rounded-2xl"
-              :class="entry.highlight ? 'bg-green-100 ring-2 ring-green-400' : 'bg-white'"
-            >
-              <span
-                class="text-3xl font-black w-10 text-center"
-                :class="entry.rank <= 3 ? 'text-amber-500' : 'text-gray-300'"
-              >
-                {{ entry.rank }}
+    <!-- Swipeable panels -->
+    <div
+      ref="scrollContainer"
+      class="flex-1 flex overflow-x-auto snap-x snap-mandatory scroll-smooth"
+      style="scrollbar-width: none; -webkit-overflow-scrolling: touch"
+      @scroll="onScroll"
+    >
+      <!-- Progress panel -->
+      <section class="w-full shrink-0 snap-start snap-always overflow-y-auto p-4">
+        <div class="space-y-5">
+          <div v-for="item in progress" :key="item.crop" class="bg-white rounded-2xl p-4 shadow-sm">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xl font-bold">{{ item.icon }} {{ item.crop }}</span>
+              <span class="bg-green-100 text-green-700 text-sm font-semibold px-3 py-1 rounded-full">
+                {{ item.phase }}
               </span>
-              <div class="flex-1 min-w-0">
-                <p class="font-semibold text-base truncate">{{ entry.name }}</p>
-                <p class="text-sm text-gray-500">{{ entry.school }}</p>
-              </div>
-              <span class="text-lg font-bold text-green-700">{{ entry.points }}</span>
             </div>
-          </div>
-        </div>
-      </template>
-
-      <template #todos>
-        <div class="flex-1 overflow-y-auto p-5">
-          <div class="max-w-xl mx-auto">
-            <div class="flex items-center justify-between mb-4">
-              <h2 class="text-lg font-semibold text-green-800">Aufgaben</h2>
-              <UBadge color="neutral" variant="subtle" size="lg">
-                {{ todos.filter(t => !t.done).length }} offen
-              </UBadge>
-            </div>
-
-            <div class="space-y-2">
+            <div class="w-full bg-green-100 rounded-full h-5 overflow-hidden">
               <div
-                v-for="todo in todos"
-                :key="todo.id"
-                class="flex items-center gap-4 p-4 bg-white rounded-2xl cursor-pointer active:bg-gray-50"
-                @click="toggleTodo(todo.id)"
-              >
-                <UCheckbox :model-value="todo.done" size="lg" />
-                <div class="flex-1 min-w-0">
-                  <p class="text-base" :class="todo.done ? 'line-through text-gray-400' : 'font-medium'">
-                    {{ todo.title }}
-                  </p>
-                  <p class="text-sm text-gray-500">{{ todo.group }}</p>
-                </div>
-              </div>
+                class="bg-green-500 h-full rounded-full transition-all"
+                :style="{ width: item.percent + '%' }"
+              />
             </div>
+            <p class="text-right text-sm text-gray-500 mt-1 font-bold">{{ item.percent }}%</p>
+          </div>
+
+          <div class="p-5 bg-green-100 rounded-2xl text-center">
+            <p class="text-base text-green-800 font-medium">
+              🌤️ Dein Beet sieht in 3 Monaten grossartig aus!
+            </p>
           </div>
         </div>
-      </template>
+      </section>
 
-      <template #stats>
-        <div class="flex-1 overflow-y-auto p-5">
-          <div class="max-w-xl mx-auto space-y-4">
-            <div class="p-6 bg-green-100 rounded-2xl text-center">
-              <p class="text-5xl font-black text-green-700">{{ stats.tasksCompleted }}/{{ stats.tasksTotal }}</p>
-              <p class="text-sm text-green-800 mt-2">Aufgaben erledigt</p>
-              <UProgress :value="(stats.tasksCompleted / stats.tasksTotal) * 100" color="success" size="lg" class="mt-3" />
-            </div>
-
-            <div class="grid grid-cols-2 gap-4">
-              <div class="p-6 bg-amber-50 rounded-2xl text-center">
-                <p class="text-4xl font-black text-amber-700">{{ stats.harvestKg }} kg</p>
-                <p class="text-sm text-gray-600 mt-2">Ernte bisher</p>
-              </div>
-              <div class="p-6 bg-blue-50 rounded-2xl text-center">
-                <p class="text-4xl font-black text-blue-700">{{ stats.activeProjects }}</p>
-                <p class="text-sm text-gray-600 mt-2">Aktive Projekte</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </template>
-
-      <template #calendar>
-        <div class="flex-1 overflow-y-auto p-5">
-          <div class="max-w-xl mx-auto space-y-3">
-            <div
-              v-for="(event, i) in calendar"
-              :key="i"
-              class="flex items-center gap-4 p-4 bg-white rounded-2xl"
+      <!-- Ranking panel -->
+      <section class="w-full shrink-0 snap-start snap-always overflow-y-auto p-4">
+        <div class="space-y-3">
+          <div
+            v-for="entry in rankings"
+            :key="entry.rank"
+            class="flex items-center gap-4 p-4 rounded-2xl shadow-sm"
+            :class="entry.highlight ? 'bg-green-100 ring-2 ring-green-400' : 'bg-white'"
+          >
+            <span
+              class="text-4xl font-black w-12 text-center"
+              :class="entry.rank <= 3 ? 'text-amber-500' : 'text-gray-300'"
             >
-              <div class="shrink-0 w-16 h-16 bg-green-100 rounded-xl flex flex-col items-center justify-center">
-                <p class="text-xs text-green-600 font-semibold leading-tight">{{ event.date.split(' ')[0] }}</p>
-                <p class="text-lg font-black text-green-800 leading-tight">{{ event.date.split(' ')[1] }}</p>
-              </div>
-              <div class="flex-1 min-w-0">
-                <p class="font-semibold text-base">{{ event.task }}</p>
-                <p class="text-sm text-gray-500">{{ event.crop }}</p>
-              </div>
+              {{ entry.rank }}
+            </span>
+            <div class="flex-1 min-w-0">
+              <p class="font-bold text-lg truncate">{{ entry.name }}</p>
+              <p class="text-sm text-gray-500">{{ entry.school }}</p>
+            </div>
+            <span class="text-xl font-black text-green-700">{{ entry.points }}</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Todos panel -->
+      <section class="w-full shrink-0 snap-start snap-always overflow-y-auto p-4">
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="text-xl font-bold text-green-800">Aufgaben</h2>
+          <span class="bg-amber-100 text-amber-800 font-bold rounded-full px-3 py-1 text-sm">
+            {{ todos.filter(t => !t.done).length }} offen
+          </span>
+        </div>
+
+        <div class="space-y-3">
+          <div
+            v-for="todo in todos"
+            :key="todo.id"
+            class="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm cursor-pointer active:scale-[0.98] transition-transform"
+            @click="toggleTodo(todo.id)"
+          >
+            <div
+              class="w-10 h-10 rounded-xl flex items-center justify-center text-2xl shrink-0"
+              :class="todo.done ? 'bg-green-100' : 'bg-gray-100'"
+            >
+              {{ todo.done ? '✅' : '⬜' }}
+            </div>
+            <div class="flex-1 min-w-0">
+              <p
+                class="text-lg"
+                :class="todo.done ? 'line-through text-gray-400' : 'font-semibold'"
+              >
+                {{ todo.title }}
+              </p>
+              <p class="text-sm text-gray-500">{{ todo.group }}</p>
             </div>
           </div>
         </div>
-      </template>
-    </UTabs>
+      </section>
+
+      <!-- Stats panel -->
+      <section class="w-full shrink-0 snap-start snap-always overflow-y-auto p-4">
+        <div class="space-y-4">
+          <div class="p-6 bg-green-100 rounded-2xl text-center">
+            <p class="text-6xl font-black text-green-700">
+              {{ stats.tasksCompleted }}/{{ stats.tasksTotal }}
+            </p>
+            <p class="text-base text-green-800 mt-2 font-medium">Aufgaben erledigt</p>
+            <div class="w-full bg-green-200 rounded-full h-5 mt-4 overflow-hidden">
+              <div
+                class="bg-green-500 h-full rounded-full transition-all"
+                :style="{ width: (stats.tasksCompleted / stats.tasksTotal) * 100 + '%' }"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div class="p-6 bg-amber-50 rounded-2xl text-center shadow-sm">
+              <p class="text-5xl font-black text-amber-600">{{ stats.harvestKg }}</p>
+              <p class="text-base text-gray-600 mt-1 font-medium">kg Ernte</p>
+            </div>
+            <div class="p-6 bg-blue-50 rounded-2xl text-center shadow-sm">
+              <p class="text-5xl font-black text-blue-600">{{ stats.activeProjects }}</p>
+              <p class="text-base text-gray-600 mt-1 font-medium">Projekte</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Calendar panel -->
+      <section class="w-full shrink-0 snap-start snap-always overflow-y-auto p-4">
+        <div class="space-y-3">
+          <div
+            v-for="(event, i) in calendar"
+            :key="i"
+            class="flex items-center gap-4 p-4 bg-white rounded-2xl shadow-sm"
+          >
+            <div class="shrink-0 w-16 h-16 bg-green-100 rounded-xl flex flex-col items-center justify-center">
+              <p class="text-xs text-green-600 font-bold leading-tight">
+                {{ event.date.split(' ')[0] }}
+              </p>
+              <p class="text-xl font-black text-green-800 leading-tight">
+                {{ event.date.split(' ')[1] }}
+              </p>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-bold text-lg">{{ event.task }}</p>
+              <p class="text-sm text-gray-500">{{ event.crop }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Dot indicators -->
+    <div class="flex justify-center gap-2 py-2 bg-white/80 shrink-0">
+      <div
+        v-for="(tab, i) in tabs"
+        :key="tab.value"
+        class="w-2 h-2 rounded-full transition-all"
+        :class="activeTab === i ? 'bg-green-600 w-6' : 'bg-gray-300'"
+      />
+    </div>
+
+    <!-- Bottom tab bar — big touch targets for kids -->
+    <nav class="bg-white border-t border-gray-200 shrink-0 safe-area-bottom">
+      <div class="flex">
+        <button
+          v-for="(tab, i) in tabs"
+          :key="tab.value"
+          class="flex-1 flex flex-col items-center py-2 transition-colors"
+          :class="activeTab === i ? 'text-green-600' : 'text-gray-400'"
+          @click="scrollToTab(i)"
+        >
+          <span class="text-2xl leading-none">{{ tab.emoji }}</span>
+          <span class="text-xs font-bold mt-1">{{ tab.label }}</span>
+        </button>
+      </div>
+    </nav>
   </div>
 </template>
+
+<style scoped>
+/* Hide scrollbar across browsers */
+div[style*="scrollbar-width"] ::-webkit-scrollbar {
+  display: none;
+}
+
+/* Safe area for devices with home indicator */
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+</style>
