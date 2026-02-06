@@ -5,5 +5,13 @@ export default defineNuxtConfig({
   css: ["@/styles/global.css"],
   modules: ["@pinia/nuxt", "@nuxt/ui", "@nuxt/content"],
   devtools: { enabled: true },
-  compatibilityDate: '2026-02-06'
+  compatibilityDate: '2026-02-06',
+  components: [
+    { path: '~/components', pathPrefix: false },
+  ],
+  ui: {
+    theme: {
+      colors: ['green'],
+    },
+  },
 })

@@ -1,0 +1,48 @@
+import type { Culture } from '@/types'
+
+export const mockCultures: Culture[] = [
+  {
+    id: 'c-1',
+    projectId: 'proj-1',
+    plantName: 'Rübli',
+    plantType: 'Gemüse',
+    status: 'Wächst',
+    progress: 80,
+    sowingDate: '2026-03-15',
+    expectedHarvestDate: '2026-07-15',
+    bedNumber: 'Beet 1',
+  },
+  {
+    id: 'c-2',
+    projectId: 'proj-1',
+    plantName: 'Kohl',
+    plantType: 'Gemüse',
+    status: 'Wächst',
+    progress: 50,
+    sowingDate: '2026-04-01',
+    expectedHarvestDate: '2026-08-15',
+    bedNumber: 'Beet 2',
+  },
+  {
+    id: 'c-3',
+    projectId: 'proj-1',
+    plantName: 'Tomaten',
+    plantType: 'Gemüse',
+    status: 'Gesät',
+    progress: 20,
+    sowingDate: '2026-04-20',
+    expectedHarvestDate: '2026-09-01',
+    bedNumber: 'Beet 3',
+  },
+  {
+    id: 'c-4',
+    projectId: 'proj-1',
+    plantName: 'Kräuter',
+    plantType: 'Kräuter',
+    status: 'Erntereif',
+    progress: 90,
+    sowingDate: '2026-03-01',
+    expectedHarvestDate: '2026-05-20',
+    bedNumber: 'Beet 4',
+  },
+]
