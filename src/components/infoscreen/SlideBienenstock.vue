@@ -13,10 +13,10 @@ const bienenstock = ref([
     percent: 60,
     phase: 'Aktiv',
     milestones: [
-      { at: 25, status: 'accomplished', label: 'Volk gesichtet' },
-      { at: 50, status: 'accomplished', label: 'Königin gefunden', image: '/milestone-queen.jpg' },
-      { at: 75, status: 'planned', label: 'Brut geprüft' },
-      { at: 100, status: 'planned', label: 'Bericht fertig' },
+      { at: 25, status: 'accomplished', label: 'Volk gesichtet', image: '/milestones/bienen-volk-gesichtet.svg' },
+      { at: 50, status: 'accomplished', label: 'Königin gefunden', image: '/milestones/bienen-koenigin-gefunden.svg' },
+      { at: 75, status: 'planned', label: 'Brut geprüft', image: '/milestones/bienen-brut-geprueft.svg' },
+      { at: 100, status: 'planned', label: 'Bericht fertig', image: '/milestones/bienen-bericht-fertig.svg' },
     ] as Milestone[],
   },
   {
@@ -25,10 +25,10 @@ const bienenstock = ref([
     percent: 25,
     phase: 'Vorbereitung',
     milestones: [
-      { at: 25, status: 'accomplished', label: 'Waben voll' },
-      { at: 50, status: 'planned', label: 'Schleudern' },
-      { at: 75, status: 'planned', label: 'Abfüllen' },
-      { at: 100, status: 'planned', label: 'Etikettiert' },
+      { at: 25, status: 'accomplished', label: 'Waben voll', image: '/milestones/honig-waben-voll.svg' },
+      { at: 50, status: 'planned', label: 'Schleudern', image: '/milestones/honig-schleudern.svg' },
+      { at: 75, status: 'planned', label: 'Abfüllen', image: '/milestones/honig-abfuellen.svg' },
+      { at: 100, status: 'planned', label: 'Etikettiert', image: '/milestones/honig-etikettiert.svg' },
     ] as Milestone[],
   },
   {
@@ -37,10 +37,10 @@ const bienenstock = ref([
     percent: 80,
     phase: 'Fertig',
     milestones: [
-      { at: 25, status: 'accomplished', label: 'Geöffnet' },
-      { at: 50, status: 'accomplished', label: 'Inspiziert' },
-      { at: 75, status: 'accomplished', label: 'Gereinigt' },
-      { at: 100, status: 'planned', label: 'Dokumentiert' },
+      { at: 25, status: 'accomplished', label: 'Geöffnet', image: '/milestones/waben-geoeffnet.svg' },
+      { at: 50, status: 'accomplished', label: 'Inspiziert', image: '/milestones/waben-inspiziert.svg' },
+      { at: 75, status: 'accomplished', label: 'Gereinigt', image: '/milestones/waben-gereinigt.svg' },
+      { at: 100, status: 'planned', label: 'Dokumentiert', image: '/milestones/waben-dokumentiert.svg' },
     ] as Milestone[],
   },
   {
@@ -49,10 +49,10 @@ const bienenstock = ref([
     percent: 50,
     phase: 'Wachstum',
     milestones: [
-      { at: 25, status: 'accomplished', label: 'Gesät' },
-      { at: 50, status: 'failed', label: 'Bewässert' },
-      { at: 75, status: 'planned', label: 'Blüte' },
-      { at: 100, status: 'planned', label: 'Abgeerntet' },
+      { at: 25, status: 'accomplished', label: 'Gesät', image: '/milestones/blumen-gesaet.svg' },
+      { at: 50, status: 'failed', label: 'Bewässert', image: '/milestones/blumen-bewaessert.svg' },
+      { at: 75, status: 'planned', label: 'Blüte', image: '/milestones/blumen-bluete.svg' },
+      { at: 100, status: 'planned', label: 'Abgeerntet', image: '/milestones/blumen-abgeerntet.svg' },
     ] as Milestone[],
   },
 ])
@@ -100,7 +100,7 @@ const bubbleClasses = (status: Milestone['status']) => {
               class="w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold shadow-md transition-transform hover:scale-110 cursor-default"
               :class="bubbleClasses(ms.status)"
             >
-              <template v-if="ms.status === 'accomplished' && ms.image">
+              <template v-if="ms.image">
                 <img
                   :src="ms.image"
                   :alt="ms.label"

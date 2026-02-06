@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="#E8F5E9"/>
+  <!-- Thick stem -->
+  <rect x="29" y="38" width="6" height="16" rx="2" fill="#66BB6A"/>
+  <!-- Large leaves -->
+  <ellipse cx="20" cy="42" rx="10" ry="4" fill="#81C784" transform="rotate(-25 20 42)"/>
+  <ellipse cx="44" cy="42" rx="10" ry="4" fill="#81C784" transform="rotate(25 44 42)"/>
+  <ellipse cx="22" cy="38" rx="8" ry="3" fill="#66BB6A" transform="rotate(-15 22 38)"/>
+  <ellipse cx="42" cy="38" rx="8" ry="3" fill="#66BB6A" transform="rotate(15 42 38)"/>
+  <!-- Full broccoli head - deep green cluster -->
+  <circle cx="32" cy="28" r="12" fill="#2E7D32"/>
+  <circle cx="26" cy="25" r="5" fill="#388E3C"/>
+  <circle cx="38" cy="25" r="5" fill="#388E3C"/>
+  <circle cx="32" cy="22" r="5.5" fill="#43A047"/>
+  <circle cx="32" cy="30" r="5" fill="#388E3C"/>
+  <circle cx="26" cy="30" r="4" fill="#2E7D32"/>
+  <circle cx="38" cy="30" r="4" fill="#2E7D32"/>
+  <circle cx="22" cy="27" r="3" fill="#2E7D32"/>
+  <circle cx="42" cy="27" r="3" fill="#2E7D32"/>
+  <!-- Bumpy texture highlights -->
+  <circle cx="29" cy="23" r="1.5" fill="#4CAF50"/>
+  <circle cx="35" cy="23" r="1.5" fill="#4CAF50"/>
+  <circle cx="32" cy="26" r="1.5" fill="#4CAF50"/>
+  <circle cx="28" cy="28" r="1" fill="#4CAF50"/>
+  <circle cx="36" cy="28" r="1" fill="#4CAF50"/>
+  <!-- Sparkle -->
+  <circle cx="48" cy="12" r="1.5" fill="#FFD54F"/>
+  <circle cx="50" cy="15" r="1" fill="#FFD54F"/>
+</svg>

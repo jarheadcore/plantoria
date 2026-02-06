@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="#E8F5E9"/>
+  <!-- Soil -->
+  <ellipse cx="32" cy="50" rx="22" ry="7" fill="#795548"/>
+  <ellipse cx="32" cy="48" rx="20" ry="5" fill="#8D6E63"/>
+  <!-- White/light green leek shaft below soil line -->
+  <rect x="29" y="44" width="6" height="8" rx="2" fill="#F1F8E9"/>
+  <!-- Light green shaft above soil -->
+  <rect x="29" y="34" width="6" height="12" rx="2" fill="#C5E1A5"/>
+  <!-- Leaves fanning out -->
+  <path d="M32 34 Q28 20 24 10" stroke="#66BB6A" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M32 34 Q32 18 32 10" stroke="#81C784" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <path d="M32 34 Q36 20 40 10" stroke="#66BB6A" stroke-width="3" stroke-linecap="round" fill="none"/>
+  <!-- Leaf tips -->
+  <ellipse cx="24" cy="10" rx="2" ry="3" fill="#66BB6A" transform="rotate(-15 24 10)"/>
+  <ellipse cx="32" cy="9" rx="2" ry="3" fill="#81C784"/>
+  <ellipse cx="40" cy="10" rx="2" ry="3" fill="#66BB6A" transform="rotate(15 40 10)"/>
+</svg>

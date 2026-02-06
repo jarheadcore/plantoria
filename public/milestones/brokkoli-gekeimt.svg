@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="#E8F5E9"/>
+  <!-- Soil -->
+  <ellipse cx="32" cy="48" rx="22" ry="8" fill="#795548"/>
+  <ellipse cx="32" cy="46" rx="20" ry="6" fill="#8D6E63"/>
+  <!-- Small stem -->
+  <line x1="32" y1="44" x2="32" y2="32" stroke="#66BB6A" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Two round cotyledon leaves (seed leaves) -->
+  <ellipse cx="25" cy="30" rx="6" ry="4" fill="#81C784" transform="rotate(-15 25 30)"/>
+  <ellipse cx="39" cy="30" rx="6" ry="4" fill="#66BB6A" transform="rotate(15 39 30)"/>
+  <!-- Leaf veins -->
+  <line x1="22" y1="30" x2="28" y2="30" stroke="#4CAF50" stroke-width="0.7"/>
+  <line x1="36" y1="30" x2="42" y2="30" stroke="#4CAF50" stroke-width="0.7"/>
+</svg>

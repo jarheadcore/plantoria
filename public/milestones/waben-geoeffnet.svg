@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="bg9" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#FFF8E1"/>
+      <stop offset="100%" stop-color="#FFECB3"/>
+    </radialGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="url(#bg9)" stroke="#F9A825" stroke-width="2"/>
+  <!-- Beehive box bottom -->
+  <rect x="14" y="32" width="36" height="18" rx="2" fill="#F5DEB3" stroke="#8D6E63" stroke-width="1.5"/>
+  <!-- Box front detail -->
+  <line x1="14" y1="41" x2="50" y2="41" stroke="#D7CCC8" stroke-width="1"/>
+  <!-- Handle/grip on front -->
+  <rect x="28" y="37" width="8" height="2" rx="1" fill="#8D6E63"/>
+  <!-- Landing strip -->
+  <rect x="24" y="50" width="16" height="2" rx="0.5" fill="#A1887F"/>
+  <!-- Open lid (tilted) -->
+  <rect x="12" y="12" width="36" height="8" rx="2" fill="#DEB887" stroke="#8D6E63" stroke-width="1.5" transform="rotate(-15 12 20)"/>
+  <!-- Lid grain lines -->
+  <line x1="16" y1="15" x2="44" y2="15" stroke="#C9A96E" stroke-width="0.8" transform="rotate(-15 12 20)"/>
+  <line x1="16" y1="18" x2="44" y2="18" stroke="#C9A96E" stroke-width="0.8" transform="rotate(-15 12 20)"/>
+  <!-- Visible frames inside -->
+  <rect x="18" y="32" width="2" height="14" fill="#FFD54F" stroke="#E0A000" stroke-width="0.5"/>
+  <rect x="22" y="32" width="2" height="14" fill="#FFCA28" stroke="#E0A000" stroke-width="0.5"/>
+  <rect x="26" y="32" width="2" height="14" fill="#FFD54F" stroke="#E0A000" stroke-width="0.5"/>
+  <rect x="30" y="32" width="2" height="14" fill="#FFCA28" stroke="#E0A000" stroke-width="0.5"/>
+  <rect x="34" y="32" width="2" height="14" fill="#FFD54F" stroke="#E0A000" stroke-width="0.5"/>
+  <rect x="38" y="32" width="2" height="14" fill="#FFCA28" stroke="#E0A000" stroke-width="0.5"/>
+  <rect x="42" y="32" width="2" height="14" fill="#FFD54F" stroke="#E0A000" stroke-width="0.5"/>
+  <!-- Opening arrow -->
+  <path d="M52,18 L52,12 L56,15" fill="#8D6E63" opacity="0.6"/>
+</svg>

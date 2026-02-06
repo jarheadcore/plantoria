@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <radialGradient id="bg16" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#FFF8E1"/>
+      <stop offset="100%" stop-color="#E8F5E9"/>
+    </radialGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="30" fill="url(#bg16)" stroke="#66BB6A" stroke-width="2"/>
+  <!-- Bouquet wrapping paper -->
+  <path d="M22,56 L18,36 Q18,32 24,32 L40,32 Q46,32 46,36 L42,56 Z" fill="#FFECB3" stroke="#FFD54F" stroke-width="1.5"/>
+  <!-- Paper fold lines -->
+  <line x1="24" y1="34" x2="22" y2="54" stroke="#FFD54F" stroke-width="0.8" opacity="0.5"/>
+  <line x1="40" y1="34" x2="42" y2="54" stroke="#FFD54F" stroke-width="0.8" opacity="0.5"/>
+  <!-- Ribbon/bow -->
+  <path d="M26,38 Q30,34 32,38 Q34,34 38,38" fill="#E91E63" opacity="0.8"/>
+  <circle cx="32" cy="38" r="2" fill="#E91E63"/>
+  <!-- Stems sticking up -->
+  <line x1="26" y1="32" x2="24" y2="14" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="32" y1="32" x2="32" y2="10" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="38" y1="32" x2="40" y2="14" stroke="#4CAF50" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="29" y1="32" x2="28" y2="16" stroke="#4CAF50" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="35" y1="32" x2="36" y2="16" stroke="#4CAF50" stroke-width="1.2" stroke-linecap="round"/>
+  <!-- Flower 1 (pink, left) -->
+  <circle cx="24" cy="14" r="5" fill="#F48FB1"/>
+  <circle cx="24" cy="14" r="3" fill="#EC407A"/>
+  <circle cx="24" cy="14" r="1.5" fill="#FFD54F"/>
+  <!-- Flower 2 (red, center - tallest) -->
+  <circle cx="32" cy="10" r="6" fill="#EF5350"/>
+  <circle cx="32" cy="10" r="4" fill="#E53935"/>
+  <circle cx="32" cy="10" r="2" fill="#FFD54F"/>
+  <!-- Flower 3 (purple, right) -->
+  <circle cx="40" cy="14" r="5" fill="#CE93D8"/>
+  <circle cx="40" cy="14" r="3" fill="#AB47BC"/>
+  <circle cx="40" cy="14" r="1.5" fill="#FFD54F"/>
+  <!-- Small flower 4 (orange) -->
+  <circle cx="28" cy="16" r="3.5" fill="#FFB74D"/>
+  <circle cx="28" cy="16" r="2" fill="#FF9800"/>
+  <circle cx="28" cy="16" r="1" fill="#FFD54F"/>
+  <!-- Small flower 5 (blue) -->
+  <circle cx="36" cy="16" r="3.5" fill="#90CAF9"/>
+  <circle cx="36" cy="16" r="2" fill="#42A5F5"/>
+  <circle cx="36" cy="16" r="1" fill="#FFF9C4"/>
+  <!-- Small leaves -->
+  <path d="M24,22 Q20,20 19,22 Q21,20 24,22" fill="#66BB6A"/>
+  <path d="M40,22 Q44,20 45,22 Q43,20 40,22" fill="#66BB6A"/>
+  <path d="M32,20 Q28,18 27,20 Q29,18 32,20" fill="#66BB6A"/>
+</svg>

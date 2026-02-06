@@ -13,10 +13,10 @@ const gemuese = ref([
     percent: 72,
     phase: 'Wachstum',
     milestones: [
-      { at: 25, status: 'accomplished', label: 'Gekeimt' },
-      { at: 50, status: 'accomplished', label: 'Erstes Grün', image: '/milestone-karotte.jpg' },
-      { at: 75, status: 'planned', label: 'Erntereif' },
-      { at: 100, status: 'planned', label: 'Geerntet' },
+      { at: 25, status: 'accomplished', label: 'Gekeimt', image: '/milestones/karotte-gekeimt.svg' },
+      { at: 50, status: 'accomplished', label: 'Erstes Grün', image: '/milestones/karotte-erstes-gruen.svg' },
+      { at: 75, status: 'planned', label: 'Erntereif', image: '/milestones/karotte-erntereif.svg' },
+      { at: 100, status: 'planned', label: 'Geerntet', image: '/milestones/karotte-geerntet.svg' },
     ] as Milestone[],
   },
   {
@@ -25,10 +25,10 @@ const gemuese = ref([
     percent: 45,
     phase: 'Aussaat',
     milestones: [
-      { at: 25, status: 'accomplished', label: 'Gekeimt' },
-      { at: 50, status: 'planned', label: 'Kopfbildung' },
-      { at: 75, status: 'planned', label: 'Erntereif' },
-      { at: 100, status: 'planned', label: 'Geerntet' },
+      { at: 25, status: 'accomplished', label: 'Gekeimt', image: '/milestones/brokkoli-gekeimt.svg' },
+      { at: 50, status: 'planned', label: 'Kopfbildung', image: '/milestones/brokkoli-kopfbildung.svg' },
+      { at: 75, status: 'planned', label: 'Erntereif', image: '/milestones/brokkoli-erntereif.svg' },
+      { at: 100, status: 'planned', label: 'Geerntet', image: '/milestones/brokkoli-geerntet.svg' },
     ] as Milestone[],
   },
   {
@@ -37,10 +37,10 @@ const gemuese = ref([
     percent: 30,
     phase: 'Setzlinge',
     milestones: [
-      { at: 25, status: 'accomplished', label: 'Gekeimt' },
-      { at: 50, status: 'failed', label: 'Umgetopft' },
-      { at: 75, status: 'planned', label: 'Erste Früchte' },
-      { at: 100, status: 'planned', label: 'Geerntet' },
+      { at: 25, status: 'accomplished', label: 'Gekeimt', image: '/milestones/tomate-gekeimt.svg' },
+      { at: 50, status: 'failed', label: 'Umgetopft', image: '/milestones/tomate-umgetopft.svg' },
+      { at: 75, status: 'planned', label: 'Erste Früchte', image: '/milestones/tomate-erste-fruechte.svg' },
+      { at: 100, status: 'planned', label: 'Geerntet', image: '/milestones/tomate-geerntet.svg' },
     ] as Milestone[],
   },
   {
@@ -49,10 +49,10 @@ const gemuese = ref([
     percent: 58,
     phase: 'Wachstum',
     milestones: [
-      { at: 25, status: 'accomplished', label: 'Gekeimt' },
-      { at: 50, status: 'accomplished', label: 'Angewachsen' },
-      { at: 75, status: 'planned', label: 'Erntereif' },
-      { at: 100, status: 'planned', label: 'Geerntet' },
+      { at: 25, status: 'accomplished', label: 'Gekeimt', image: '/milestones/lauch-gekeimt.svg' },
+      { at: 50, status: 'accomplished', label: 'Angewachsen', image: '/milestones/lauch-angewachsen.svg' },
+      { at: 75, status: 'planned', label: 'Erntereif', image: '/milestones/lauch-erntereif.svg' },
+      { at: 100, status: 'planned', label: 'Geerntet', image: '/milestones/lauch-geerntet.svg' },
     ] as Milestone[],
   },
 ])
@@ -96,7 +96,7 @@ const bubbleClasses = (status: Milestone['status']) => {
               class="w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold shadow-md transition-transform hover:scale-110 cursor-default"
               :class="bubbleClasses(ms.status)"
             >
-              <template v-if="ms.status === 'accomplished' && ms.image">
+              <template v-if="ms.image">
                 <img
                   :src="ms.image"
                   :alt="ms.label"
