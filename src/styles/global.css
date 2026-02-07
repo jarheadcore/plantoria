@@ -1,12 +1,15 @@
-@import "tailwindcss";
-@import "@nuxt/ui";
+@import 'tailwindcss';
+@import '@nuxt/ui';
+@import 'leaflet/dist/leaflet.css';
+@import 'leaflet.markercluster/dist/MarkerCluster.css';
+@import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
 @theme {
     --font-sans: 'Inter', system-ui, sans-serif;
 }
 
 body {
-  opacity: 1;
+    opacity: 1;
 }
 
 :root {
@@ -22,27 +25,121 @@ body {
 /* Page transitions */
 .page-enter-active,
 .page-leave-active {
-  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition:
+        opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .page-enter-from {
-  opacity: 0;
-  transform: translateY(12px);
+    opacity: 0;
+    transform: translateY(12px);
 }
 
 .page-leave-to {
-  opacity: 0;
-  transform: translateY(-8px);
+    opacity: 0;
+    transform: translateY(-8px);
 }
 
 /* Layout transitions */
 .layout-enter-active,
 .layout-leave-active {
-  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .layout-enter-from,
 .layout-leave-to {
-  opacity: 0;
+    opacity: 0;
+}
+
+/* ── Map: photo markers ── */
+
+.photo-marker-icon {
+    background: none !important;
+    border: none !important;
+}
+
+.photo-marker {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    transition: transform 0.15s ease;
+}
+
+.photo-marker:hover {
+    transform: scale(1.15);
+}
+
+.photo-marker img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ── Map: photo clusters ── */
+
+.photo-cluster-icon {
+    background: none !important;
+    border: none !important;
+}
+
+.photo-cluster {
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid var(--color-green-500);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    background: var(--color-green-50);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.photo-cluster--small {
+    width: 40px;
+    height: 40px;
+}
+
+.photo-cluster--medium {
+    width: 48px;
+    height: 48px;
+}
+
+.photo-cluster--large {
+    width: 56px;
+    height: 56px;
+}
+
+.photo-cluster img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.4;
+}
+
+.photo-cluster span {
+    position: relative;
+    z-index: 1;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-green-700);
+    text-shadow: 0 0 3px white;
+}
+
+.photo-cluster img + span {
+    color: white;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+}
+
+/* ── Map: photo tooltip ── */
+
+.photo-tooltip {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    padding: 4px 8px;
+    border-radius: 4px;
 }
