@@ -1,19 +1,17 @@
 <script setup lang="ts">
 import { useTasksStore } from '@/stores/tasks'
 import { useProjectsStore } from '@/stores/projects'
-import { useSubjectsStore } from '@/stores/subjects'
-import { Plus, Mail, MailX, Palmtree } from 'lucide-vue-next'
-import type { Task, ProjectPhase, TaskStatus } from '@/types'
+import { Plus, Mail, MailX } from 'lucide-vue-next'
+import type { Task, TaskStatus } from '@/types'
 
 definePageMeta({ layout: 'teacher' })
 
 const tasksStore = useTasksStore()
 const projectsStore = useProjectsStore()
-const subjectsStore = useSubjectsStore()
 
 // Filters
 const filterProject = ref('all')
-const filterSubject = ref('all')
+const filterTopic = ref('all')
 const filterStatus = ref('all')
 const filterHoliday = ref('all')
 
@@ -22,10 +20,17 @@ const projectOptions = computed(() => [
   ...projectsStore.projects.map((p) => ({ label: p.name, value: p.id })),
 ])
 
-const subjectOptions = computed(() => [
-  { label: 'Alle Fachbereiche', value: 'all' },
-  ...subjectsStore.subjects.map((s) => ({ label: s.name, value: s.id })),
-])
+const topicOptions = computed(() => {
+  const allTopics = projectsStore.topics
+  const unique = new Map<string, string>()
+  for (const t of allTopics) {
+    if (!unique.has(t.name)) unique.set(t.name, t.id)
+  }
+  return [
+    { label: 'Alle Fachbereiche', value: 'all' },
+    ...Array.from(unique.entries()).map(([name, id]) => ({ label: name, value: id })),
+  ]
+})
 
 const statusOptions = [
   { label: 'Alle Status', value: 'all' },
@@ -45,8 +50,8 @@ const filteredTasks = computed(() => {
   if (filterProject.value !== 'all') {
     tasks = tasks.filter((t) => t.projectId === filterProject.value)
   }
-  if (filterSubject.value !== 'all') {
-    tasks = tasks.filter((t) => t.subjectAreaId === filterSubject.value)
+  if (filterTopic.value !== 'all') {
+    tasks = tasks.filter((t) => t.topicId === filterTopic.value)
   }
   if (filterStatus.value !== 'all') {
     tasks = tasks.filter((t) => t.status === filterStatus.value)
@@ -65,12 +70,20 @@ const newTask = ref({
   title: '',
   description: '',
   projectId: 'proj-1',
-  phase: 'Pflege' as ProjectPhase,
+  topicId: '',
   status: 'Offen' as TaskStatus,
   dueDate: '',
   isHolidayTask: false,
   emailReminder: false,
-  subjectAreaId: '',
+})
+
+// Topics for selected project in create form
+const createTopicOptions = computed(() => {
+  const topics = projectsStore.getTopicsByProjectId(newTask.value.projectId)
+  return [
+    { label: 'Kein Fachbereich', value: '' },
+    ...topics.map((t) => ({ label: `${t.icon} ${t.name}`, value: t.id })),
+  ]
 })
 
 function openCreate() {
@@ -78,30 +91,31 @@ function openCreate() {
     title: '',
     description: '',
     projectId: 'proj-1',
-    phase: 'Pflege',
+    topicId: '',
     status: 'Offen',
     dueDate: '',
     isHolidayTask: false,
     emailReminder: false,
-    subjectAreaId: '',
   }
   showCreate.value = true
 }
 
 function createTask() {
   if (!newTask.value.title.trim()) return
+  if (!newTask.value.topicId) return
   tasksStore.createTask({
     id: `t-${Date.now()}`,
     projectId: newTask.value.projectId,
+    topicId: newTask.value.topicId,
     title: newTask.value.title,
     description: newTask.value.description || undefined,
-    phase: newTask.value.phase,
     status: newTask.value.status,
     dueDate: newTask.value.dueDate || undefined,
     lp21Refs: [],
+    materialIds: [],
+    fromTemplate: false,
     isHolidayTask: newTask.value.isHolidayTask || undefined,
     emailReminder: newTask.value.emailReminder || undefined,
-    subjectAreaId: newTask.value.subjectAreaId || undefined,
   })
   showCreate.value = false
 }
@@ -120,20 +134,10 @@ function getProjectName(projectId: string) {
   return projectsStore.projects.find((p) => p.id === projectId)?.name || projectId
 }
 
-function getSubjectName(subjectAreaId?: string) {
-  if (!subjectAreaId) return null
-  return subjectsStore.subjects.find((s) => s.id === subjectAreaId)?.name || null
+function getTopicName(topicId: string) {
+  const topic = projectsStore.topics.find((t) => t.id === topicId)
+  return topic ? `${topic.icon} ${topic.name}` : null
 }
-
-const phaseOptions = [
-  { label: 'Vorprojekt', value: 'Vorprojekt' },
-  { label: 'Planung', value: 'Planung' },
-  { label: 'Pflanzung', value: 'Pflanzung' },
-  { label: 'Pflege', value: 'Pflege' },
-  { label: 'Ernte', value: 'Ernte' },
-  { label: 'Verarbeitung', value: 'Verarbeitung' },
-  { label: 'Vermarktung', value: 'Vermarktung' },
-]
 </script>
 
 <template>
@@ -151,7 +155,7 @@ const phaseOptions = [
     <!-- Filters -->
     <div class="mb-6 flex flex-wrap gap-3">
       <USelect v-model="filterProject" :items="projectOptions" class="w-44" />
-      <USelect v-model="filterSubject" :items="subjectOptions" class="w-44" />
+      <USelect v-model="filterTopic" :items="topicOptions" class="w-44" />
       <USelect v-model="filterStatus" :items="statusOptions" class="w-36" />
       <USelect v-model="filterHoliday" :items="holidayOptions" class="w-44" />
     </div>
@@ -189,8 +193,7 @@ const phaseOptions = [
             <p v-if="task.description" class="text-xs text-gray-500 mt-1">{{ task.description }}</p>
             <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-400 mt-1">
               <span>Projekt: {{ getProjectName(task.projectId) }}</span>
-              <span>Phase: {{ task.phase }}</span>
-              <span v-if="getSubjectName(task.subjectAreaId)">Fachbereich: {{ getSubjectName(task.subjectAreaId) }}</span>
+              <span v-if="getTopicName(task.topicId)">Fachbereich: {{ getTopicName(task.topicId) }}</span>
               <span>Fällig: {{ formatDate(task.dueDate) }}</span>
               <span v-if="task.groupName">Gruppe: {{ task.groupName }}</span>
             </div>
@@ -243,19 +246,13 @@ const phaseOptions = [
                 <USelect v-model="newTask.projectId" :items="projectOptions.slice(1)" />
               </div>
               <div>
-                <label class="block text-sm font-medium mb-1">Phase</label>
-                <USelect v-model="newTask.phase" :items="phaseOptions" />
+                <label class="block text-sm font-medium mb-1">Fachbereich</label>
+                <USelect v-model="newTask.topicId" :items="createTopicOptions" />
               </div>
             </div>
-            <div class="grid grid-cols-2 gap-3">
-              <div>
-                <label class="block text-sm font-medium mb-1">Fachbereich</label>
-                <USelect v-model="newTask.subjectAreaId" :items="subjectOptions" />
-              </div>
-              <div>
-                <label class="block text-sm font-medium mb-1">Fälligkeitsdatum</label>
-                <UInput v-model="newTask.dueDate" type="date" />
-              </div>
+            <div>
+              <label class="block text-sm font-medium mb-1">Fälligkeitsdatum</label>
+              <UInput v-model="newTask.dueDate" type="date" />
             </div>
             <div class="flex items-center gap-4">
               <label class="flex items-center gap-2 text-sm">

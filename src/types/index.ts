@@ -1,8 +1,9 @@
 // ============================================================
-// PLANTORIA – TypeScript Interfaces (based on PRD data model)
+// PLANTORIA – TypeScript Interfaces
+// Bereinigt gemaess spec/KONZEPT-DATENSTRUKTUR.md
 // ============================================================
 
-// -- Enums --
+// -- Enums / Literal Types --
 
 export type ProjectStatus = 'Vorprojekt' | 'Projektstart' | 'Laufend' | 'Abgeschlossen'
 
@@ -39,17 +40,6 @@ export type TemplateCategory =
   | 'Garten'
   | 'Sonstiges'
 
-export type SubjectArea =
-  | 'Boden'
-  | 'Fruchtfolge'
-  | 'Gemüsearten'
-  | 'Gesundheit'
-  | 'Flächengestaltung'
-  | 'Beetplanung'
-  | 'Ernährung'
-  | 'Ökologie'
-  | 'Mathematik'
-
 export type MaterialFormat = 'PDF' | 'DOCX' | 'Link' | 'Video' | 'Audio' | 'Datei'
 
 export type NotificationType =
@@ -64,7 +54,7 @@ export type UserRole = 'Admin' | 'Lehrperson' | 'Schüler' | 'Eltern'
 
 export type CalendarEntryType = 'task' | 'seasonal' | 'harvest_market' | 'milestone' | 'holiday'
 
-// -- Interfaces --
+// -- User / School / Class --
 
 export interface User {
   id: string
@@ -112,6 +102,81 @@ export interface StudentGroup {
   tasksTotal?: number
 }
 
+// -- Physisches Material (Spaten, Erde, Saatgut) --
+
+export interface TaskMaterial {
+  name: string
+  quantity: string
+  source: string
+  cost?: string
+}
+
+// -- Projekt-Template mit Fachbereich-Vorlagen --
+
+export interface ProjectTemplate {
+  id: string
+  name: string
+  description: string
+  category: TemplateCategory
+  difficulty: Difficulty
+  gradeRange: string
+  estimatedDuration: string
+  lp21Refs: string[]
+  lp21Coverage: number
+  createdBy: string
+  shared: boolean
+  usedBySchools: number
+  version: number
+  isOwn: boolean
+  isPlatform: boolean
+  topics: TopicTemplate[]
+  materials?: TemplateMaterial[]
+}
+
+export interface TemplateMaterial {
+  id: string
+  name: string
+  quantity: string
+  source: string
+  cost: string
+}
+
+// -- Fachbereich-Vorlage (im Template) --
+
+export interface TopicTemplate {
+  id: string
+  templateId: string
+  name: string
+  phase: ProjectPhase
+  startMonth: number
+  endMonth: number
+  icon: string
+  color: string
+  goalDescription: string
+  physicalMaterials: TaskMaterial[]
+  lp21Refs: string[]
+  tutorialVideoUrl?: string
+  order: number
+}
+
+// -- Aufgaben-Vorlage (im Template, gehoert zu TopicTemplate) --
+
+export interface TaskTemplate {
+  id: string
+  templateId: string
+  topicTemplateId: string
+  title: string
+  description?: string
+  steps?: string[]
+  difficulty?: Difficulty
+  lp21Refs: string[]
+  materialIds: string[]
+  estimatedEffort?: string
+  order: number
+}
+
+// -- Projekt --
+
 export interface Project {
   id: string
   templateId?: string
@@ -125,10 +190,50 @@ export interface Project {
   progress: number
   location?: string
   startDate?: string
-  taskCount: number
-  tasksDone: number
-  groupCount: number
 }
+
+// -- Fachbereich (im Projekt, dupliziert aus Template oder manuell) --
+
+export interface Topic {
+  id: string
+  projectId: string
+  name: string
+  phase: ProjectPhase
+  startMonth: number
+  endMonth: number
+  icon: string
+  color: string
+  goalDescription: string
+  physicalMaterials: TaskMaterial[]
+  lp21Refs: string[]
+  tutorialVideoUrl?: string
+  order: number
+  fromTemplate: boolean
+  templateSourceId?: string
+}
+
+// -- Aufgabe (im Projekt, gehoert zu Topic) --
+
+export interface Task {
+  id: string
+  projectId: string
+  topicId: string
+  title: string
+  description?: string
+  steps?: string[]
+  status: TaskStatus
+  groupId?: string
+  groupName?: string
+  dueDate?: string
+  lp21Refs: string[]
+  materialIds: string[]
+  fromTemplate: boolean
+  templateSourceId?: string
+  isHolidayTask?: boolean
+  emailReminder?: boolean
+}
+
+// -- Vorprojekt --
 
 export interface PreProject {
   id: string
@@ -145,26 +250,7 @@ export interface PreProjectItem {
   orderUrl?: string
 }
 
-export interface Task {
-  id: string
-  projectId: string
-  taskTemplateId?: string
-  title: string
-  description?: string
-  phase: ProjectPhase
-  status: TaskStatus
-  groupId?: string
-  groupName?: string
-  dueDate?: string
-  season?: string
-  lp21Refs: string[]
-  worksheetIds?: string[]
-  subjectAreaId?: string
-  isHolidayTask?: boolean
-  holidayAdvanceDays?: number
-  emailReminder?: boolean
-  classId?: string
-}
+// -- Kulturen --
 
 export interface Culture {
   id: string
@@ -178,7 +264,59 @@ export interface Culture {
   actualHarvestDate?: string
   bedNumber: string
   factsheetId?: string
+  vegetableProfileId?: string
 }
+
+// -- Gemuese-Steckbriefe --
+
+export interface VegetableProfile {
+  id: string
+  name: string
+  scientificName?: string
+  type: 'Gemüse' | 'Kräuter'
+  difficulty: Difficulty
+  sowingIndoor?: { startMonth: number; endMonth: number }
+  sowingOutdoor?: { startMonth: number; endMonth: number }
+  harvestPeriod: { startMonth: number; endMonth: number }
+  spacing: { inRow: number; betweenRows: number }
+  depth: number
+  germination: { tempMin: number; tempMax: number; days: number }
+  waterNeed: 'Gering' | 'Mittel' | 'Hoch'
+  nutrientNeed: 'Schwachzehrer' | 'Mittelzehrer' | 'Starkzehrer'
+  companions: string[]
+  antagonists: string[]
+  specialNotes?: string
+  imageUrl?: string
+}
+
+// -- Lehrmaterial (globaler Pool, tags statt subjectArea) --
+
+export interface Material {
+  id: string
+  title: string
+  description?: string
+  tags: string[]
+  gradeRange: string
+  phase?: ProjectPhase
+  formats: MaterialFormat[]
+  difficulty: Difficulty
+  lp21Refs: string[]
+  lastDownloaded?: string
+  fileUrl?: string
+  linkUrl?: string
+  videoUrl?: string
+  audioUrl?: string
+}
+
+export interface RecentDownload {
+  id: string
+  materialTitle: string
+  date: string
+  format: MaterialFormat
+  materialId: string
+}
+
+// -- Lehrplan 21 --
 
 export interface Curriculum {
   id: string
@@ -219,67 +357,7 @@ export interface SubjectProgress {
   coveragePercent: number
 }
 
-export interface Material {
-  id: string
-  title: string
-  description?: string
-  subjectArea: SubjectArea
-  gradeRange: string
-  phase?: ProjectPhase
-  formats: MaterialFormat[]
-  difficulty: Difficulty
-  lp21Refs: string[]
-  lastDownloaded?: string
-  fileUrl?: string
-  linkUrl?: string
-  videoUrl?: string
-  audioUrl?: string
-}
-
-export interface ProjectTemplate {
-  id: string
-  name: string
-  description: string
-  category: TemplateCategory
-  lp21Refs: string[]
-  difficulty: Difficulty
-  gradeRange: string
-  estimatedDuration: string
-  lp21Coverage: number
-  taskCount: number
-  taskCountWithLp21: number
-  createdBy: string
-  shared: boolean
-  usedBySchools: number
-  version: number
-  isOwn: boolean
-  isPlatform: boolean
-  tasks?: TaskTemplate[]
-  materials?: TemplateMaterial[]
-}
-
-export interface TaskTemplate {
-  id: string
-  templateId: string
-  title: string
-  description?: string
-  phase: ProjectPhase
-  gradeRange?: string
-  difficulty?: Difficulty
-  lp21Refs: string[]
-  worksheetIds?: string[]
-  estimatedEffort?: string
-  subjectArea?: SubjectArea
-  order: number
-}
-
-export interface TemplateMaterial {
-  id: string
-  name: string
-  quantity: string
-  source: string
-  cost: string
-}
+// -- Kalender --
 
 export interface CalendarEntry {
   id: string
@@ -296,27 +374,26 @@ export interface SeasonalTip {
   text: string
 }
 
-export interface SubjectAreaTemplate {
+// -- Benachrichtigungen --
+
+export interface Notification {
   id: string
-  name: string
-  subjectArea: SubjectArea
+  type: NotificationType
+  title: string
   description: string
-  learningOrder: SubjectLearningItem[]
-  createdBy: string
-  shared: boolean
-  isPlatform: boolean
+  date: string
+  read: boolean
+  link?: string
 }
 
-export interface SubjectLearningItem {
-  id: string
-  title: string
-  description?: string
-  order: number
-  materialIds: string[]
-  lp21Refs: string[]
-  difficulty: Difficulty
-  gradeRange: string
+export interface NotificationSettings {
+  category: string
+  label: string
+  inApp: boolean
+  email: boolean
 }
+
+// -- Einstellungen --
 
 export interface GlobalSettings {
   id: string
@@ -333,36 +410,31 @@ export interface SchoolHoliday {
   municipality?: string
 }
 
-export interface Notification {
+// -- Harvest-Markt (wird spaeter in CalendarEntry integriert) --
+
+export interface HarvestMarketProduct {
   id: string
-  type: NotificationType
-  title: string
-  description: string
+  name: string
+  quantity: string
+  price: string
+  groupName: string
+}
+
+export interface HarvestMarketPhase {
+  id: string
+  name: string
+  status: string
+  deadline: string
+}
+
+export interface HarvestMarket {
+  id: string
+  name: string
   date: string
-  read: boolean
-  link?: string
-}
-
-export interface SubjectInfo {
-  id: string
-  name: SubjectArea
-  description: string
-  lp21Refs: string[]
-  materialCount: number
-  icon?: string
-}
-
-export interface NotificationSettings {
-  category: string
-  label: string
-  inApp: boolean
-  email: boolean
-}
-
-export interface RecentDownload {
-  id: string
-  materialTitle: string
-  date: string
-  format: MaterialFormat
-  materialId: string
+  location: string
+  participatingSchools: number
+  registrationDeadline: string
+  status: string
+  preparationPhases: HarvestMarketPhase[]
+  products: HarvestMarketProduct[]
 }

@@ -3,11 +3,8 @@ import { ref } from 'vue'
 import {
   LayoutDashboard,
   FolderKanban,
-  ClipboardList,
-  BookOpen,
   FileDown,
   Users,
-  GraduationCap,
   CalendarDays,
   Settings,
   HelpCircle,
@@ -23,13 +20,9 @@ const authStore = useAuthStore()
 const navItems = [
   { label: 'Dashboard', icon: LayoutDashboard, to: '/teacher' },
   { label: 'Projekte', icon: FolderKanban, to: '/teacher/projects' },
-  { label: 'Aufgabenpool', icon: ClipboardList, to: '/teacher/tasks' },
-  { label: 'Fachbereiche', icon: BookOpen, to: '/teacher/subjects' },
-  { label: 'Lehrmaterial', icon: FileDown, to: '/teacher/materials' },
+  { label: 'Material', icon: FileDown, to: '/teacher/materials' },
   { label: 'Schüler & Gruppen', icon: Users, to: '/teacher/students' },
-  { label: 'Lehrplan 21', icon: GraduationCap, to: '/teacher/curriculum' },
   { label: 'Kalender', icon: CalendarDays, to: '/teacher/calendar' },
-  { label: 'Einstellungen', icon: Settings, to: '/teacher/settings' },
 ]
 
 function handleLogout() {
@@ -116,6 +109,21 @@ function closeSidebar() {
             >
               <HelpCircle :size="20" class="shrink-0" />
               <span class="sidebar-label lg:hidden lg:group-hover:inline xl:inline">Hilfe</span>
+            </NuxtLink>
+          </li>
+          <li>
+            <NuxtLink
+              to="/teacher/settings"
+              :class="[
+                'flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
+                isActive('/teacher/settings')
+                  ? 'bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-400'
+                  : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800',
+              ]"
+              @click="closeSidebar"
+            >
+              <Settings :size="20" class="shrink-0" />
+              <span class="sidebar-label lg:hidden lg:group-hover:inline xl:inline">Einstellungen</span>
             </NuxtLink>
           </li>
           <li>

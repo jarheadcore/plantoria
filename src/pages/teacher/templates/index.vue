@@ -50,13 +50,18 @@ const currentTemplates = computed(() => {
   })
 })
 
-function difficultyColor(d: string) {
-  switch (d) {
-    case 'Einfach': return 'success'
-    case 'Mittel': return 'warning'
-    case 'Schwer': return 'error'
-    default: return 'neutral'
-  }
+function difficultyColor(d: string): 'green' | 'primary' | 'neutral' {
+  if (d === 'Einfach') return 'green'
+  if (d === 'Mittel') return 'primary'
+  return 'neutral'
+}
+
+function getTaskTemplateCount(templateId: string) {
+  return templatesStore.getTaskTemplatesByTemplateId(templateId).length
+}
+
+function getTaskTemplatesWithLp21(templateId: string) {
+  return templatesStore.getTaskTemplatesByTemplateId(templateId).filter((t) => t.lp21Refs.length > 0).length
 }
 </script>
 
@@ -118,11 +123,12 @@ function difficultyColor(d: string) {
               <span>Stufe: <strong>{{ tmpl.gradeRange }}</strong></span>
               <span>
                 Schwierigkeit:
-                <UBadge :color="difficultyColor(tmpl.difficulty) as any" variant="subtle" size="xs">
+                <UBadge :color="difficultyColor(tmpl.difficulty)" variant="subtle" size="xs">
                   {{ tmpl.difficulty }}
                 </UBadge>
               </span>
-              <span>Aufgaben: <strong>{{ tmpl.taskCount }}</strong> ({{ tmpl.taskCountWithLp21 }} mit LP21)</span>
+              <span>Fachbereiche: <strong>{{ tmpl.topics.length }}</strong></span>
+              <span>Aufgaben: <strong>{{ getTaskTemplateCount(tmpl.id) }}</strong> ({{ getTaskTemplatesWithLp21(tmpl.id) }} mit LP21)</span>
               <span v-if="tmpl.usedBySchools">Genutzt von: <strong>{{ tmpl.usedBySchools }} Schulen</strong></span>
               <span v-if="tmpl.createdBy !== 'Plantoria'">Erstellt von: <strong>{{ tmpl.createdBy }}</strong></span>
             </div>

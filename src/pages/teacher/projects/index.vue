@@ -102,8 +102,8 @@ function statusColor(status: string) {
               <div class="flex flex-wrap gap-x-6 gap-y-1 text-sm text-gray-500">
                 <span>Phase: <strong>{{ project.currentPhase }}</strong></span>
                 <span v-if="project.area">Fläche: <strong>{{ project.area }}m²</strong></span>
-                <span>Aufgaben: <strong>{{ project.tasksDone }}/{{ project.taskCount }}</strong></span>
-                <span v-if="project.groupCount">Gruppen: <strong>{{ project.groupCount }}</strong></span>
+                <span>Aufgaben: <strong>{{ projectsStore.getProjectStats(project.id).tasksDone }}/{{ projectsStore.getProjectStats(project.id).taskCount }}</strong></span>
+                <span v-if="projectsStore.getProjectStats(project.id).groupCount">Gruppen: <strong>{{ projectsStore.getProjectStats(project.id).groupCount }}</strong></span>
               </div>
             </div>
           </div>

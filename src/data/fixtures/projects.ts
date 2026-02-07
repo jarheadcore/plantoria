@@ -15,9 +15,6 @@ export const fixtureProjects: Project[] = [
     progress: 60,
     location: 'Hinter dem Schulhaus, Südseite',
     startDate: '2026-01-15',
-    taskCount: 15,
-    tasksDone: 8,
-    groupCount: 4,
   },
   {
     id: 'proj-2',
@@ -32,9 +29,6 @@ export const fixtureProjects: Project[] = [
     progress: 20,
     location: 'Schulgelände, Nordwestecke',
     startDate: '2026-03-01',
-    taskCount: 8,
-    tasksDone: 0,
-    groupCount: 0,
   },
 ]
 
@@ -54,6 +48,8 @@ export const fixturePreProjects: PreProject[] = [
       { id: 'ppi-8', category: 'Genehmigung', label: 'Hauswart kontaktiert', completed: true },
       { id: 'ppi-9', category: 'Praxisauftrag', label: 'Standort begutachtet', completed: true },
       { id: 'ppi-10', category: 'Infrastruktur', label: 'Wasseranschluss vorhanden', completed: true },
+      { id: 'ppi-11-hb', category: 'Infrastruktur', label: 'Hochbeet bauen', completed: true },
+      { id: 'ppi-12-ba', category: 'Infrastruktur', label: 'Beet anlegen (Bodenfläche)', completed: true },
     ],
   },
   {

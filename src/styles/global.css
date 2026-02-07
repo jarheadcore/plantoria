@@ -5,6 +5,44 @@
     --font-sans: 'Inter', system-ui, sans-serif;
 }
 
+body {
+  opacity: 1;
+}
+
 :root {
     --ui-radius: 0.25rem;
+    --ui-primary: var(--color-green-500);
+    --ui-color-primary-50: var(--color-green-50);
+    --ui-color-primary-100: var(--color-green-100);
+    --ui-color-primary-500: var(--color-green-500);
+    --ui-color-primary-600: var(--color-green-600);
+    --ui-color-primary-700: var(--color-green-700);
+}
+
+/* Page transitions */
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+/* Layout transitions */
+.layout-enter-active,
+.layout-leave-active {
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.layout-enter-from,
+.layout-leave-to {
+  opacity: 0;
 }

@@ -10,8 +10,8 @@ export const useTasksStore = defineStore('tasks', () => {
     allTasks.value.filter((t) => t.projectId === projectId),
   )
 
-  const getTasksBySubject = computed(() => (subjectAreaId: string) =>
-    allTasks.value.filter((t) => t.subjectAreaId === subjectAreaId),
+  const getTasksByTopic = computed(() => (topicId: string) =>
+    allTasks.value.filter((t) => t.topicId === topicId),
   )
 
   const holidayTasks = computed(() =>
@@ -50,7 +50,7 @@ export const useTasksStore = defineStore('tasks', () => {
   return {
     allTasks,
     getTasksByProject,
-    getTasksBySubject,
+    getTasksByTopic,
     holidayTasks,
     upcomingTasks,
     createTask,

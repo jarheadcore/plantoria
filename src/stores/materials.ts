@@ -1,22 +1,33 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { Material, RecentDownload, SubjectArea, Difficulty, ProjectPhase, MaterialFormat } from '@/types'
+import type { Material, RecentDownload, Difficulty, ProjectPhase, MaterialFormat } from '@/types'
 import { fixtureMaterials, fixtureRecentDownloads } from '@/data/fixtures/materials'
 
 export const useMaterialsStore = defineStore('materials', () => {
   const materials = ref<Material[]>(fixtureMaterials)
   const recentDownloads = ref<RecentDownload[]>(fixtureRecentDownloads)
 
-  const filterSubject = ref<SubjectArea | 'all'>('all')
+  const filterTag = ref('all')
   const filterGrade = ref('all')
   const filterPhase = ref<ProjectPhase | 'all'>('all')
   const filterFormat = ref<MaterialFormat | 'all'>('all')
   const filterLp21 = ref('all')
   const searchQuery = ref('')
 
+  // All unique tags from materials
+  const allTags = computed(() => {
+    const tagSet = new Set<string>()
+    for (const m of materials.value) {
+      for (const tag of m.tags) {
+        tagSet.add(tag)
+      }
+    }
+    return [...tagSet].sort()
+  })
+
   const filteredMaterials = computed(() => {
     return materials.value.filter((m) => {
-      if (filterSubject.value && filterSubject.value !== 'all' && m.subjectArea !== filterSubject.value) return false
+      if (filterTag.value && filterTag.value !== 'all' && !m.tags.includes(filterTag.value)) return false
       if (filterGrade.value && filterGrade.value !== 'all' && !m.gradeRange.includes(filterGrade.value)) return false
       if (filterPhase.value && filterPhase.value !== 'all' && m.phase !== filterPhase.value) return false
       if (filterFormat.value && filterFormat.value !== 'all' && !m.formats.includes(filterFormat.value as MaterialFormat)) return false
@@ -44,12 +55,12 @@ export const useMaterialsStore = defineStore('materials', () => {
     }
   }
 
-  function getMaterialsBySubject(subject: SubjectArea) {
-    return materials.value.filter((m) => m.subjectArea === subject)
+  function getMaterialsByTag(tag: string) {
+    return materials.value.filter((m) => m.tags.includes(tag))
   }
 
   function resetFilters() {
-    filterSubject.value = 'all'
+    filterTag.value = 'all'
     filterGrade.value = 'all'
     filterPhase.value = 'all'
     filterFormat.value = 'all'
@@ -60,7 +71,8 @@ export const useMaterialsStore = defineStore('materials', () => {
   return {
     materials,
     recentDownloads,
-    filterSubject,
+    allTags,
+    filterTag,
     filterGrade,
     filterPhase,
     filterFormat,
@@ -68,7 +80,7 @@ export const useMaterialsStore = defineStore('materials', () => {
     searchQuery,
     filteredMaterials,
     recordDownload,
-    getMaterialsBySubject,
+    getMaterialsByTag,
     resetFilters,
   }
 })

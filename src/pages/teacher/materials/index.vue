@@ -9,18 +9,10 @@ definePageMeta({ layout: 'teacher' })
 const materialsStore = useMaterialsStore()
 const curriculumStore = useCurriculumStore()
 
-const subjectOptions = [
-  { label: 'Alle Fachbereiche', value: 'all' },
-  { label: 'Boden', value: 'Boden' },
-  { label: 'Fruchtfolge', value: 'Fruchtfolge' },
-  { label: 'Gemüsearten', value: 'Gemüsearten' },
-  { label: 'Gesundheit', value: 'Gesundheit' },
-  { label: 'Flächengestaltung', value: 'Flächengestaltung' },
-  { label: 'Beetplanung', value: 'Beetplanung' },
-  { label: 'Ernährung', value: 'Ernährung' },
-  { label: 'Ökologie', value: 'Ökologie' },
-  { label: 'Mathematik', value: 'Mathematik' },
-]
+const tagOptions = computed(() => [
+  { label: 'Alle Tags', value: 'all' },
+  ...materialsStore.allTags.map((t) => ({ label: t, value: t })),
+])
 
 const gradeOptions = [
   { label: 'Alle Stufen', value: 'all' },
@@ -97,7 +89,7 @@ function getFormatIcon(format: MaterialFormat) {
     <!-- Filters -->
     <div class="mb-6 space-y-3">
       <div class="flex flex-wrap gap-3">
-        <USelect v-model="materialsStore.filterSubject" :items="subjectOptions" class="w-40" />
+        <USelect v-model="materialsStore.filterTag" :items="tagOptions" class="w-40" />
         <USelect v-model="materialsStore.filterGrade" :items="gradeOptions" class="w-32" />
         <USelect v-model="materialsStore.filterPhase" :items="phaseOptions" class="w-40" />
         <USelect v-model="materialsStore.filterFormat" :items="formatOptions" class="w-32" />
@@ -124,15 +116,17 @@ function getFormatIcon(format: MaterialFormat) {
             <h3 class="font-semibold mb-1">{{ mat.title }}</h3>
             <p v-if="mat.description" class="text-sm text-gray-500 mb-2">{{ mat.description }}</p>
             <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500 mb-2">
-              <span>Fachbereich: <strong>{{ mat.subjectArea }}</strong></span>
               <span>Stufe: <strong>{{ mat.gradeRange }}</strong></span>
               <span v-if="mat.phase">Phase: <strong>{{ mat.phase }}</strong></span>
               <span>Format: <strong>{{ mat.formats.join(' + ') }}</strong></span>
               <span>Schwierigkeit: <strong>{{ mat.difficulty }}</strong></span>
             </div>
             <div class="flex flex-wrap gap-1 mb-2">
-              <UBadge v-for="ref in mat.lp21Refs" :key="ref" color="primary" variant="subtle" size="xs">
-                {{ ref }}
+              <UBadge v-for="tag in mat.tags" :key="tag" color="neutral" variant="subtle" size="xs">
+                {{ tag }}
+              </UBadge>
+              <UBadge v-for="lp21Ref in mat.lp21Refs" :key="lp21Ref" color="primary" variant="subtle" size="xs">
+                {{ lp21Ref }}
               </UBadge>
             </div>
             <p v-if="mat.lastDownloaded" class="text-xs text-gray-400">
@@ -168,9 +162,9 @@ function getFormatIcon(format: MaterialFormat) {
           <div v-if="downloadMaterial?.lp21Refs.length" class="mb-4">
             <p class="text-sm font-medium mb-2">Folgende LP21-Ziele werden als &laquo;behandelt&raquo; markiert:</p>
             <ul class="space-y-1">
-              <li v-for="ref in downloadMaterial!.lp21Refs" :key="ref" class="flex items-center gap-2 text-sm">
+              <li v-for="lp21Ref in downloadMaterial!.lp21Refs" :key="lp21Ref" class="flex items-center gap-2 text-sm">
                 <input type="checkbox" checked disabled class="text-green-600" />
-                <span>{{ ref }}</span>
+                <span>{{ lp21Ref }}</span>
               </li>
             </ul>
           </div>

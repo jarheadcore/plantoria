@@ -2,7 +2,7 @@
 import { useAuthStore } from '@/stores/auth'
 import { Eye, EyeOff, Leaf, Mail, Lock, ArrowLeft, ChevronLeft, Sprout, Sun, Droplets } from 'lucide-vue-next'
 
-definePageMeta({ layout: false })
+definePageMeta({ layout: false, layoutTransition: false })
 
 const authStore = useAuthStore()
 
