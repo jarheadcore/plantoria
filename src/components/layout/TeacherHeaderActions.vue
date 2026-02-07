@@ -92,7 +92,8 @@ const selectedClassId = computed({
         </div>
 
         <!-- Avatar dropdown -->
-        <UDropdownMenu :items="[[{ label: 'Profil', to: '/teacher/settings' }], [{ label: 'Logout', onSelect: handleLogout }]]">
+        <!-- v1.0.0: Auth deaktiviert – Logout-Eintrag entfernt -->
+        <UDropdownMenu :items="[[{ label: 'Profil', to: '/teacher/settings' }]]">
             <UButton variant="ghost" color="neutral" size="sm" class="gap-2">
                 <div class="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 text-green-700 text-sm font-semibold">
                     AM

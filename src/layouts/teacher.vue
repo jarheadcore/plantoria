@@ -180,7 +180,8 @@ function closeSidebar() {
               <span class="sidebar-label lg:hidden lg:group-hover:inline xl:inline">Einstellungen</span>
             </NuxtLink>
           </li>
-          <li>
+          <!-- v1.0.0: Auth deaktiviert – Logout-Button ausgeblendet -->
+          <!-- <li>
             <button
               class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-600 hover:bg-gray-100 hover:text-red-600 dark:text-gray-400 dark:hover:bg-gray-800"
               @click="handleLogout"
@@ -188,7 +189,7 @@ function closeSidebar() {
               <LogOut :size="20" class="shrink-0" />
               <span class="sidebar-label lg:hidden lg:group-hover:inline xl:inline">Logout</span>
             </button>
-          </li>
+          </li> -->
         </ul>
       </div>
     </aside>

@@ -10,7 +10,7 @@ export default defineNuxtConfig({
       style: [{ innerHTML: 'body{opacity:0}' }],
     },
     pageTransition: { name: 'page', mode: 'out-in' },
-    layoutTransition: { name: 'layout', mode: 'out-in' },
+    layoutTransition: false,
   },
   compatibilityDate: '2026-02-06',
   components: [
