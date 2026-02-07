@@ -1,10 +1,8 @@
 <script setup lang="ts">
 import { useAuthStore } from '@/stores/auth'
+import { mascots } from '@/utils/images'
 import {
     Leaf,
-    Sprout,
-    Sun,
-    Droplets,
     TreePine,
     FileText,
     Sparkles,
@@ -256,33 +254,30 @@ const stats = [
                     </div>
                 </div>
 
-                <!-- Right: Decorative illustration -->
+                <!-- Right: Mascot characters -->
                 <div class="flex-1 flex justify-center lg:justify-end">
                     <div class="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
                         <!-- Background circles -->
                         <div class="absolute inset-0 rounded-full bg-green-100/60" />
                         <div class="absolute inset-6 rounded-full bg-green-50/80" />
-                        <!-- Floating icons -->
-                        <div
-                            class="absolute top-6 left-1/2 -translate-x-1/2 flex h-14 w-14 items-center justify-center rounded-2xl bg-amber-100 text-amber-600 shadow-lg shadow-amber-200/50 animate-bounce-slow"
-                        >
-                            <Sun :size="28" />
-                        </div>
-                        <div
-                            class="absolute bottom-12 left-8 flex h-12 w-12 items-center justify-center rounded-xl bg-green-200 text-green-700 shadow-lg shadow-green-200/50 animate-bounce-slow-delay-1"
-                        >
-                            <Leaf :size="24" />
-                        </div>
-                        <div
-                            class="absolute bottom-12 right-8 flex h-12 w-12 items-center justify-center rounded-xl bg-blue-100 text-blue-600 shadow-lg shadow-blue-200/50 animate-bounce-slow-delay-2"
-                        >
-                            <Droplets :size="24" />
-                        </div>
-                        <div
-                            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex h-20 w-20 items-center justify-center rounded-2xl bg-green-600 text-white shadow-xl shadow-green-600/30"
-                        >
-                            <Sprout :size="40" />
-                        </div>
+                        <!-- Karotte (center, largest) -->
+                        <img
+                            :src="mascots.karotte"
+                            alt="Karotte Maskottchen"
+                            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-40 sm:w-44 lg:w-52 drop-shadow-xl animate-bounce-slow"
+                        />
+                        <!-- Tomate (top right) -->
+                        <img
+                            :src="mascots.tomate"
+                            alt="Tomate Maskottchen"
+                            class="absolute -top-2 right-2 sm:right-0 w-24 sm:w-28 lg:w-32 drop-shadow-lg animate-bounce-slow-delay-1"
+                        />
+                        <!-- Lauch (bottom left) -->
+                        <img
+                            :src="mascots.lauch"
+                            alt="Lauch Maskottchen"
+                            class="absolute -bottom-2 left-2 sm:left-0 w-24 sm:w-28 lg:w-32 drop-shadow-lg animate-bounce-slow-delay-2"
+                        />
                     </div>
                 </div>
             </div>
@@ -579,14 +574,14 @@ const stats = [
     transform: translateY(0);
 }
 
-/* Floating icon animations */
+/* Floating mascot animations */
 @keyframes bounce-slow {
     0%,
     100% {
-        transform: translateY(0) translateX(-50%);
+        transform: translate(-50%, -50%) translateY(0);
     }
     50% {
-        transform: translateY(-10px) translateX(-50%);
+        transform: translate(-50%, -50%) translateY(-10px);
     }
 }
 

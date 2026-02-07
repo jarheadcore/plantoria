@@ -90,10 +90,10 @@ const fixtureGemuese: GemueseItem[] = [
         percent: 72,
         phase: 'Wachstum',
         milestones: [
-            { at: 25, status: 'accomplished', label: 'Gekeimt', image: '/milestones/karotte-gekeimt.svg' },
-            { at: 50, status: 'accomplished', label: 'Erstes Grün', image: '/milestones/karotte-erstes-gruen.svg' },
+            { at: 25, status: 'accomplished', label: 'Gesät', image: '/images/ruebli-saen.webp' },
+            { at: 50, status: 'accomplished', label: 'Wachstum', image: '/images/ruebli-wachstum.webp' },
             { at: 75, status: 'planned', label: 'Erntereif', image: '/milestones/karotte-erntereif.svg' },
-            { at: 100, status: 'planned', label: 'Geerntet', image: '/milestones/karotte-geerntet.svg' },
+            { at: 100, status: 'planned', label: 'Geerntet', image: '/images/ruebli-ernte.webp' },
         ],
     },
     {

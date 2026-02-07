@@ -31,7 +31,14 @@ function onScroll() {
                     <span class="text-2xl">🌱</span>
                     <h1 class="text-lg font-bold">Plantoria</h1>
                 </div>
-                <div class="bg-amber-400 text-amber-900 font-bold rounded-full px-3 py-1 text-sm">🏆 1050</div>
+                <div class="flex items-center gap-2">
+                    <div class="flex -space-x-2">
+                        <img src="/images/karotte.webp" alt="Karotte" class="w-8 h-8 rounded-full border-2 border-white/50 bg-white object-cover" />
+                        <img src="/images/tomate.webp" alt="Tomate" class="w-8 h-8 rounded-full border-2 border-white/50 bg-white object-cover" />
+                        <img src="/images/lauch.webp" alt="Lauch" class="w-8 h-8 rounded-full border-2 border-white/50 bg-white object-cover" />
+                    </div>
+                    <div class="bg-amber-400 text-amber-900 font-bold rounded-full px-3 py-1 text-sm">🏆 1050</div>
+                </div>
             </div>
         </header>
 
