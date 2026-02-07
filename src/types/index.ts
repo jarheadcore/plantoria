@@ -328,6 +328,7 @@ export interface Material {
   lp21Refs: string[]
   lastDownloaded?: string
   fileUrl?: string
+  documentName?: string
   linkUrl?: string
   videoUrl?: string
   audioUrl?: string

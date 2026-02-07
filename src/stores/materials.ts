@@ -64,6 +64,24 @@ export const useMaterialsStore = defineStore('materials', () => {
         return materials.value.filter((m) => m.tags.includes(tag))
     }
 
+    function addMaterial(material: Material) {
+        materials.value.push(material)
+    }
+
+    function updateMaterial(id: string, updates: Partial<Material>) {
+        const idx = materials.value.findIndex((m) => m.id === id)
+        if (idx !== -1) {
+            const existing = materials.value[idx]
+            if (existing) {
+                materials.value[idx] = { ...existing, ...updates }
+            }
+        }
+    }
+
+    function deleteMaterial(id: string) {
+        materials.value = materials.value.filter((m) => m.id !== id)
+    }
+
     function resetFilters() {
         filterTag.value = 'all'
         filterGrade.value = 'all'
@@ -87,6 +105,9 @@ export const useMaterialsStore = defineStore('materials', () => {
         recordDownload,
         getMaterialById,
         getMaterialsByTag,
+        addMaterial,
+        updateMaterial,
+        deleteMaterial,
         resetFilters,
     }
 })

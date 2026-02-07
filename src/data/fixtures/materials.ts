@@ -12,6 +12,8 @@ export const fixtureMaterials: Material[] = [
         difficulty: 'Mittel',
         lp21Refs: ['NMG.2.1.a', 'NMG.2.3'],
         lastDownloaded: '2026-05-08',
+        fileUrl: '/documents/Arbeitsblatt_Karotten-Mess-Challenge.pdf',
+        documentName: 'Arbeitsblatt_Karotten-Mess-Challenge.pdf',
     },
     {
         id: 'mat-2',
@@ -146,6 +148,8 @@ export const fixtureMaterials: Material[] = [
         formats: ['PDF'],
         difficulty: 'Schwer',
         lp21Refs: ['TTG.2'],
+        fileUrl: '/documents/teacher.pdf',
+        documentName: 'teacher.pdf',
     },
     {
         id: 'mat-14',
