@@ -35,7 +35,9 @@
       "Bash(npx nuxt typecheck:*)",
       "Bash(npx nuxt build:*)",
       "Bash(git fetch:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(git merge:*)",
+      "Bash(git checkout:*)"
     ]
   }
 }
