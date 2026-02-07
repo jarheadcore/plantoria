@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { useProjectsStore } from '@/stores/projects'
 import { useStudentsStore } from '@/stores/students'
+import { useMapStore } from '@/stores/map'
 import type { ProjectStatus, ProjectPhase, Topic, VegetableProfile } from '@/types'
 
 definePageMeta({ layout: 'teacher' })
@@ -8,6 +9,7 @@ definePageMeta({ layout: 'teacher' })
 const route = useRoute()
 const projectsStore = useProjectsStore()
 const studentsStore = useStudentsStore()
+const mapStore = useMapStore()
 
 const projectId = route.params.id as string
 const project = computed(() => projectsStore.getProjectById(projectId))
@@ -15,6 +17,7 @@ const topics = computed(() => projectsStore.getTopicsByProjectId(projectId).sort
 const cultures = computed(() => projectsStore.getCulturesByProjectId(projectId))
 const groups = computed(() => projectsStore.getGroupsByProjectId(projectId))
 const preProject = computed(() => projectsStore.getPreProjectByProjectId(projectId))
+const mapPhotos = computed(() => mapStore.getPhotosByProjectId(projectId))
 
 const activeTab = ref('topics')
 const openTopicId = ref<string | null>(null)
@@ -326,6 +329,7 @@ function getTopicTasks(topicId: string) {
                     { key: 'topics', label: 'Fachbereiche' },
                     { key: 'cultures', label: 'Kulturen' },
                     { key: 'groups', label: 'Gruppen' },
+                    { key: 'map', label: 'Karte' },
                     { key: 'preproject', label: 'Vorprojekt' },
                 ]"
                 :key="tab.key"
@@ -619,6 +623,20 @@ function getTopicTasks(topicId: string) {
                     </p>
                 </UCard>
             </div>
+        </div>
+
+        <!-- ============================================ -->
+        <!-- Tab: Karte                                   -->
+        <!-- ============================================ -->
+        <div v-if="activeTab === 'map'">
+            <AppMap
+                mode="photo-gallery"
+                :photos="mapPhotos"
+                :center="project.coordinates ?? { lat: 47.3392, lng: 8.1183 }"
+                :zoom="15"
+                height="500px"
+            />
+            <p class="mt-2 text-xs text-gray-400">{{ mapPhotos.length }} Fortschrittsfotos auf der Karte</p>
         </div>
 
         <!-- ============================================ -->

@@ -74,10 +74,7 @@ const selectedClassId = computed({
                         <NuxtLink
                             :to="n.link || '#'"
                             class="block"
-                            @click="
-                                notifStore.markAsRead(n.id)
-                                showNotifications = false
-                            "
+                            @click="notifStore.markAsRead(n.id); showNotifications = false"
                         >
                             <p :class="['font-medium', !n.read ? 'text-gray-900 dark:text-gray-100' : 'text-gray-600 dark:text-gray-400']">
                                 {{ n.title }}

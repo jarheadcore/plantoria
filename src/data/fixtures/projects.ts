@@ -14,7 +14,7 @@ export const fixtureProjects: Project[] = [
         currentPhase: 'Pflanzung',
         progress: 60,
         location: 'Hinter dem Schulhaus, Südseite',
-        coordinates: { lat: 47.3925, lng: 8.0456 },
+        coordinates: { lat: 47.3392, lng: 8.1183 },
         startDate: '2026-01-15',
     },
     {

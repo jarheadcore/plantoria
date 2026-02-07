@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { watch, onUnmounted, ref, inject } from 'vue'
+import { watch, onMounted, onUnmounted, ref, inject } from 'vue'
 import type { GeoPhoto } from '@/types'
 
 const props = defineProps<{
@@ -12,8 +12,8 @@ const emit = defineEmits<{
 }>()
 
 // Injected by LMap from @vue-leaflet/vue-leaflet
-const addLayer: ((layer: any) => void) | undefined = inject('addLayer')
-const removeLayer: ((layer: any) => void) | undefined = inject('removeLayer')
+const addLayer = inject<(layer: any) => void>('addLayer')
+const removeLayer = inject<(layer: any) => void>('removeLayer')
 
 let L: typeof import('leaflet') | null = null
 let clusterGroup: any = null
@@ -25,7 +25,7 @@ async function init() {
     await import('leaflet.markercluster')
 
     clusterGroup = (L as any).markerClusterGroup({
-        maxClusterRadius: 50,
+        maxClusterRadius: 60,
         spiderfyOnMaxZoom: true,
         showCoverageOnHover: false,
         iconCreateFunction(cluster: any) {
@@ -113,14 +113,15 @@ watch(
     { deep: true },
 )
 
+onMounted(() => {
+    init()
+})
+
 onUnmounted(() => {
     if (clusterGroup) {
         removeLayer?.(clusterGroup)
     }
 })
-
-// Initialize on mount (client-side only since parent wraps in <ClientOnly>)
-init()
 </script>
 
 <template>
