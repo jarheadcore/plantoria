@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useTeacherStore } from '@/stores/teacher'
 import { useProjectsStore } from '@/stores/projects'
 import { useCurriculumStore } from '@/stores/curriculum'
@@ -6,7 +7,8 @@ import { useMaterialsStore } from '@/stores/materials'
 import { useCalendarStore } from '@/stores/calendar'
 import { useTasksStore } from '@/stores/tasks'
 import { useSettingsStore } from '@/stores/settings'
-import { FolderKanban, GraduationCap, ClipboardList, Leaf, Download, CalendarDays, Palmtree } from 'lucide-vue-next'
+import { useDiaryStore } from '@/stores/diary'
+import { FolderKanban, GraduationCap, ClipboardList, Leaf, Download, CalendarDays, Palmtree, BookOpen, X } from 'lucide-vue-next'
 
 definePageMeta({ layout: 'teacher' })
 
@@ -17,8 +19,12 @@ const materialsStore = useMaterialsStore()
 const calendarStore = useCalendarStore()
 const tasksStore = useTasksStore()
 const settingsStore = useSettingsStore()
+const diaryStore = useDiaryStore()
 
 const upcomingTasks = computed(() => tasksStore.upcomingTasks.slice(0, 5))
+
+// Diary lightbox state
+const diaryLightboxPhoto = ref<{ base64: string; caption?: string; taskTitle: string } | null>(null)
 
 const weekEntries = computed(() => calendarStore.currentWeekEntries.slice(0, 5))
 
@@ -170,6 +176,75 @@ function formatDate(date?: string) {
                 </template>
             </UCard>
 
+            <!-- Feld-Tagebuch -->
+            <UCard>
+                <template #header>
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center gap-2">
+                            <BookOpen :size="18" class="text-green-600" />
+                            <span class="font-semibold">Feld-Tagebuch</span>
+                        </div>
+                        <UBadge color="primary" variant="subtle">{{ diaryStore.recentEntries.length }}</UBadge>
+                    </div>
+                </template>
+                <div class="space-y-4">
+                    <!-- Recent entries -->
+                    <div
+                        v-for="entry in diaryStore.recentEntries.slice(0, 3)"
+                        :key="entry.id"
+                        class="flex items-start gap-3"
+                    >
+                        <!-- Clickable photo bubble (larger) -->
+                        <button
+                            v-if="entry.photos.length > 0"
+                            class="shrink-0 h-14 w-14 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 hover:ring-2 hover:ring-green-400 transition-all cursor-pointer"
+                            @click="diaryLightboxPhoto = { base64: entry.photos[0]!.base64, caption: entry.photos[0]!.caption, taskTitle: entry.taskTitle }"
+                        >
+                            <img
+                                :src="entry.photos[0]!.base64"
+                                :alt="entry.photos[0]!.caption || 'Foto'"
+                                class="h-full w-full object-cover"
+                            />
+                        </button>
+                        <div
+                            v-else
+                            class="shrink-0 h-14 w-14 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center"
+                        >
+                            <BookOpen :size="18" class="text-gray-300 dark:text-gray-600" />
+                        </div>
+                        <div class="min-w-0 flex-1">
+                            <p class="text-sm font-medium text-gray-900 dark:text-white truncate">
+                                {{ entry.taskTitle }}
+                            </p>
+                            <p class="text-xs text-gray-500 mt-0.5 line-clamp-2">
+                                {{ entry.notes }}
+                            </p>
+                            <span class="text-xs text-gray-400 tabular-nums">{{ formatDate(entry.date) }}</span>
+                        </div>
+                    </div>
+                    <!-- Photo gallery row -->
+                    <div v-if="diaryStore.allPhotos.length > 0" class="flex gap-2 overflow-x-auto pb-1">
+                        <button
+                            v-for="photo in diaryStore.allPhotos.slice(0, 6)"
+                            :key="photo.id"
+                            class="shrink-0 h-16 w-16 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-800 hover:ring-2 hover:ring-green-400 transition-all cursor-pointer"
+                            @click="diaryLightboxPhoto = { base64: photo.base64, caption: photo.caption, taskTitle: photo.taskTitle }"
+                        >
+                            <img
+                                :src="photo.base64"
+                                :alt="photo.caption || 'Foto'"
+                                class="h-full w-full object-cover"
+                            />
+                        </button>
+                    </div>
+                </div>
+                <template #footer>
+                    <NuxtLink to="/tagebuch" class="text-sm text-green-600 hover:text-green-700">
+                        Zum Tagebuch &rarr;
+                    </NuxtLink>
+                </template>
+            </UCard>
+
             <!-- Seasonal Tips -->
             <UCard>
                 <template #header>
@@ -248,5 +323,32 @@ function formatDate(date?: string) {
                 </template>
             </UCard>
         </div>
+
+        <!-- Diary photo lightbox -->
+        <Teleport to="body">
+            <div
+                v-if="diaryLightboxPhoto"
+                class="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 p-4"
+                @click.self="diaryLightboxPhoto = null"
+            >
+                <button
+                    class="absolute top-4 right-4 h-10 w-10 rounded-full bg-white/20 text-white flex items-center justify-center hover:bg-white/30"
+                    @click="diaryLightboxPhoto = null"
+                >
+                    <X :size="24" />
+                </button>
+                <div class="max-w-full max-h-full text-center">
+                    <img
+                        :src="diaryLightboxPhoto.base64"
+                        :alt="diaryLightboxPhoto.caption || 'Foto'"
+                        class="max-h-[85vh] max-w-full rounded-lg object-contain mx-auto"
+                    />
+                    <p class="text-white text-sm mt-3">
+                        <span class="font-medium">{{ diaryLightboxPhoto.taskTitle }}</span>
+                        <span v-if="diaryLightboxPhoto.caption"> &mdash; {{ diaryLightboxPhoto.caption }}</span>
+                    </p>
+                </div>
+            </div>
+        </Teleport>
     </div>
 </template>

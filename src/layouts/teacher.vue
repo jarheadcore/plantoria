@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { LayoutDashboard, FolderKanban, FileDown, Users, CalendarDays, Settings, HelpCircle, LogOut, Menu, X } from 'lucide-vue-next'
+import { LayoutDashboard, FolderKanban, FileDown, Users, CalendarDays, BookOpen, Settings, HelpCircle, LogOut, Menu, X } from 'lucide-vue-next'
 import { useAuthStore } from '@/stores/auth'
 
 const sidebarOpen = ref(false)
@@ -12,6 +12,7 @@ const navItems = [
     { label: 'Material', icon: FileDown, to: '/teacher/materials' },
     { label: 'Schüler & Gruppen', icon: Users, to: '/teacher/students' },
     { label: 'Kalender', icon: CalendarDays, to: '/teacher/calendar' },
+    { label: 'Tagebuch', icon: BookOpen, to: '/tagebuch' },
 ]
 
 function handleLogout() {
@@ -23,6 +24,7 @@ const route = useRoute()
 
 function isActive(to: string) {
     if (to === '/teacher') return route.path === '/teacher'
+    if (to === '/tagebuch') return route.path.startsWith('/tagebuch')
     return route.path.startsWith(to)
 }
 

@@ -1,10 +1,13 @@
 <script setup lang="ts">
 import { useDashboardStore, type Milestone } from '~/stores/dashboard'
+import { useDiaryStore } from '@/stores/diary'
 
 const store = useDashboardStore()
+const diaryStore = useDiaryStore()
 
-const bubbleClasses = (status: Milestone['status']) => {
-    switch (status) {
+const bubbleClasses = (ms: Milestone & { diaryPhoto?: string }) => {
+    if (ms.diaryPhoto) return 'border-green-500 shadow-lg'
+    switch (ms.status) {
         case 'accomplished':
             return 'bg-green-500 border-green-600 text-white'
         case 'failed':
@@ -13,12 +16,29 @@ const bubbleClasses = (status: Milestone['status']) => {
             return 'bg-white border-gray-300 text-gray-400'
     }
 }
+
+// Inject diary photos into accomplished milestones of the dashboard gemuese data
+const gemuese = computed(() => {
+    const photos = diaryStore.allPhotos
+    return store.gemuese.map((item) => {
+        let photoIdx = 0
+        const milestones = item.milestones.map((ms) => {
+            if (ms.status === 'accomplished' && photos[photoIdx]) {
+                const result = { ...ms, diaryPhoto: photos[photoIdx]!.base64 }
+                photoIdx++
+                return result
+            }
+            return { ...ms, diaryPhoto: undefined }
+        })
+        return { ...item, milestones }
+    })
+})
 </script>
 
 <template>
     <section class="w-full shrink-0 snap-start snap-always overflow-y-auto p-4">
         <div class="space-y-5">
-            <div v-for="item in store.gemuese" :key="item.crop" class="bg-white rounded-2xl p-4 shadow-sm">
+            <div v-for="item in gemuese" :key="item.crop" class="bg-white rounded-2xl p-4 shadow-sm">
                 <div class="flex items-center justify-between mb-2">
                     <span class="text-xl font-bold">{{ item.icon }} {{ item.crop }}</span>
                     <span class="bg-green-100 text-green-700 text-sm font-semibold px-3 py-1 rounded-full">
@@ -36,10 +56,22 @@ const bubbleClasses = (status: Milestone['status']) => {
                         :style="{ left: ms.at + '%' }"
                     >
                         <div
-                            class="w-8 h-8 rounded-full border-2 flex items-center justify-center text-sm font-bold shadow-md transition-transform hover:scale-110 cursor-default"
-                            :class="bubbleClasses(ms.status)"
+                            :class="[
+                                'rounded-full border-2 flex items-center justify-center font-bold shadow-md transition-transform hover:scale-110 cursor-default overflow-hidden',
+                                ms.diaryPhoto ? 'w-11 h-11 -mt-0.5' : 'w-8 h-8 text-sm',
+                                bubbleClasses(ms),
+                            ]"
                         >
-                            <template v-if="ms.image">
+                            <!-- Diary photo from Tagebuch upload -->
+                            <template v-if="ms.diaryPhoto">
+                                <img
+                                    :src="ms.diaryPhoto"
+                                    :alt="ms.label"
+                                    class="w-full h-full object-cover"
+                                />
+                            </template>
+                            <!-- Fallback: SVG milestone image -->
+                            <template v-else-if="ms.image">
                                 <img :src="ms.image" :alt="ms.label" class="w-full h-full rounded-full object-cover" />
                             </template>
                             <template v-else-if="ms.status === 'accomplished'"> &#10003; </template>
@@ -56,6 +88,32 @@ const bubbleClasses = (status: Milestone['status']) => {
                     </div>
                 </div>
                 <p class="text-right text-sm text-gray-500 mt-1 font-bold">{{ item.percent }}%</p>
+            </div>
+
+            <!-- Diary photo strip from Tagebuch -->
+            <div v-if="diaryStore.allPhotos.length > 0" class="bg-white rounded-2xl p-4 shadow-sm">
+                <h3 class="text-base font-bold mb-3">📸 Aus dem Tagebuch</h3>
+                <div class="flex gap-3 overflow-x-auto pb-1">
+                    <div
+                        v-for="photo in diaryStore.allPhotos.slice(0, 8)"
+                        :key="photo.id"
+                        class="shrink-0 w-24"
+                    >
+                        <div class="h-24 w-24 rounded-xl overflow-hidden bg-gray-100 shadow-sm">
+                            <img
+                                :src="photo.base64"
+                                :alt="photo.taskTitle"
+                                class="h-full w-full object-cover"
+                            />
+                        </div>
+                        <p class="text-xs text-gray-600 mt-1.5 text-center font-medium truncate">
+                            {{ photo.taskTitle }}
+                        </p>
+                        <p class="text-xs text-gray-400 text-center">
+                            {{ new Date(photo.takenAt).toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit' }) }}
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <div class="p-5 bg-green-100 rounded-2xl text-center">

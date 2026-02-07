@@ -404,6 +404,32 @@ export interface SchoolHoliday {
     municipality?: string
 }
 
+// -- Tagebuch (Feld-Tagebuch / Field Diary) --
+
+export interface DiaryPhoto {
+  id: string
+  base64: string
+  caption?: string
+  takenAt: string
+}
+
+export interface DiaryKnowledgeFact {
+  title: string
+  text: string
+}
+
+export interface DiaryEntry {
+  id: string
+  projectId: string
+  taskId: string
+  taskTitle: string
+  date: string
+  notes: string
+  photos: DiaryPhoto[]
+  knowledgeFacts: DiaryKnowledgeFact[]
+  completed: boolean
+}
+
 // -- Harvest-Markt (wird spaeter in CalendarEntry integriert) --
 
 export interface HarvestMarketProduct {

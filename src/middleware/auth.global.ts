@@ -6,6 +6,7 @@ export default defineNuxtRouteMiddleware((to) => {
 
     const publicPaths = ['/', '/login', '/dashboard', '/infoscreen']
     const isPublic = publicPaths.some((p) => to.path === p || to.path.startsWith('/dashboard'))
+        || to.path.startsWith('/tagebuch')
 
     if (!authStore.isAuthenticated && !isPublic) {
         return navigateTo('/login')
