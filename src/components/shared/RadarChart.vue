@@ -113,7 +113,7 @@ function getLabelPos(index: number) {
       :y="getLabelPos(i).y"
       text-anchor="middle"
       dominant-baseline="central"
-      class="fill-gray-600 dark:fill-gray-400 text-xs font-medium"
+      class="fill-gray-600 dark:fill-gray-400 text-sm font-bold"
     >
       {{ d.shortName }}
     </text>
@@ -125,7 +125,7 @@ function getLabelPos(index: number) {
       :x="getPoint(i, d.actual).x"
       :y="getPoint(i, d.actual).y - 12"
       text-anchor="middle"
-      class="fill-green-700 dark:fill-green-400 text-[10px] font-bold"
+      class="fill-green-700 dark:fill-green-400 text-xs font-bold"
     >
       {{ d.actual }}%
     </text>

@@ -25,40 +25,59 @@ const bubbleClasses = (ms: Milestone) => {
         case 'failed':
             return 'bg-red-400 border-red-500 text-white'
         case 'planned':
-            return 'bg-white border-gray-300 text-gray-400'
+            return 'bg-white dark:bg-gray-700 border-gray-300 dark:border-gray-500 text-gray-400 dark:text-gray-300'
     }
+}
+
+// Lightbox state
+const lightboxOpen = ref(false)
+const lightboxImages = ref<{ src: string; label: string; status: string }[]>([])
+const lightboxStartIndex = ref(0)
+
+function openLightbox(milestones: Milestone[], index: number) {
+    lightboxImages.value = milestones
+        .filter((ms) => ms.image)
+        .map((ms) => ({ src: ms.image!, label: ms.label, status: ms.status }))
+    const ms = milestones[index]
+    if (ms) {
+        lightboxStartIndex.value = lightboxImages.value.findIndex((img) => img.src === ms.image)
+        if (lightboxStartIndex.value < 0) lightboxStartIndex.value = 0
+    }
+    lightboxOpen.value = true
 }
 </script>
 
 <template>
     <section class="w-full shrink-0 snap-start snap-always overflow-y-auto p-4">
         <div class="space-y-5">
-            <div v-for="item in store.gemuese" :key="item.crop" class="bg-white rounded-2xl p-4 shadow-sm">
+            <div v-for="item in store.gemuese" :key="item.crop" class="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm dark:shadow-none">
                 <div class="flex items-center justify-between mb-2">
-                    <span class="flex items-center gap-2 text-xl font-bold">
+                    <span class="flex items-center gap-2 text-xl font-bold dark:text-white">
                         <img v-if="cropMascot[item.crop]" :src="cropMascot[item.crop]" :alt="item.crop" class="w-8 h-8 rounded-full object-cover" />
                         <template v-else>{{ item.icon }}</template>
                         {{ item.crop }}
                     </span>
-                    <span class="bg-green-100 text-green-700 text-sm font-semibold px-3 py-1 rounded-full">
+                    <span class="bg-green-100 dark:bg-green-900/40 text-green-700 dark:text-green-400 text-sm font-semibold px-3 py-1 rounded-full">
                         {{ item.phase }}
                     </span>
                 </div>
                 <div class="relative w-full mb-8">
-                    <div class="w-full bg-green-100 rounded-full h-5 overflow-hidden">
+                    <div class="w-full bg-green-100 dark:bg-green-900/30 rounded-full h-5 overflow-hidden">
                         <div class="bg-green-500 h-full rounded-full transition-all" :style="{ width: item.percent + '%' }" />
                     </div>
                     <div
-                        v-for="ms in item.milestones"
+                        v-for="(ms, msIdx) in item.milestones"
                         :key="ms.at"
-                        class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 group"
+                        class="absolute top-1/2 -translate-y-1/2 -translate-x-1/2 z-10 group"
                         :style="{ left: ms.at + '%' }"
                     >
                         <div
                             :class="[
-                                'rounded-full border-2 flex items-center justify-center font-bold shadow-md transition-transform hover:scale-110 cursor-default overflow-hidden w-12 h-12 text-base',
+                                'rounded-full border-2 flex items-center justify-center font-bold shadow-md transition-transform hover:scale-110 overflow-hidden w-12 h-12 text-base',
                                 bubbleClasses(ms),
+                                ms.image ? 'cursor-pointer' : 'cursor-default',
                             ]"
+                            @click.stop="ms.image && openLightbox(item.milestones, msIdx)"
                         >
                             <template v-if="ms.image">
                                 <img :src="ms.image" :alt="ms.label" class="w-full h-full rounded-full object-cover" />
@@ -70,18 +89,18 @@ const bubbleClasses = (ms: Milestone) => {
                             </template>
                         </div>
                         <span
-                            class="absolute left-1/2 -translate-x-1/2 top-full mt-1 text-xs text-gray-500 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
+                            class="absolute left-1/2 -translate-x-1/2 top-full mt-1 text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none"
                         >
                             {{ ms.label }}
                         </span>
                     </div>
                 </div>
-                <p class="text-right text-sm text-gray-500 mt-1 font-bold">{{ item.percent }}%</p>
+                <p class="text-right text-sm text-gray-500 dark:text-gray-400 mt-1 font-bold">{{ item.percent }}%</p>
             </div>
 
             <!-- Diary photo strip from Tagebuch -->
-            <div class="bg-white rounded-2xl p-4 shadow-sm">
-                <h3 class="text-base font-bold mb-3">📸 Aus dem Tagebuch</h3>
+            <div class="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm dark:shadow-none">
+                <h3 class="text-base font-bold mb-3 dark:text-white">📸 Aus dem Tagebuch</h3>
                 <div class="flex gap-3 overflow-x-auto pb-1">
                     <!-- Milestone photos -->
                     <div
@@ -89,17 +108,17 @@ const bubbleClasses = (ms: Milestone) => {
                         :key="ms.id"
                         class="shrink-0 w-24"
                     >
-                        <div class="h-24 w-24 rounded-xl overflow-hidden bg-gray-100 shadow-sm">
+                        <div class="h-24 w-24 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-700 shadow-sm dark:shadow-none">
                             <img
                                 :src="ms.src"
                                 :alt="ms.title"
                                 class="h-full w-full object-cover"
                             />
                         </div>
-                        <p class="text-xs text-gray-600 mt-1.5 text-center font-medium truncate">
+                        <p class="text-xs text-gray-600 dark:text-gray-300 mt-1.5 text-center font-medium truncate">
                             {{ ms.title }}
                         </p>
-                        <p class="text-xs text-gray-400 text-center">
+                        <p class="text-xs text-gray-400 dark:text-gray-500 text-center">
                             {{ ms.date }}
                         </p>
                     </div>
@@ -109,26 +128,33 @@ const bubbleClasses = (ms: Milestone) => {
                         :key="photo.id"
                         class="shrink-0 w-24"
                     >
-                        <div class="h-24 w-24 rounded-xl overflow-hidden bg-gray-100 shadow-sm">
+                        <div class="h-24 w-24 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-700 shadow-sm dark:shadow-none">
                             <img
                                 :src="photo.base64"
                                 :alt="photo.taskTitle"
                                 class="h-full w-full object-cover"
                             />
                         </div>
-                        <p class="text-xs text-gray-600 mt-1.5 text-center font-medium truncate">
+                        <p class="text-xs text-gray-600 dark:text-gray-300 mt-1.5 text-center font-medium truncate">
                             {{ photo.taskTitle }}
                         </p>
-                        <p class="text-xs text-gray-400 text-center">
+                        <p class="text-xs text-gray-400 dark:text-gray-500 text-center">
                             {{ new Date(photo.takenAt).toLocaleDateString('de-CH', { day: '2-digit', month: '2-digit' }) }}
                         </p>
                     </div>
                 </div>
             </div>
 
-            <div class="p-5 bg-green-100 rounded-2xl text-center">
-                <p class="text-base text-green-800 font-medium">🌤️ Dein Beet sieht in 3 Monaten grossartig aus!</p>
+            <div class="p-5 bg-green-100 dark:bg-green-950/50 rounded-2xl text-center">
+                <p class="text-base text-green-800 dark:text-green-300 font-medium">🌤️ Dein Beet sieht in 3 Monaten grossartig aus!</p>
             </div>
         </div>
+
+        <MilestoneLightbox
+            v-if="lightboxOpen"
+            :images="lightboxImages"
+            :start-index="lightboxStartIndex"
+            @close="lightboxOpen = false"
+        />
     </section>
 </template>

@@ -97,18 +97,6 @@ const fixtureGemuese: GemueseItem[] = [
         ],
     },
     {
-        crop: 'Brokkoli',
-        icon: '🥦',
-        percent: 45,
-        phase: 'Aussaat',
-        milestones: [
-            { at: 25, status: 'accomplished', label: 'Gekeimt', image: '/milestones/brokkoli-gekeimt.svg' },
-            { at: 50, status: 'planned', label: 'Kopfbildung', image: '/milestones/brokkoli-kopfbildung.svg' },
-            { at: 75, status: 'planned', label: 'Erntereif', image: '/milestones/brokkoli-erntereif.svg' },
-            { at: 100, status: 'planned', label: 'Geerntet', image: '/milestones/brokkoli-geerntet.svg' },
-        ],
-    },
-    {
         crop: 'Tomaten',
         icon: '🍅',
         percent: 30,
@@ -185,8 +173,10 @@ const fixtureBienenstock: BienenstockItem[] = [
     },
 ]
 
+const MY_SCHOOL = 'Primarschule Aarau'
+
 const fixtureSchoolRankings: SchoolRanking[] = [
-    { rank: 1, name: 'Klasse 4a', points: 1240 },
+    { rank: 1, name: 'Klasse 4a', points: 1350 },
     { rank: 2, name: 'Klasse 3b', points: 1180 },
     { rank: 3, name: 'Klasse HE24a', points: 1050, highlight: true },
     { rank: 4, name: 'Klasse 5c', points: 980 },
@@ -194,11 +184,27 @@ const fixtureSchoolRankings: SchoolRanking[] = [
 ]
 
 const fixtureSwissRankings: SwissRanking[] = [
-    { rank: 1, name: 'Klasse 2a', school: 'Primarschule Zürich', points: 1580 },
-    { rank: 2, name: 'Klasse 6b', school: 'Schulhaus Bern', points: 1420 },
-    { rank: 3, name: 'Klasse 4a', school: 'Schulhaus Moos', points: 1240 },
-    { rank: 12, name: 'Klasse HE24a', school: 'Unsere Schule', points: 1050, highlight: true },
-    { rank: 13, name: 'Klasse 1c', school: 'Schule Luzern', points: 1020 },
+    { rank: 1, name: 'Klasse 2a', school: 'Primarschule Zürich-Schwamendingen', points: 1580 },
+    { rank: 2, name: 'Klasse 6b', school: 'Schulhaus Bern-Breitenrain', points: 1420 },
+    { rank: 3, name: 'Klasse 4a', school: MY_SCHOOL, points: 1350 },
+    { rank: 4, name: 'Klasse 3c', school: 'Primarschule Basel-Gundeldingen', points: 1310 },
+    { rank: 5, name: 'Klasse 5a', school: 'Schulhaus Luzern-Littau', points: 1280 },
+    { rank: 6, name: 'Klasse 1b', school: 'Primarschule St. Gallen-Rotmonten', points: 1240 },
+    { rank: 7, name: 'Klasse 4c', school: 'Schulhaus Winterthur-Seen', points: 1210 },
+    { rank: 8, name: 'Klasse 2b', school: 'Primarschule Schaffhausen', points: 1190 },
+    { rank: 9, name: 'Klasse 3a', school: 'Schulhaus Biel/Bienne', points: 1170 },
+    { rank: 10, name: 'Klasse 5b', school: 'Primarschule Thun', points: 1150 },
+    { rank: 11, name: 'Klasse 6a', school: 'Schulhaus Solothurn', points: 1120 },
+    { rank: 12, name: 'Klasse 2c', school: 'Primarschule Zug', points: 1100 },
+    { rank: 13, name: 'Klasse HE24a', school: MY_SCHOOL, points: 1050, highlight: true },
+    { rank: 14, name: 'Klasse 4b', school: 'Schulhaus Baden', points: 1030 },
+    { rank: 15, name: 'Klasse 1a', school: 'Primarschule Olten', points: 1010 },
+    { rank: 16, name: 'Klasse 3b', school: 'Schulhaus Frauenfeld', points: 990 },
+    { rank: 17, name: 'Klasse 5c', school: 'Primarschule Rapperswil-Jona', points: 970 },
+    { rank: 18, name: 'Klasse 6c', school: 'Schulhaus Wettingen', points: 940 },
+    { rank: 19, name: 'Klasse 2a', school: 'Primarschule Köniz', points: 910 },
+    { rank: 20, name: 'Klasse 4a', school: 'Schulhaus Emmen', points: 880 },
+    { rank: 21, name: 'Klasse 1c', school: 'Primarschule Langenthal', points: 850 },
 ]
 
 const fixtureTodos: Todo[] = [
@@ -249,15 +255,13 @@ const fixtureSeasons: Season[] = [
 const fixtureGardenEvents: GardenEvent[] = [
     { seasonId: 'winter', sleeps: -5, task: 'Setzlinge vorziehen', cropEmoji: '🍅', actionEmoji: '🌱', done: true },
     { seasonId: 'fruehling', sleeps: 3, task: 'Beet vorbereiten', cropEmoji: '🥕', actionEmoji: '🪴', done: false },
-    { seasonId: 'fruehling', sleeps: 17, task: 'Brokkoli säen', cropEmoji: '🥦', actionEmoji: '🌱', done: false },
-    { seasonId: 'fruehling', sleeps: 38, task: 'Lauch pflanzen', cropEmoji: '🌿', actionEmoji: '🪴', done: false },
+{ seasonId: 'fruehling', sleeps: 38, task: 'Lauch pflanzen', cropEmoji: '🌿', actionEmoji: '🪴', done: false },
     { seasonId: 'sommer', sleeps: 114, task: 'Erste Ernte!', cropEmoji: '🥕', actionEmoji: '🧺', done: false },
 ]
 
 const fixtureTabs: Tab[] = [
     { label: 'Gemüse', emoji: '🥬', value: 'gemuese', isProject: true },
-    { label: 'Bienen', emoji: '🐝', value: 'bienenstock', isProject: true },
-    { label: 'Rangliste', emoji: '🏆', value: 'ranking', isProject: false },
+{ label: 'Rangliste', emoji: '🏆', value: 'ranking', isProject: false },
     { label: 'Aufgaben', emoji: '✅', value: 'todos', isProject: false },
     { label: 'Statistik', emoji: '📊', value: 'stats', isProject: false },
     { label: 'Kalender', emoji: '📅', value: 'calendar', isProject: false },
@@ -310,6 +314,7 @@ export const useDashboardStore = defineStore('dashboard', () => {
     const isLoaded = ref(false)
 
     // Computed
+    const mySchoolName = MY_SCHOOL
     const schoolMax = computed(() => Math.max(...schoolRankings.value.map((r) => r.points)))
     const swissMax = computed(() => Math.max(...swissRankings.value.map((r) => r.points)))
     const openTodoCount = computed(() => todos.value.filter((t) => !t.done).length)
@@ -375,6 +380,7 @@ export const useDashboardStore = defineStore('dashboard', () => {
         activeTab,
         isLoaded,
         // Computed
+        mySchoolName,
         schoolMax,
         swissMax,
         openTodoCount,
