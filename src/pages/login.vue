@@ -5,6 +5,7 @@ import { Eye, EyeOff, Leaf, Mail, Lock, ArrowLeft, ChevronLeft, Sprout, Sun, Dro
 definePageMeta({ layout: false, layoutTransition: false })
 
 const authStore = useAuthStore()
+const route = useRoute()
 
 // View state: 'login' | 'forgot' | 'forgot-sent'
 const view = ref<'login' | 'forgot' | 'forgot-sent'>('login')
@@ -30,7 +31,8 @@ async function handleLogin() {
 
     const success = authStore.login(email.value, password.value, rememberMe.value)
     if (success) {
-        navigateTo('/teacher')
+        const redirect = route.query.redirect as string
+        navigateTo(redirect || '/teacher')
     } else {
         error.value = 'Ungültige E-Mail-Adresse oder Passwort.'
     }
