@@ -23,13 +23,8 @@ export const useAuthStore = defineStore('auth', () => {
     }
 
     function logout() {
-        isAuthenticated.value = false
-        currentUser.value = null
-        rememberMe.value = false
-        if (import.meta.client) {
-            localStorage.removeItem('plantoria_auth')
-            sessionStorage.removeItem('plantoria_auth')
-        }
+        // v1.0.0: Auth deaktiviert – State bleibt erhalten, nur Navigation
+        // isAuthenticated und currentUser werden nicht geleert
     }
 
     function requestPasswordReset(email: string): boolean {
