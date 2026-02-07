@@ -8,15 +8,6 @@ export default defineNuxtRouteMiddleware((to) => {
     const authStore = useAuthStore()
     authStore.init()
 
-    const publicPaths = ['/', '/login', '/dashboard', '/infoscreen']
-    const isPublic = publicPaths.some((p) => to.path === p || to.path.startsWith('/dashboard'))
-        || to.path.startsWith('/tagebuch')
-
-    if (!authStore.isAuthenticated && !isPublic) {
-        return navigateTo('/login')
-    }
-
-    if (authStore.isAuthenticated && to.path === '/login') {
-        return navigateTo('/teacher')
-    }
+    // v1.0.0: Auth-Check deaktiviert – alle Routen offen
+    // Login-Maske und Verlinkungen bleiben erhalten
 })

@@ -8,6 +8,7 @@ import {
   CalendarDays,
   GraduationCap,
   BookOpen,
+  Tablet,
   Settings,
   HelpCircle,
   LogOut,
@@ -33,6 +34,7 @@ const navSecondary = [
 
 const navExtra = [
   { label: 'Tagebuch', icon: BookOpen, to: '/tagebuch' },
+  { label: 'Schüler-Infoscreen', icon: Tablet, to: '/infoscreen' },
 ]
 
 function handleLogout() {
@@ -45,6 +47,7 @@ const route = useRoute()
 function isActive(to: string) {
   if (to === '/teacher') return route.path === '/teacher'
   if (to === '/tagebuch') return route.path.startsWith('/tagebuch')
+  if (to === '/infoscreen') return route.path.startsWith('/infoscreen')
   return route.path.startsWith(to)
 }
 

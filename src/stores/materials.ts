@@ -56,6 +56,10 @@ export const useMaterialsStore = defineStore('materials', () => {
         }
     }
 
+    function getMaterialById(id: string) {
+        return materials.value.find((m) => m.id === id)
+    }
+
     function getMaterialsByTag(tag: string) {
         return materials.value.filter((m) => m.tags.includes(tag))
     }
@@ -81,6 +85,7 @@ export const useMaterialsStore = defineStore('materials', () => {
         searchQuery,
         filteredMaterials,
         recordDownload,
+        getMaterialById,
         getMaterialsByTag,
         resetFilters,
     }

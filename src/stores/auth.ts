@@ -4,38 +4,22 @@ import type { User } from '@/types'
 import { fixtureTeacher } from '@/data/fixtures/teacher'
 
 export const useAuthStore = defineStore('auth', () => {
-    const isAuthenticated = ref(false)
-    const currentUser = ref<User | null>(null)
+    // v1.0.0: Auth deaktiviert – immer eingeloggt als Fixture-User
+    const isAuthenticated = ref(true)
+    const currentUser = ref<User | null>(fixtureTeacher)
     const rememberMe = ref(false)
 
     function init() {
-        if (import.meta.client) {
-            const stored = localStorage.getItem('plantoria_auth')
-            const session = sessionStorage.getItem('plantoria_auth')
-            if (stored === 'true' || session === 'true') {
-                isAuthenticated.value = true
-                currentUser.value = fixtureTeacher
-                rememberMe.value = stored === 'true'
-            }
-        }
+        // Kein Check nötig – immer authentifiziert
+        isAuthenticated.value = true
+        currentUser.value = fixtureTeacher
     }
 
-    function login(email: string, password: string, remember: boolean): boolean {
-        if (email === 'anna.mueller@schule-aarau.ch' && password === 'plantoria') {
-            isAuthenticated.value = true
-            currentUser.value = fixtureTeacher
-            rememberMe.value = remember
-            if (import.meta.client) {
-                if (remember) {
-                    localStorage.setItem('plantoria_auth', 'true')
-                } else {
-                    sessionStorage.setItem('plantoria_auth', 'true')
-                    localStorage.removeItem('plantoria_auth')
-                }
-            }
-            return true
-        }
-        return false
+    function login(_email: string, _password: string, remember: boolean): boolean {
+        isAuthenticated.value = true
+        currentUser.value = fixtureTeacher
+        rememberMe.value = remember
+        return true
     }
 
     function logout() {
