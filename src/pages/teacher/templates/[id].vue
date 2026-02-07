@@ -130,16 +130,16 @@ function save() {
                   <div>
                     <span class="text-sm font-medium">{{ task.title }}</span>
                     <div class="flex gap-1 mt-1">
-                      <UBadge v-for="lp21Ref in task.lp21Refs" :key="lp21Ref" color="primary" variant="subtle" size="xs">
+                      <UBadge v-for="lp21Ref in task.lp21Refs" :key="lp21Ref" color="primary" variant="subtle" size="sm">
                         {{ lp21Ref }}
                       </UBadge>
-                      <UBadge v-if="!task.lp21Refs.length" color="neutral" variant="outline" size="xs">
+                      <UBadge v-if="!task.lp21Refs.length" color="neutral" variant="outline" size="sm">
                         Kein LP21
                       </UBadge>
                     </div>
                   </div>
                   <div class="flex gap-1">
-                    <UButton size="xs" variant="ghost" disabled>Bearbeiten</UButton>
+                    <UButton size="sm" variant="ghost" disabled>Bearbeiten</UButton>
                   </div>
                 </div>
               </div>
@@ -147,7 +147,7 @@ function save() {
               <!-- LP21 refs for topic -->
               <div v-if="topic.lp21Refs.length > 0" class="mt-2 flex items-center gap-1">
                 <span class="text-xs text-gray-400">LP21:</span>
-                <UBadge v-for="lp21Ref in topic.lp21Refs" :key="lp21Ref" color="neutral" variant="subtle" size="xs">
+                <UBadge v-for="lp21Ref in topic.lp21Refs" :key="lp21Ref" color="neutral" variant="subtle" size="sm">
                   {{ lp21Ref }}
                 </UBadge>
               </div>

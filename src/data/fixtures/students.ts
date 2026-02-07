@@ -1,6 +1,7 @@
 import type { Student } from '@/types'
 
 export const fixtureStudents: Student[] = [
+  // class-1: HE24a, Stufe 4 (22 Schueler)
   { id: 's-1', name: 'Anna M.', classId: 'class-1', grade: 4, tabletAccess: true },
   { id: 's-2', name: 'Ben K.', classId: 'class-1', grade: 4, tabletAccess: true },
   { id: 's-3', name: 'Clara R.', classId: 'class-1', grade: 4, tabletAccess: true },
@@ -23,4 +24,46 @@ export const fixtureStudents: Student[] = [
   { id: 's-20', name: 'Ursula C.', classId: 'class-1', grade: 4, tabletAccess: true },
   { id: 's-21', name: 'Viktor J.', classId: 'class-1', grade: 4, tabletAccess: true },
   { id: 's-22', name: 'Wendy O.', classId: 'class-1', grade: 4, tabletAccess: true },
+
+  // class-2: HE23b, Stufe 5 (18 Schueler)
+  { id: 's-23', name: 'Alina B.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-24', name: 'Bruno S.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-25', name: 'Carla M.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-26', name: 'Dominik R.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-27', name: 'Elena W.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-28', name: 'Fabian L.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-29', name: 'Giulia P.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-30', name: 'Hannes K.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-31', name: 'Iris F.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-32', name: 'Jakob T.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-33', name: 'Karin N.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-34', name: 'Lukas H.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-35', name: 'Maria G.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-36', name: 'Nico D.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-37', name: 'Olivia A.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-38', name: 'Patrick V.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-39', name: 'Rahel Z.', classId: 'class-2', grade: 5, tabletAccess: true },
+  { id: 's-40', name: 'Simon E.', classId: 'class-2', grade: 5, tabletAccess: true },
+
+  // class-3: HE25a, Stufe 3 (20 Schueler)
+  { id: 's-41', name: 'Amelie K.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-42', name: 'Benjamin W.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-43', name: 'Chiara L.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-44', name: 'Daniel F.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-45', name: 'Emilia R.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-46', name: 'Felix M.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-47', name: 'Greta S.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-48', name: 'Henry B.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-49', name: 'Isabella T.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-50', name: 'Jonas P.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-51', name: 'Klara D.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-52', name: 'Leon H.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-53', name: 'Mia G.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-54', name: 'Noah V.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-55', name: 'Olivia N.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-56', name: 'Paul A.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-57', name: 'Ronja E.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-58', name: 'Samuel Z.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-59', name: 'Tina J.', classId: 'class-3', grade: 3, tabletAccess: true },
+  { id: 's-60', name: 'Valentin C.', classId: 'class-3', grade: 3, tabletAccess: true },
 ]

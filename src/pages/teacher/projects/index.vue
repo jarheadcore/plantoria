@@ -94,7 +94,7 @@ function statusColor(status: string) {
             <div class="flex-1">
               <div class="flex items-center gap-2 mb-1">
                 <h3 class="text-lg font-semibold">{{ project.name }}</h3>
-                <UBadge :color="statusColor(project.status)" variant="subtle" size="xs">
+                <UBadge :color="statusColor(project.status)" variant="subtle" size="sm">
                   {{ project.status }}
                 </UBadge>
               </div>

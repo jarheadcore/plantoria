@@ -97,6 +97,7 @@ export interface StudentGroup {
   id: string
   projectId: string
   name: string
+  icon?: string
   studentIds: string[]
   tasksCompleted?: number
   tasksTotal?: number
@@ -141,7 +142,7 @@ export interface TemplateMaterial {
   cost: string
 }
 
-// -- Fachbereich-Vorlage (im Template) --
+// -- Fachbereich-Vorlage (im Template oder Bibliothek) --
 
 export interface TopicTemplate {
   id: string
@@ -157,6 +158,11 @@ export interface TopicTemplate {
   lp21Refs: string[]
   tutorialVideoUrl?: string
   order: number
+  materialIds: string[]
+  isLibrary: boolean
+  sourceLibraryId?: string
+  category?: TemplateCategory
+  createdBy?: string
 }
 
 // -- Aufgaben-Vorlage (im Template, gehoert zu TopicTemplate) --
@@ -365,6 +371,7 @@ export interface CalendarEntry {
   title: string
   type: CalendarEntryType
   projectId?: string
+  groupId?: string
   color: string
 }
 
@@ -408,6 +415,75 @@ export interface SchoolHoliday {
   endDate: string
   canton: string
   municipality?: string
+}
+
+// -- LP21 Dashboard Typen --
+
+export interface TaskWithContext {
+  task: Task
+  project: Project
+  topic: Topic
+  materials: Material[]
+}
+
+export interface MatrixCell {
+  projectId: string
+  curriculumCode: string
+  status: 'completed' | 'planned' | 'topic-only' | 'empty'
+  taskCount: number
+  completedTaskCount: number
+  tasks: Task[]
+}
+
+export interface ProjectMatrixData {
+  projects: Project[]
+  codes: string[]
+  cells: Record<string, Record<string, MatrixCell>>
+}
+
+export interface HeatmapCell {
+  month: number
+  subject: string
+  count: number
+}
+
+export interface HeatmapData {
+  months: number[]
+  subjects: string[]
+  cells: HeatmapCell[]
+  maxCount: number
+}
+
+export interface RadarDataPoint {
+  subject: string
+  shortName: string
+  actual: number
+  target: number
+}
+
+export interface DashboardStats {
+  treated: number
+  open: number
+  planned: number
+  gaps: number
+  total: number
+}
+
+export interface TimelineMonth {
+  year: number
+  month: number
+  label: string
+  newlyTreated: TimelineEntry[]
+  cumulativeCount: number
+  cumulativePercent: number
+}
+
+export interface TimelineEntry {
+  curriculumTopic: CurriculumTopic
+  task?: Task
+  project?: Project
+  topic?: Topic
+  material?: Material
 }
 
 // -- Harvest-Markt (wird spaeter in CalendarEntry integriert) --

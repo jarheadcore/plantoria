@@ -6,6 +6,7 @@ import {
   FileDown,
   Users,
   CalendarDays,
+  GraduationCap,
   Settings,
   HelpCircle,
   LogOut,
@@ -17,12 +18,16 @@ import { useAuthStore } from '@/stores/auth'
 const sidebarOpen = ref(false)
 const authStore = useAuthStore()
 
-const navItems = [
+const navPrimary = [
   { label: 'Dashboard', icon: LayoutDashboard, to: '/teacher' },
   { label: 'Projekte', icon: FolderKanban, to: '/teacher/projects' },
+  { label: 'Kalender', icon: CalendarDays, to: '/teacher/calendar' },
+]
+
+const navSecondary = [
   { label: 'Material', icon: FileDown, to: '/teacher/materials' },
   { label: 'Schüler & Gruppen', icon: Users, to: '/teacher/students' },
-  { label: 'Kalender', icon: CalendarDays, to: '/teacher/calendar' },
+  { label: 'Lernfortschritt', icon: GraduationCap, to: '/teacher/curriculum' },
 ]
 
 function handleLogout() {
@@ -75,7 +80,27 @@ function closeSidebar() {
       <!-- Navigation -->
       <nav class="flex-1 overflow-y-auto px-2 py-4">
         <ul class="space-y-1">
-          <li v-for="item in navItems" :key="item.to">
+          <li v-for="item in navPrimary" :key="item.to">
+            <NuxtLink
+              :to="item.to"
+              :class="[
+                'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
+                isActive(item.to)
+                  ? 'bg-green-50 text-green-700 dark:bg-green-950 dark:text-green-400'
+                  : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900 dark:text-gray-400 dark:hover:bg-gray-800 dark:hover:text-gray-200',
+              ]"
+              @click="closeSidebar"
+            >
+              <component :is="item.icon" :size="20" class="shrink-0" />
+              <span class="sidebar-label lg:hidden lg:group-hover:inline xl:inline">{{ item.label }}</span>
+            </NuxtLink>
+          </li>
+        </ul>
+
+        <div class="my-3 mx-3 border-t border-gray-200 dark:border-gray-800" />
+
+        <ul class="space-y-1">
+          <li v-for="item in navSecondary" :key="item.to">
             <NuxtLink
               :to="item.to"
               :class="[

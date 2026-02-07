@@ -25,6 +25,8 @@ export const fixtureTopicTemplates: TopicTemplate[] = [
     tutorialVideoUrl: '/videos/beetplanung-intro.mp4',
     lp21Refs: ['NMG.2.1', 'MA.2.A'],
     order: 1,
+    materialIds: ['mat-4', 'mat-3'],
+    isLibrary: false,
   },
   {
     id: 'topic-tmpl-2',
@@ -47,6 +49,8 @@ export const fixtureTopicTemplates: TopicTemplate[] = [
     tutorialVideoUrl: '/videos/beetvorbereitung.mp4',
     lp21Refs: ['NMG.2.3'],
     order: 2,
+    materialIds: ['mat-1'],
+    isLibrary: false,
   },
   {
     id: 'topic-tmpl-3',
@@ -72,6 +76,8 @@ export const fixtureTopicTemplates: TopicTemplate[] = [
     tutorialVideoUrl: '/videos/jungpflanzen-anziehen.mp4',
     lp21Refs: ['NMG.2.1', 'NMG.2.2'],
     order: 3,
+    materialIds: [],
+    isLibrary: false,
   },
   {
     id: 'topic-tmpl-4',
@@ -96,6 +102,8 @@ export const fixtureTopicTemplates: TopicTemplate[] = [
     tutorialVideoUrl: '/videos/aussaeen-auspflanzen.mp4',
     lp21Refs: ['NMG.2.1', 'NMG.2.2'],
     order: 4,
+    materialIds: [],
+    isLibrary: false,
   },
   {
     id: 'topic-tmpl-5',
@@ -117,6 +125,8 @@ export const fixtureTopicTemplates: TopicTemplate[] = [
     tutorialVideoUrl: '/videos/kulturschutz.mp4',
     lp21Refs: ['NMG.2.1', 'NMG.2.6'],
     order: 5,
+    materialIds: [],
+    isLibrary: false,
   },
   {
     id: 'topic-tmpl-6',
@@ -138,6 +148,8 @@ export const fixtureTopicTemplates: TopicTemplate[] = [
     tutorialVideoUrl: '/videos/duengen.mp4',
     lp21Refs: ['NMG.2.3'],
     order: 6,
+    materialIds: [],
+    isLibrary: false,
   },
   {
     id: 'topic-tmpl-7',
@@ -158,6 +170,8 @@ export const fixtureTopicTemplates: TopicTemplate[] = [
     tutorialVideoUrl: '/videos/jaeten.mp4',
     lp21Refs: ['NMG.2.1'],
     order: 7,
+    materialIds: [],
+    isLibrary: false,
   },
   {
     id: 'topic-tmpl-8',
@@ -178,6 +192,8 @@ export const fixtureTopicTemplates: TopicTemplate[] = [
     tutorialVideoUrl: '/videos/bewaessern.mp4',
     lp21Refs: ['NMG.2.3', 'NMG.2.6'],
     order: 8,
+    materialIds: [],
+    isLibrary: false,
   },
   {
     id: 'topic-tmpl-9',
@@ -199,6 +215,8 @@ export const fixtureTopicTemplates: TopicTemplate[] = [
     tutorialVideoUrl: '/videos/ernten.mp4',
     lp21Refs: ['NMG.2.2', 'MA.3.A'],
     order: 9,
+    materialIds: [],
+    isLibrary: false,
   },
   {
     id: 'topic-tmpl-10',
@@ -217,6 +235,8 @@ export const fixtureTopicTemplates: TopicTemplate[] = [
     ],
     lp21Refs: ['WAH.3'],
     order: 10,
+    materialIds: ['mat-9'],
+    isLibrary: false,
   },
   {
     id: 'topic-tmpl-11',
@@ -235,6 +255,8 @@ export const fixtureTopicTemplates: TopicTemplate[] = [
     ],
     lp21Refs: ['WAH.1', 'MA.3.A'],
     order: 11,
+    materialIds: ['mat-10'],
+    isLibrary: false,
   },
 ]
 

@@ -7,6 +7,7 @@ import { fixtureCultures } from '@/data/fixtures/cultures'
 import { fixtureGroups } from '@/data/fixtures/groups'
 import { fixtureTopics } from '@/data/fixtures/topics'
 import { fixtureVegetables } from '@/data/fixtures/vegetables'
+import { useCurriculumStore } from '@/stores/curriculum'
 
 export const useProjectsStore = defineStore('projects', () => {
   const projects = ref<Project[]>(fixtureProjects)
@@ -68,6 +69,15 @@ export const useProjectsStore = defineStore('projects', () => {
     if (task) {
       task.status = task.status === 'Erledigt' ? 'Offen' : 'Erledigt'
       updateProjectProgress(task.projectId)
+
+      // LP21-Sync: update curriculum progress based on task's lp21Refs
+      if (task.lp21Refs.length > 0) {
+        const curriculumStore = useCurriculumStore()
+        const project = projects.value.find((p) => p.id === task.projectId)
+        if (project) {
+          curriculumStore.syncTaskCompletion(task, project)
+        }
+      }
     }
   }
 

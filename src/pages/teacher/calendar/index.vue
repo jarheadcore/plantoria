@@ -2,6 +2,7 @@
 import { useCalendarStore } from '@/stores/calendar'
 import { ChevronLeft, ChevronRight } from 'lucide-vue-next'
 import type { CalendarEntry } from '@/types'
+import { getGroupIcon } from '@/data/group-icons'
 
 definePageMeta({ layout: 'teacher' })
 
@@ -79,6 +80,17 @@ const weekLabel = computed(() => {
   end.setDate(end.getDate() + 6)
   return `${start.getDate()}.${start.getMonth() + 1}. – ${end.getDate()}.${end.getMonth() + 1}.${end.getFullYear()}`
 })
+
+function entryGroupIcon(entry: CalendarEntry) {
+  const group = calendarStore.getGroupForEntry(entry)
+  if (!group?.icon) return null
+  return getGroupIcon(group.icon) ?? null
+}
+
+function entryGroupName(entry: CalendarEntry): string | null {
+  const group = calendarStore.getGroupForEntry(entry)
+  return group ? group.name : null
+}
 
 function entryColor(type: string) {
   switch (type) {
@@ -165,7 +177,7 @@ const navLabel = computed(() => {
         >
           <div class="flex items-center justify-between mb-2">
             <span class="text-xs font-semibold text-gray-500">{{ day.dayLabel }}</span>
-            <UBadge v-if="day.isHoliday" color="neutral" variant="subtle" size="xs">
+            <UBadge v-if="day.isHoliday" color="neutral" variant="subtle" size="sm">
               Ferien
             </UBadge>
           </div>
@@ -174,10 +186,22 @@ const navLabel = computed(() => {
             <div
               v-for="entry in day.entries"
               :key="entry.id"
-              class="flex items-center gap-1.5 rounded px-1.5 py-1 bg-gray-50 dark:bg-gray-800"
+              class="group/entry relative flex items-center gap-1.5 rounded px-1.5 py-1 bg-gray-50 dark:bg-gray-800 cursor-default"
             >
               <span :class="['h-2 w-2 rounded-full shrink-0', entryColor(entry.type)]" />
+              <component
+                v-if="entryGroupIcon(entry)"
+                :is="entryGroupIcon(entry)!.icon"
+                :size="16"
+                :class="['shrink-0', entryGroupIcon(entry)!.color]"
+              />
               <span class="text-xs truncate">{{ entry.title }}</span>
+              <span
+                v-if="entryGroupName(entry)"
+                class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover/entry:flex items-center gap-1 whitespace-nowrap rounded bg-gray-900 px-2 py-1 text-[11px] font-medium text-white shadow-lg z-50 dark:bg-gray-700"
+              >
+                Gruppe: {{ entryGroupName(entry) }}
+              </span>
             </div>
             <p v-if="day.entries.length === 0 && !day.isHoliday" class="text-[10px] text-gray-300 italic">
               Keine Einträge
@@ -220,10 +244,22 @@ const navLabel = computed(() => {
               <div
                 v-for="entry in cell.entries.slice(0, 3)"
                 :key="entry.id"
-                class="flex items-center gap-1 rounded px-1 py-0.5"
+                class="group/entry relative flex items-center gap-1 rounded px-1 py-0.5 cursor-default"
               >
                 <span :class="['h-1.5 w-1.5 rounded-full shrink-0', entryColor(entry.type)]" />
+                <component
+                  v-if="entryGroupIcon(entry)"
+                  :is="entryGroupIcon(entry)!.icon"
+                  :size="14"
+                  :class="['shrink-0', entryGroupIcon(entry)!.color]"
+                />
                 <span class="text-[10px] truncate">{{ entry.title }}</span>
+                <span
+                  v-if="entryGroupName(entry)"
+                  class="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-1.5 hidden group-hover/entry:flex items-center gap-1 whitespace-nowrap rounded bg-gray-900 px-2 py-1 text-[11px] font-medium text-white shadow-lg z-50 dark:bg-gray-700"
+                >
+                  Gruppe: {{ entryGroupName(entry) }}
+                </span>
               </div>
               <div v-if="cell.entries.length > 3" class="text-[10px] text-gray-400 px-1">
                 +{{ cell.entries.length - 3 }} mehr

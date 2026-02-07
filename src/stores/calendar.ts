@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { CalendarEntry, SeasonalTip, SchoolHoliday } from '@/types'
+import type { CalendarEntry, SeasonalTip, SchoolHoliday, StudentGroup } from '@/types'
 import { fixtureCalendarEntries, fixtureSeasonalTips } from '@/data/fixtures/calendar'
 import { fixtureSchoolHolidays } from '@/data/fixtures/holidays'
+import { useProjectsStore } from '@/stores/projects'
 
 export const useCalendarStore = defineStore('calendar', () => {
   const entries = ref<CalendarEntry[]>(fixtureCalendarEntries)
@@ -10,7 +11,7 @@ export const useCalendarStore = defineStore('calendar', () => {
   const schoolHolidays = ref<SchoolHoliday[]>(fixtureSchoolHolidays)
   const currentMonth = ref(5) // May
   const currentYear = ref(2026)
-  const viewMode = ref<'month' | 'week'>('week')
+  const viewMode = ref<'month' | 'week'>('month')
 
   // Week navigation
   const currentWeekStart = ref(new Date(2026, 4, 4)) // Mon May 4, 2026
@@ -86,6 +87,12 @@ export const useCalendarStore = defineStore('calendar', () => {
     currentWeekStart.value = new Date(2026, 4, 4)
   }
 
+  function getGroupForEntry(entry: CalendarEntry): StudentGroup | undefined {
+    if (!entry.groupId) return undefined
+    const projectsStore = useProjectsStore()
+    return projectsStore.groups.find((g) => g.id === entry.groupId)
+  }
+
   return {
     entries,
     seasonalTips,
@@ -100,6 +107,7 @@ export const useCalendarStore = defineStore('calendar', () => {
     getEntriesForMonth,
     getTipsForMonth,
     isHoliday,
+    getGroupForEntry,
     nextMonth,
     prevMonth,
     nextWeek,

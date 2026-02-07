@@ -113,7 +113,7 @@ function formatDate(date?: string) {
               <UBadge
                 :color="project.status === 'Laufend' ? 'green' : 'neutral'"
                 variant="subtle"
-                size="xs"
+                size="sm"
               >
                 {{ project.status }}
               </UBadge>
@@ -182,7 +182,7 @@ function formatDate(date?: string) {
             />
             <span class="flex-1 truncate">
               {{ task.title }}
-              <UBadge v-if="task.isHolidayTask" color="neutral" variant="subtle" size="xs" class="ml-1">Ferien</UBadge>
+              <UBadge v-if="task.isHolidayTask" color="neutral" variant="subtle" size="sm" class="ml-1">Ferien</UBadge>
             </span>
             <span class="text-xs text-gray-400 tabular-nums">{{ formatDate(task.dueDate) }}</span>
           </li>

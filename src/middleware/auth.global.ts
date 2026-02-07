@@ -1,6 +1,10 @@
 import { useAuthStore } from '@/stores/auth'
 
 export default defineNuxtRouteMiddleware((to) => {
+  // Auth state lives in localStorage — skip redirect during SSR
+  // to avoid flashing the login form before client hydration
+  if (import.meta.server) return
+
   const authStore = useAuthStore()
   authStore.init()
 

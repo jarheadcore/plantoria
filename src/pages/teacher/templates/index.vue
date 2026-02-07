@@ -113,9 +113,9 @@ function getTaskTemplatesWithLp21(templateId: string) {
           <div class="flex-1">
             <div class="flex items-center gap-2 mb-1">
               <h3 class="text-lg font-semibold">{{ tmpl.name }}</h3>
-              <UBadge v-if="tmpl.isOwn" color="primary" variant="subtle" size="xs">Eigenes</UBadge>
-              <UBadge v-else-if="tmpl.isPlatform" color="primary" variant="subtle" size="xs">Plantoria</UBadge>
-              <UBadge v-else color="neutral" variant="subtle" size="xs">Geteilt</UBadge>
+              <UBadge v-if="tmpl.isOwn" color="primary" variant="subtle" size="sm">Eigenes</UBadge>
+              <UBadge v-else-if="tmpl.isPlatform" color="primary" variant="subtle" size="sm">Plantoria</UBadge>
+              <UBadge v-else color="neutral" variant="subtle" size="sm">Geteilt</UBadge>
             </div>
             <p class="text-sm text-gray-500 mb-3">{{ tmpl.description }}</p>
             <div class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-gray-500 mb-3">
@@ -123,7 +123,7 @@ function getTaskTemplatesWithLp21(templateId: string) {
               <span>Stufe: <strong>{{ tmpl.gradeRange }}</strong></span>
               <span>
                 Schwierigkeit:
-                <UBadge :color="difficultyColor(tmpl.difficulty)" variant="subtle" size="xs">
+                <UBadge :color="difficultyColor(tmpl.difficulty)" variant="subtle" size="sm">
                   {{ tmpl.difficulty }}
                 </UBadge>
               </span>

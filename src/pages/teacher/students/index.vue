@@ -3,6 +3,7 @@ import { useStudentsStore } from '@/stores/students'
 import { useProjectsStore } from '@/stores/projects'
 import { useTeacherStore } from '@/stores/teacher'
 import { Plus, Pencil, UserPlus } from 'lucide-vue-next'
+import { GROUP_ICONS, getGroupIcon } from '@/data/group-icons'
 
 definePageMeta({ layout: 'teacher' })
 
@@ -27,8 +28,9 @@ function getStudentNames(ids: string[]) {
 // Group CRUD
 const showCreateGroup = ref(false)
 const showEditGroup = ref(false)
-const editingGroup = ref<{ id: string; name: string; studentIds: string[] } | null>(null)
+const editingGroup = ref<{ id: string; name: string; icon?: string; studentIds: string[] } | null>(null)
 const newGroupName = ref('')
+const newGroupIcon = ref<string | undefined>(undefined)
 const selectedStudentIds = ref<string[]>([])
 
 const allStudentOptions = computed(() =>
@@ -37,6 +39,7 @@ const allStudentOptions = computed(() =>
 
 function openCreateGroup() {
   newGroupName.value = ''
+  newGroupIcon.value = undefined
   selectedStudentIds.value = []
   showCreateGroup.value = true
 }
@@ -47,6 +50,7 @@ function createGroup() {
     id: `g-${Date.now()}`,
     projectId: selectedProjectId.value,
     name: newGroupName.value,
+    icon: newGroupIcon.value,
     studentIds: selectedStudentIds.value,
     tasksCompleted: 0,
     tasksTotal: 0,
@@ -56,7 +60,7 @@ function createGroup() {
 }
 
 function openEditGroup(group: typeof selectedProjectGroups.value[0]) {
-  editingGroup.value = { id: group.id, name: group.name, studentIds: [...group.studentIds] }
+  editingGroup.value = { id: group.id, name: group.name, icon: group.icon, studentIds: [...group.studentIds] }
   showEditGroup.value = true
 }
 
@@ -67,6 +71,7 @@ function saveEditGroup() {
     const group = projectsStore.groups[idx]
     if (group) {
       group.name = editingGroup.value.name
+      group.icon = editingGroup.value.icon
       group.studentIds = editingGroup.value.studentIds
     }
   }
@@ -103,14 +108,20 @@ function deleteGroup(groupId: string) {
     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
       <UCard v-for="group in selectedProjectGroups" :key="group.id">
         <div class="flex items-start justify-between mb-2">
-          <h3 class="font-semibold">
-            {{ group.name === 'Nicht zugewiesen' ? '&#9888;' : '&#127803;' }}
+          <h3 class="font-semibold flex items-center gap-1.5">
+            <component
+              v-if="group.icon && getGroupIcon(group.icon)"
+              :is="getGroupIcon(group.icon)!.icon"
+              :size="22"
+              :class="getGroupIcon(group.icon)!.color"
+            />
+            <span v-else>{{ group.name === 'Nicht zugewiesen' ? '&#9888;' : '&#127803;' }}</span>
             {{ group.name }}
           </h3>
           <div class="flex gap-1">
             <UButton
               v-if="group.name !== 'Nicht zugewiesen'"
-              size="xs"
+              size="sm"
               variant="ghost"
               @click="openEditGroup(group)"
             >
@@ -118,7 +129,7 @@ function deleteGroup(groupId: string) {
             </UButton>
             <UButton
               v-if="group.name !== 'Nicht zugewiesen'"
-              size="xs"
+              size="sm"
               variant="ghost"
               color="neutral"
               @click="deleteGroup(group.id)"
@@ -134,7 +145,7 @@ function deleteGroup(groupId: string) {
             :key="name"
             color="neutral"
             variant="subtle"
-            size="xs"
+            size="sm"
           >
             {{ name }}
           </UBadge>
@@ -158,6 +169,26 @@ function deleteGroup(groupId: string) {
             <div>
               <label class="block text-sm font-medium mb-1">Gruppenname</label>
               <UInput v-model="newGroupName" placeholder="z.B. Sonnenblume" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1">Gruppen-Icon</label>
+              <div class="grid grid-cols-10 gap-1.5">
+                <button
+                  v-for="gi in GROUP_ICONS"
+                  :key="gi.id"
+                  type="button"
+                  :title="gi.label"
+                  :class="[
+                    'flex items-center justify-center rounded-lg p-2 border-2 transition-colors',
+                    newGroupIcon === gi.id
+                      ? 'border-gray-900 bg-gray-100 dark:border-white dark:bg-gray-800'
+                      : 'border-transparent hover:bg-gray-100 dark:hover:bg-gray-800',
+                  ]"
+                  @click="newGroupIcon = newGroupIcon === gi.id ? undefined : gi.id"
+                >
+                  <component :is="gi.icon" :size="22" :class="gi.color" />
+                </button>
+              </div>
             </div>
             <div>
               <label class="block text-sm font-medium mb-1">Schüler zuweisen</label>
@@ -195,6 +226,26 @@ function deleteGroup(groupId: string) {
             <div>
               <label class="block text-sm font-medium mb-1">Gruppenname</label>
               <UInput v-model="editingGroup.name" />
+            </div>
+            <div>
+              <label class="block text-sm font-medium mb-1">Gruppen-Icon</label>
+              <div class="grid grid-cols-10 gap-1.5">
+                <button
+                  v-for="gi in GROUP_ICONS"
+                  :key="gi.id"
+                  type="button"
+                  :title="gi.label"
+                  :class="[
+                    'flex items-center justify-center rounded-lg p-2 border-2 transition-colors',
+                    editingGroup.icon === gi.id
+                      ? 'border-gray-900 bg-gray-100 dark:border-white dark:bg-gray-800'
+                      : 'border-transparent hover:bg-gray-100 dark:hover:bg-gray-800',
+                  ]"
+                  @click="editingGroup.icon = editingGroup.icon === gi.id ? undefined : gi.id"
+                >
+                  <component :is="gi.icon" :size="22" :class="gi.color" />
+                </button>
+              </div>
             </div>
             <div>
               <label class="block text-sm font-medium mb-1">Schüler zuweisen</label>

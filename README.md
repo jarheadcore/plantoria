@@ -8,8 +8,8 @@ Bildungsplattform fuer Schulgaerten, die digitales Lernen mit praktischer Garten
 
 | Dokument | Beschreibung |
 |----------|-------------|
-| [spec/PRD.md](./spec/PRD.md) | Product Requirements Document -- Vision, Zielgruppen, Ansichten, Datenmodell, LP21-Integration |
-| [spec/ARCHITECTURE.md](./spec/ARCHITECTURE.md) | Technische Architektur -- Tech Stack, Projektstruktur, Routen, Konventionen |
+| [spec/PRD.md](.claude/PRD.md) | Product Requirements Document -- Vision, Zielgruppen, Ansichten, Datenmodell, LP21-Integration |
+| [spec/ARCHITECTURE.md](spec/ARCHITECTURE.md) | Technische Architektur -- Tech Stack, Projektstruktur, Routen, Konventionen |
 
 ## Setup
 

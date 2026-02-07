@@ -179,13 +179,13 @@ function getTopicName(topicId: string) {
               <span :class="['text-sm font-medium', task.status === 'Erledigt' ? 'line-through text-gray-400' : '']">
                 {{ task.title }}
               </span>
-              <UBadge v-if="task.isHolidayTask" color="neutral" variant="subtle" size="xs">
+              <UBadge v-if="task.isHolidayTask" color="neutral" variant="subtle" size="sm">
                 Ferienaufgabe
               </UBadge>
               <UBadge
                 :color="task.status === 'Erledigt' ? 'primary' : 'neutral'"
                 variant="subtle"
-                size="xs"
+                size="sm"
               >
                 {{ task.status }}
               </UBadge>
@@ -201,7 +201,7 @@ function getTopicName(topicId: string) {
           <div class="flex items-center gap-1 shrink-0">
             <UButton
               v-if="task.isHolidayTask"
-              size="xs"
+              size="sm"
               :variant="task.emailReminder ? 'soft' : 'ghost'"
               :color="task.emailReminder ? 'primary' : 'neutral'"
               @click="toggleEmailReminder(task)"
@@ -210,7 +210,7 @@ function getTopicName(topicId: string) {
               <component :is="task.emailReminder ? Mail : MailX" :size="14" />
             </UButton>
             <UButton
-              size="xs"
+              size="sm"
               variant="ghost"
               color="neutral"
               @click="tasksStore.deleteTask(task.id)"

@@ -122,10 +122,10 @@ function getFormatIcon(format: MaterialFormat) {
               <span>Schwierigkeit: <strong>{{ mat.difficulty }}</strong></span>
             </div>
             <div class="flex flex-wrap gap-1 mb-2">
-              <UBadge v-for="tag in mat.tags" :key="tag" color="neutral" variant="subtle" size="xs">
+              <UBadge v-for="tag in mat.tags" :key="tag" color="neutral" variant="subtle" size="sm">
                 {{ tag }}
               </UBadge>
-              <UBadge v-for="lp21Ref in mat.lp21Refs" :key="lp21Ref" color="primary" variant="subtle" size="xs">
+              <UBadge v-for="lp21Ref in mat.lp21Refs" :key="lp21Ref" color="primary" variant="subtle" size="sm">
                 {{ lp21Ref }}
               </UBadge>
             </div>

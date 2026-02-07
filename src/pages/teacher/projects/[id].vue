@@ -396,7 +396,7 @@ function getTopicTasks(topicId: string) {
                         <h4 class="text-xs font-semibold text-gray-500 uppercase">Aufgaben</h4>
                         <UButton
                           v-if="topic.tutorialVideoUrl"
-                          size="xs"
+                          size="sm"
                           variant="soft"
                           color="primary"
                           disabled
@@ -419,7 +419,10 @@ function getTopicTasks(topicId: string) {
                           <span :class="[task.status === 'Erledigt' ? 'line-through text-gray-400' : 'text-gray-600 dark:text-gray-400']">
                             {{ task.title }}
                           </span>
-                          <UBadge v-if="task.isHolidayTask" color="neutral" variant="subtle" size="xs">Ferien</UBadge>
+                          <UBadge v-for="ref in task.lp21Refs" :key="ref" color="primary" variant="subtle" size="sm">
+                            {{ ref }}
+                          </UBadge>
+                          <UBadge v-if="task.isHolidayTask" color="neutral" variant="subtle" size="sm">Ferien</UBadge>
                         </div>
                       </div>
                       <p v-else class="text-xs text-gray-400 italic">Keine Aufgaben zugewiesen</p>
@@ -461,7 +464,7 @@ function getTopicTasks(topicId: string) {
                       :key="lp21Ref"
                       color="neutral"
                       variant="subtle"
-                      size="xs"
+                      size="sm"
                     >
                       {{ lp21Ref }}
                     </UBadge>
@@ -489,7 +492,7 @@ function getTopicTasks(topicId: string) {
             <div class="mb-2 text-4xl">{{ cultureEmoji(culture.plantName) }}</div>
             <h3 class="font-semibold text-gray-900 dark:text-white">{{ culture.plantName }}</h3>
             <p class="text-xs text-gray-500 mb-2">{{ culture.bedNumber }}</p>
-            <UBadge :color="cultureStatusColor(culture.status)" variant="subtle" size="xs" class="mb-3">
+            <UBadge :color="cultureStatusColor(culture.status)" variant="subtle" size="sm" class="mb-3">
               {{ culture.status }}
             </UBadge>
             <ProgressBar :value="culture.progress" size="sm" />
@@ -567,7 +570,7 @@ function getTopicTasks(topicId: string) {
                   :key="c"
                   color="green"
                   variant="subtle"
-                  size="xs"
+                  size="sm"
                 >
                   {{ c }}
                 </UBadge>
@@ -581,7 +584,7 @@ function getTopicTasks(topicId: string) {
                   :key="a"
                   color="neutral"
                   variant="subtle"
-                  size="xs"
+                  size="sm"
                 >
                   {{ a }}
                 </UBadge>
@@ -613,10 +616,10 @@ function getTopicTasks(topicId: string) {
             <h3 class="font-semibold">
               {{ group.name === 'Nicht zugewiesen' ? '⚠️ ' : '🌻 ' }}{{ group.name }}
             </h3>
-            <UButton v-if="group.name !== 'Nicht zugewiesen'" size="xs" variant="ghost" disabled>
+            <UButton v-if="group.name !== 'Nicht zugewiesen'" size="sm" variant="ghost" disabled>
               Bearbeiten
             </UButton>
-            <UButton v-else size="xs" variant="soft" color="primary" disabled>
+            <UButton v-else size="sm" variant="soft" color="primary" disabled>
               Zuweisen
             </UButton>
           </div>
@@ -664,7 +667,7 @@ function getTopicTasks(topicId: string) {
               <span :class="['flex-1 text-sm', item.completed ? 'line-through text-gray-400' : '']">
                 {{ item.label }}
               </span>
-              <UButton v-if="item.orderUrl && !item.completed" size="xs" variant="soft" disabled>
+              <UButton v-if="item.orderUrl && !item.completed" size="sm" variant="soft" disabled>
                 Bestellen →
               </UButton>
             </div>
