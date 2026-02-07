@@ -1,61 +1,7 @@
 <script setup lang="ts">
-interface Milestone {
-  at: number
-  status: 'accomplished' | 'failed' | 'planned'
-  label: string
-  image?: string
-}
+import { useDashboardStore, type Milestone } from '~/stores/dashboard'
 
-const gemuese = ref([
-  {
-    crop: 'Karotten',
-    icon: '🥕',
-    percent: 72,
-    phase: 'Wachstum',
-    milestones: [
-      { at: 25, status: 'accomplished', label: 'Gekeimt', image: '/milestones/karotte-gekeimt.svg' },
-      { at: 50, status: 'accomplished', label: 'Erstes Grün', image: '/milestones/karotte-erstes-gruen.svg' },
-      { at: 75, status: 'planned', label: 'Erntereif', image: '/milestones/karotte-erntereif.svg' },
-      { at: 100, status: 'planned', label: 'Geerntet', image: '/milestones/karotte-geerntet.svg' },
-    ] as Milestone[],
-  },
-  {
-    crop: 'Brokkoli',
-    icon: '🥦',
-    percent: 45,
-    phase: 'Aussaat',
-    milestones: [
-      { at: 25, status: 'accomplished', label: 'Gekeimt', image: '/milestones/brokkoli-gekeimt.svg' },
-      { at: 50, status: 'planned', label: 'Kopfbildung', image: '/milestones/brokkoli-kopfbildung.svg' },
-      { at: 75, status: 'planned', label: 'Erntereif', image: '/milestones/brokkoli-erntereif.svg' },
-      { at: 100, status: 'planned', label: 'Geerntet', image: '/milestones/brokkoli-geerntet.svg' },
-    ] as Milestone[],
-  },
-  {
-    crop: 'Tomaten',
-    icon: '🍅',
-    percent: 30,
-    phase: 'Setzlinge',
-    milestones: [
-      { at: 25, status: 'accomplished', label: 'Gekeimt', image: '/milestones/tomate-gekeimt.svg' },
-      { at: 50, status: 'failed', label: 'Umgetopft', image: '/milestones/tomate-umgetopft.svg' },
-      { at: 75, status: 'planned', label: 'Erste Früchte', image: '/milestones/tomate-erste-fruechte.svg' },
-      { at: 100, status: 'planned', label: 'Geerntet', image: '/milestones/tomate-geerntet.svg' },
-    ] as Milestone[],
-  },
-  {
-    crop: 'Lauch',
-    icon: '🌿',
-    percent: 58,
-    phase: 'Wachstum',
-    milestones: [
-      { at: 25, status: 'accomplished', label: 'Gekeimt', image: '/milestones/lauch-gekeimt.svg' },
-      { at: 50, status: 'accomplished', label: 'Angewachsen', image: '/milestones/lauch-angewachsen.svg' },
-      { at: 75, status: 'planned', label: 'Erntereif', image: '/milestones/lauch-erntereif.svg' },
-      { at: 100, status: 'planned', label: 'Geerntet', image: '/milestones/lauch-geerntet.svg' },
-    ] as Milestone[],
-  },
-])
+const store = useDashboardStore()
 
 const bubbleClasses = (status: Milestone['status']) => {
   switch (status) {
@@ -72,7 +18,7 @@ const bubbleClasses = (status: Milestone['status']) => {
 <template>
   <section class="w-full shrink-0 snap-start snap-always overflow-y-auto p-4">
     <div class="space-y-5">
-      <div v-for="item in gemuese" :key="item.crop" class="bg-white rounded-2xl p-4 shadow-sm">
+      <div v-for="item in store.gemuese" :key="item.crop" class="bg-white rounded-2xl p-4 shadow-sm">
         <div class="flex items-center justify-between mb-2">
           <span class="text-xl font-bold">{{ item.icon }} {{ item.crop }}</span>
           <span class="bg-green-100 text-green-700 text-sm font-semibold px-3 py-1 rounded-full">

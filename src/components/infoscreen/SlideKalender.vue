@@ -1,85 +1,7 @@
 <script setup lang="ts">
-const seasons = [
-  {
-    id: 'winter',
-    name: 'Winter',
-    emoji: '❄️',
-    bgColor: 'bg-blue-50',
-    textColor: 'text-blue-700',
-    dotColor: 'bg-blue-400',
-    borderColor: 'border-blue-200',
-  },
-  {
-    id: 'fruehling',
-    name: 'Frühling',
-    emoji: '🌸',
-    bgColor: 'bg-green-50',
-    textColor: 'text-green-700',
-    dotColor: 'bg-green-400',
-    borderColor: 'border-green-200',
-  },
-  {
-    id: 'sommer',
-    name: 'Sommer',
-    emoji: '☀️',
-    bgColor: 'bg-amber-50',
-    textColor: 'text-amber-700',
-    dotColor: 'bg-amber-400',
-    borderColor: 'border-amber-200',
-  },
-]
+import { useDashboardStore, type GardenEvent } from '~/stores/dashboard'
 
-const gardenEvents = ref([
-  {
-    seasonId: 'winter',
-    sleeps: -5,
-    task: 'Setzlinge vorziehen',
-    cropEmoji: '🍅',
-    actionEmoji: '🌱',
-    done: true,
-  },
-  {
-    seasonId: 'fruehling',
-    sleeps: 3,
-    task: 'Beet vorbereiten',
-    cropEmoji: '🥕',
-    actionEmoji: '🪴',
-    done: false,
-  },
-  {
-    seasonId: 'fruehling',
-    sleeps: 17,
-    task: 'Brokkoli säen',
-    cropEmoji: '🥦',
-    actionEmoji: '🌱',
-    done: false,
-  },
-  {
-    seasonId: 'fruehling',
-    sleeps: 38,
-    task: 'Lauch pflanzen',
-    cropEmoji: '🌿',
-    actionEmoji: '🪴',
-    done: false,
-  },
-  {
-    seasonId: 'sommer',
-    sleeps: 114,
-    task: 'Erste Ernte!',
-    cropEmoji: '🥕',
-    actionEmoji: '🧺',
-    done: false,
-  },
-])
-
-const eventsBySeason = computed(() => {
-  return seasons
-    .map((season) => ({
-      ...season,
-      events: gardenEvents.value.filter((e) => e.seasonId === season.id),
-    }))
-    .filter((group) => group.events.length > 0)
-})
+const store = useDashboardStore()
 
 function sleepLabel(sleeps: number): string {
   if (sleeps < 0) return '✅ Erledigt!'
@@ -91,8 +13,8 @@ function sleepLabel(sleeps: number): string {
   return `🗓️ ~${weeks} Wochen`
 }
 
-function isNextUp(event: (typeof gardenEvents.value)[0]): boolean {
-  return !event.done && !gardenEvents.value.some((e) => !e.done && e.sleeps < event.sleeps)
+function isNextUp(event: GardenEvent): boolean {
+  return !event.done && !store.gardenEvents.some((e) => !e.done && e.sleeps < event.sleeps)
 }
 </script>
 
@@ -109,7 +31,7 @@ function isNextUp(event: (typeof gardenEvents.value)[0]): boolean {
 
     <!-- Season groups -->
     <div class="space-y-2">
-      <div v-for="(group, gi) in eventsBySeason" :key="group.id">
+      <div v-for="(group, gi) in store.eventsBySeason" :key="group.id">
         <!-- Season banner -->
         <div
           class="flex items-center gap-3 px-4 py-3 rounded-2xl mb-3"
@@ -178,7 +100,7 @@ function isNextUp(event: (typeof gardenEvents.value)[0]): boolean {
 
         <!-- Dashed connector between seasons -->
         <div
-          v-if="gi < eventsBySeason.length - 1"
+          v-if="gi < store.eventsBySeason.length - 1"
           class="ml-6 h-6 border-l-4 border-dashed border-gray-200"
         />
       </div>

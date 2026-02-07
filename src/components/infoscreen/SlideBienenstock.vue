@@ -1,61 +1,7 @@
 <script setup lang="ts">
-interface Milestone {
-  at: number
-  status: 'accomplished' | 'failed' | 'planned'
-  label: string
-  image?: string
-}
+import { useDashboardStore, type Milestone } from '~/stores/dashboard'
 
-const bienenstock = ref([
-  {
-    task: 'Bienenvolk beobachten',
-    icon: '🐝',
-    percent: 60,
-    phase: 'Aktiv',
-    milestones: [
-      { at: 25, status: 'accomplished', label: 'Volk gesichtet', image: '/milestones/bienen-volk-gesichtet.svg' },
-      { at: 50, status: 'accomplished', label: 'Königin gefunden', image: '/milestones/bienen-koenigin-gefunden.svg' },
-      { at: 75, status: 'planned', label: 'Brut geprüft', image: '/milestones/bienen-brut-geprueft.svg' },
-      { at: 100, status: 'planned', label: 'Bericht fertig', image: '/milestones/bienen-bericht-fertig.svg' },
-    ] as Milestone[],
-  },
-  {
-    task: 'Honig ernten',
-    icon: '🍯',
-    percent: 25,
-    phase: 'Vorbereitung',
-    milestones: [
-      { at: 25, status: 'accomplished', label: 'Waben voll', image: '/milestones/honig-waben-voll.svg' },
-      { at: 50, status: 'planned', label: 'Schleudern', image: '/milestones/honig-schleudern.svg' },
-      { at: 75, status: 'planned', label: 'Abfüllen', image: '/milestones/honig-abfuellen.svg' },
-      { at: 100, status: 'planned', label: 'Etikettiert', image: '/milestones/honig-etikettiert.svg' },
-    ] as Milestone[],
-  },
-  {
-    task: 'Waben kontrollieren',
-    icon: '🪹',
-    percent: 80,
-    phase: 'Fertig',
-    milestones: [
-      { at: 25, status: 'accomplished', label: 'Geöffnet', image: '/milestones/waben-geoeffnet.svg' },
-      { at: 50, status: 'accomplished', label: 'Inspiziert', image: '/milestones/waben-inspiziert.svg' },
-      { at: 75, status: 'accomplished', label: 'Gereinigt', image: '/milestones/waben-gereinigt.svg' },
-      { at: 100, status: 'planned', label: 'Dokumentiert', image: '/milestones/waben-dokumentiert.svg' },
-    ] as Milestone[],
-  },
-  {
-    task: 'Blumenwiese pflegen',
-    icon: '🌸',
-    percent: 50,
-    phase: 'Wachstum',
-    milestones: [
-      { at: 25, status: 'accomplished', label: 'Gesät', image: '/milestones/blumen-gesaet.svg' },
-      { at: 50, status: 'failed', label: 'Bewässert', image: '/milestones/blumen-bewaessert.svg' },
-      { at: 75, status: 'planned', label: 'Blüte', image: '/milestones/blumen-bluete.svg' },
-      { at: 100, status: 'planned', label: 'Abgeerntet', image: '/milestones/blumen-abgeerntet.svg' },
-    ] as Milestone[],
-  },
-])
+const store = useDashboardStore()
 
 const bubbleClasses = (status: Milestone['status']) => {
   switch (status) {
@@ -73,7 +19,7 @@ const bubbleClasses = (status: Milestone['status']) => {
   <section class="w-full shrink-0 snap-start snap-always overflow-y-auto p-4">
     <div class="space-y-5">
       <div
-        v-for="item in bienenstock"
+        v-for="item in store.bienenstock"
         :key="item.task"
         class="bg-white rounded-2xl p-4 shadow-sm"
       >

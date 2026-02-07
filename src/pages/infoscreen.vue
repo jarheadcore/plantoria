@@ -1,18 +1,11 @@
 <script setup lang="ts">
-const tabs = [
-  { label: 'Gemüse', emoji: '🥬', value: 'gemuese', isProject: true },
-  { label: 'Bienen', emoji: '🐝', value: 'bienenstock', isProject: true },
-  { label: 'Rangliste', emoji: '🏆', value: 'ranking', isProject: false },
-  { label: 'Aufgaben', emoji: '✅', value: 'todos', isProject: false },
-  { label: 'Statistik', emoji: '📊', value: 'stats', isProject: false },
-  { label: 'Kalender', emoji: '📅', value: 'calendar', isProject: false },
-]
+import { useDashboardStore } from '~/stores/dashboard'
 
-const activeTab = ref(0)
+const store = useDashboardStore()
 const scrollContainer = ref<HTMLElement | null>(null)
 
 function scrollToTab(index: number) {
-  activeTab.value = index
+  store.activeTab = index
   scrollContainer.value?.children[index]?.scrollIntoView({
     behavior: 'smooth',
     block: 'nearest',
@@ -25,7 +18,7 @@ function onScroll() {
   if (!el) return
   const scrollLeft = el.scrollLeft
   const panelWidth = el.offsetWidth
-  activeTab.value = Math.round(scrollLeft / panelWidth)
+  store.activeTab = Math.round(scrollLeft / panelWidth)
 }
 </script>
 
@@ -62,10 +55,10 @@ function onScroll() {
     <!-- Dot indicators -->
     <div class="flex justify-center gap-2 py-2 bg-white/80 shrink-0">
       <div
-        v-for="(tab, i) in tabs"
+        v-for="(tab, i) in store.tabs"
         :key="tab.value"
         class="w-2 h-2 rounded-full transition-all"
-        :class="activeTab === i ? 'bg-green-600 w-6' : 'bg-gray-300'"
+        :class="store.activeTab === i ? 'bg-green-600 w-6' : 'bg-gray-300'"
       />
     </div>
 
@@ -73,11 +66,11 @@ function onScroll() {
     <nav class="bg-white border-t border-gray-200 shrink-0 safe-area-bottom">
       <div class="flex items-stretch">
         <!-- Project tabs (grouped left) -->
-        <template v-for="(tab, i) in tabs" :key="tab.value">
+        <template v-for="(tab, i) in store.tabs" :key="tab.value">
           <button
             v-if="tab.isProject"
             class="flex-1 flex flex-col items-center py-2 transition-colors"
-            :class="activeTab === i ? 'text-green-600' : 'text-gray-400'"
+            :class="store.activeTab === i ? 'text-green-600' : 'text-gray-400'"
             @click="scrollToTab(i)"
           >
             <span class="text-2xl leading-none">{{ tab.emoji }}</span>
@@ -89,11 +82,11 @@ function onScroll() {
         <div class="w-px bg-gray-200 my-2" />
 
         <!-- Other tabs -->
-        <template v-for="(tab, i) in tabs" :key="'other-' + tab.value">
+        <template v-for="(tab, i) in store.tabs" :key="'other-' + tab.value">
           <button
             v-if="!tab.isProject"
             class="flex-1 flex flex-col items-center py-2 transition-colors"
-            :class="activeTab === i ? 'text-green-600' : 'text-gray-400'"
+            :class="store.activeTab === i ? 'text-green-600' : 'text-gray-400'"
             @click="scrollToTab(i)"
           >
             <span class="text-2xl leading-none">{{ tab.emoji }}</span>
